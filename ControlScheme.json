@@ -1,0 +1,284 @@
+{
+  "alignClosestWaypoint": [
+    2,
+    {
+      "Button": 2
+    },
+    "HOTAS Ring Button"
+  ],
+  "chassisForwardsBackwards": [
+    0,
+    {
+      "Axis": 1
+    },
+    "Joystick Vertical (ThrustmasterTWCSThrottle)"
+  ],
+  "chassisSideToSide": [
+    0,
+    {
+      "Axis": 0
+    },
+    "Joystick Horizontal (ThrustmasterTWCSThrottle)"
+  ],
+  "chassisXRotation": [
+    2,
+    {
+      "Axis": 0
+    },
+    "Joystick Horizontal (ThrustmasterTWCSThrottle)"
+  ],
+  "chassisYRotation": [
+    2,
+    {
+      "Axis": 1
+    },
+    "Joystick Vertical (ThrustmasterTWCSThrottle)"
+  ],
+  "defenseStateControl": [
+    0,
+    {
+      "Button": 4
+    },
+    "left button on top of joystick (ThrustmasterT16000M)"
+  ],
+  "fieldRelativeCoordinateModeControl": [
+    0,
+    {
+      "Button": 6
+    },
+    "Middle Down (ThrustmasterTWCSThrottle)"
+  ],
+  "resetGyro": [
+    0,
+    {
+      "Button": 16
+    },
+    "Middle POV left (ThrustmasterTWCSThrottle)"
+  ],
+  "turboSpeed": [
+    2,
+    {
+      "Button": 2
+    },
+    "bottom button on top of joystick (ThrustmasterT16000M)"
+  ],
+  "offVelocity": [
+    1,
+    {
+      "Button": 1
+    },
+    "placeholder"
+  ],
+  "setpoint1velocity": [
+    1,
+    {
+      "Button": 2
+    },
+    "placeholder"
+  ],
+  "setpoint2velocity": [
+    1,
+    {
+      "Button": 3
+    },
+    "placeholder"
+  ],
+  "floorIntake": [
+    0,
+    {
+      "Button": 2
+    },
+    "HOTAS Thumb Button"
+  ],
+  "hold": [
+    1,
+    {
+      "Button": 1
+    },
+    "Replace"
+  ],
+  "feed": [
+    0,
+    {
+      "Button": 1
+    },
+    "HOTAS Trigger"
+  ],
+  "amp": [
+    0,
+    {
+      "Button": 3
+    },
+    "HOTAS Left button"
+  ],
+  "trapPrep": [
+    1,
+    {
+      "Button": 11
+    },
+    "Buttonbox"
+  ],
+  "prepShotDynamic": [
+    2,
+    {
+      "Button": 1
+    },
+    "Throttle Pinky button"
+  ],
+  "prepShotSubwoofer": [
+    2,
+    {
+      "POV": [
+        0,
+        90
+      ]
+    },
+    "Throttle middle rocker up"
+  ],
+  "prepShotPodium": [
+    2,
+    {
+      "POV": [
+        0,
+        270
+      ]
+    },
+    "Throttle middle rocker down"
+  ],
+  "prepShotPass": [
+    2,
+    {
+      "POV": [
+        0,
+        180
+      ]
+    },
+    "Throttle thumb pov down"
+  ],
+  "elevatorClimbUp": [
+    1,
+    {
+      "Button": 13
+    },
+    "Buttonbox"
+  ],
+  "elevatorClimbSlowDown": [
+    1,
+    {
+      "Button": 15
+    },
+    "Buttonbox"
+  ],
+  "trapScore": [
+    1,
+    {
+      "Button": 12
+    },
+    "Buttonbox"
+  ],
+  "resetElevator": [
+    1,
+    {
+      "Button": 22
+    },
+    "something on stick"
+  ],
+  "resetIntake": [
+    1,
+    {
+      "Button": 23
+    },
+    "something on stick"
+  ],
+  "resetShooter": [
+    1,
+    {
+      "Button": 24
+    },
+    "something on stick"
+  ],
+  "shooterRightSpeedIncrease": [
+    1,
+    {
+      "Button": 2
+    },
+    "buttonbox"
+  ],
+  "shooterRightSpeedDecrease": [
+    1,
+    {
+      "Button": 7
+    },
+    "buttonbox"
+  ],
+  "shooterLeftSpeedIncrease": [
+    1,
+    {
+      "Button": 1
+    },
+    "buttonbox"
+  ],
+  "shooterLeftSpeedDecrease": [
+    1,
+    {
+      "Button": 6
+    },
+    "buttonbox"
+  ],
+  "elevatorJogUp": [
+    1,
+    {
+      "Button": 4
+    },
+    "buttonbox"
+  ],
+  "elevatorJogDown": [
+    1,
+    {
+      "Button": 9
+    },
+    "buttonbox"
+  ],
+  "intakePivotCWJog": [
+    1,
+    {
+      "Button": 5
+    },
+    "buttonbox"
+  ],
+  "intakePivotCCWJog": [
+    1,
+    {
+      "Button": 10
+    },
+    "buttonbox"
+  ],
+  "shooterPivotUpJog": [
+    1,
+    {
+      "Button": 3
+    },
+    "buttonbox"
+  ],
+  "shooterPivotDownJog": [
+    1,
+    {
+      "Button": 8
+    },
+    "buttonbox"
+  ],
+  "autoNoteIntake": [
+    2,
+    {
+      "Button": 3
+    },
+    "top of left joystick left button"
+  ],
+  "spinUpShooter": [
+    1,
+    {
+      "Button": 17
+    },
+    "buttonbox"
+  ]
+}

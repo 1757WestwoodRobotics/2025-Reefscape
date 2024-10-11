@@ -1,0 +1,65 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.716694793966511,
+        "y": 3.3966950626208945
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.7166947939665107,
+        "y": 2.896695062620894
+      },
+      "isLocked": false,
+      "linkedName": "ScorableZoneSourceSide"
+    },
+    {
+      "anchor": {
+        "x": 5.686193917842381,
+        "y": 1.585886808137253
+      },
+      "prevControl": {
+        "x": 4.919322032541164,
+        "y": 1.5091996196071307
+      },
+      "nextControl": {
+        "x": 6.33920613295772,
+        "y": 1.6511880296487875
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.695813562995868,
+        "y": 2.2528592584856844
+      },
+      "prevControl": {
+        "x": 6.693698478306047,
+        "y": 1.753804234881197
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "piece4pickup"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.5,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 22.544223903067767,
+    "rotateFast": true
+  },
+  "reversed": false,
+  "folder": null,
+  "previewStartingState": null,
+  "useDefaultConstraints": true
+}

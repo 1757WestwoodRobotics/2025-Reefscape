@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+black = "*"
+pylint = "*"
+photonlibpy = "2024.2.9"
+robotpy-cli = "*"
+robotpy = {extras = ["all"], version = "==2024.3.2.1"}
+dill = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
