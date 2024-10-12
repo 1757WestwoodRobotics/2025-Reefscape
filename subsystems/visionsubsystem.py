@@ -221,6 +221,7 @@ class CameraTargetRelation:
 
 
 class SimCamera:
+    # pylint:disable-next=too-many-arguments, too-many-positional-arguments
     def __init__(
         self,
         name: str,

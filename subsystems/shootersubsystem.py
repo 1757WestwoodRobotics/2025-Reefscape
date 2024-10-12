@@ -1,12 +1,11 @@
 import math
 from commands2 import Subsystem
-from wpilib import SmartDashboard, Timer, RobotBase, Preferences
+from wpilib import SmartDashboard, Timer, RobotBase
 from wpilib._wpilib import DriverStation
 from wpimath.controller import SimpleMotorFeedforwardMeters, ArmFeedforward
 from wpimath.geometry import Rotation2d, Pose3d, Pose2d, Rotation3d
 from phoenix6.configs import CurrentLimitsConfigs
 from util.simtalon import Talon
-from util.simneo import NEOBrushless
 from util.simcoder import CTREEncoder
 from util.advantagescopeconvert import convertToSendablePoses
 from util.convenientmath import clamp
@@ -15,6 +14,7 @@ import constants
 
 
 class SimNote:
+    # pylint:disable-next=too-many-arguments, too-many-positional-arguments
     def __init__(
         self,
         x: float,

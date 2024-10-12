@@ -1,5 +1,4 @@
 from commands2 import Command
-from wpilib._wpilib import DataLogManager
 from wpimath.trajectory import TrapezoidProfile
 from wpimath.controller import ProfiledPIDController
 from subsystems.climbersubsystem import ClimberSubsystem

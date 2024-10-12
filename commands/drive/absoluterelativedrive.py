@@ -10,6 +10,7 @@ import constants
 
 
 class AbsoluteRelativeDrive(Command):
+    # pylint:disable-next=too-many-arguments, too-many-positional-arguments
     def __init__(
         self,
         drive: DriveSubsystem,

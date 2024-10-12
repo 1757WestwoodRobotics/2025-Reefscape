@@ -40,7 +40,7 @@ class Talon:
         Forwards = auto()
         Backwards = auto()
 
-    # pylint:disable-next=too-many-arguments
+    # pylint:disable-next=too-many-arguments, too-many-positional-arguments
     def __init__(
         self,
         canID: int,
@@ -105,6 +105,7 @@ class Talon:
     ) -> None:
         self.updateDashboard()
         SmartDashboard.putNumber(f"{self._nettableidentifier}/target", demand)
+        c = None
         if controlMode == Talon.ControlMode.Position:
             c = self.motor.set_control(
                 self.posControl.with_position(demand).with_feed_forward(ff)

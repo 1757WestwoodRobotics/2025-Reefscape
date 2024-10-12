@@ -25,7 +25,7 @@ class NEOBrushless:
         Forwards = auto()
         Backwards = auto()
 
-    # pylint:disable-next=too-many-arguments
+    # pylint:disable-next=too-many-arguments, too-many-positional-arguments
     def __init__(
         self,
         canID: int,

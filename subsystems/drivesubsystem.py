@@ -47,6 +47,7 @@ class SwerveModuleConfigParams:
     steerMotorInverted: bool
     canbus: str = ""
 
+    # pylint:disable-next=too-many-arguments, too-many-positional-arguments
     def __init__(
         self,
         driveMotorID: int,

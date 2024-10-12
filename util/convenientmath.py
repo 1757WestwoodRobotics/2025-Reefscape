@@ -7,10 +7,10 @@ from wpimath.geometry import Pose3d, Rotation2d, Rotation3d, Translation2d, Pose
 number = typing.Union[float, int]
 
 
-def deadband(input, band) -> float:
-    if abs(input) <= band:
+def deadband(inputValue, band) -> float:
+    if abs(inputValue) <= band:
         return 0
-    return input
+    return inputValue
 
 
 def clamp(inputValue: float, minimum: float, maximum: float) -> float:

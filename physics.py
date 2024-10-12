@@ -32,7 +32,7 @@ from util.getsdarray import getSDArray
 
 
 class SwerveModuleSim:
-    # pylint:disable-next=too-many-arguments
+    # pylint:disable-next=too-many-arguments, too-many-positional-arguments
     def __init__(
         self,
         position: Translation2d,

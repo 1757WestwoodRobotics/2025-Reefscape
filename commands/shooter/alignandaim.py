@@ -1,4 +1,4 @@
-from math import atan2, pi, sqrt, cos
+from math import atan2, pi, cos
 import typing
 
 from commands2.command import Command

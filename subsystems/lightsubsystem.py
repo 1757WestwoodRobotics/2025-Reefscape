@@ -5,7 +5,6 @@ from phoenix5.led import (
     RainbowAnimation,
     StrobeAnimation,
     SingleFadeAnimation,
-    Animation,
 )
 from wpilib import RobotState
 

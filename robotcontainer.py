@@ -9,15 +9,12 @@ from pathplannerlib.auto import (
 )
 from commands.drive.absoluterelativedrive import AbsoluteRelativeDrive
 from commands.autonotepickup import AutoNotePickup
-import constants
 
 from commands.climber import NeutralClimberState
 from commands.autospecific import AimAndFire, IntakeAuto, SubwooferAuto
 from commands.resetdrive import ResetDrive
 from commands.intakesetting import ResetIntake
 from commands.drivedistance import DriveDistance
-from commands.drive.robotrelativedrive import RobotRelativeDrive
-from commands.drive.fieldrelativedrive import FieldRelativeDrive
 from commands.defensestate import DefenseState
 from commands.shooter.shootermanualmode import ResetShooter, ShooterManualMode
 from commands.shooter.alignandaim import AlignAndAim
@@ -41,12 +38,8 @@ from commands.intakecommands import (
 )
 from commands.elevatormanualmode import AscendElevator, DescendElevator
 
-# from commands.velocitysetpoint import VelocitySetpoint
-
 from subsystems.drivesubsystem import DriveSubsystem
 from subsystems.lightsubsystem import LightSubsystem
-
-# from subsystems.dynamicvelocitycontrol import VelocityControl
 from subsystems.loggingsubsystem import LoggingSubsystem
 from subsystems.visionsubsystem import VisionSubsystem
 from subsystems.intakesubsystem import IntakeSubsystem
@@ -57,6 +50,7 @@ from subsystems.climbersubsystem import ClimberSubsystem
 from operatorinterface import OperatorInterface
 from util.helpfultriggerwrappers import ModifiableJoystickButton, SmartDashboardButton
 
+import constants
 
 
 class RobotContainer:

@@ -1,10 +1,11 @@
-from types import TracebackType
+from enum import Enum, auto
+from math import pi
+
 from wpilib import SmartDashboard
 from commands2 import Subsystem
-from enum import Enum, auto
+
 import constants
 from util.simtalon import Talon
-from math import pi
 
 
 class ClimberSubsystem(Subsystem):
