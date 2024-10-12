@@ -24,4 +24,4 @@ jobs:
           pipenv install
       - name: Verify simulator starts up
         run: |
-          pipenv run ./scripts/verify-simulator-starts.sh
+          pipenv run robotpy test

@@ -10,6 +10,7 @@ photonlibpy = "2024.3.1"
 robotpy-cli = "*"
 robotpy = {extras = ["all"], version = "==2024.3.2.2"}
 dill = "*"
+exceptiongroup = "*"
 
 [dev-packages]
 

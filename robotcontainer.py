@@ -135,7 +135,7 @@ class RobotContainer:
         )
         self.intake.setDefaultCommand(DefaultIntake(self.elevator, self.intake))
         self.shooter.setDefaultCommand(SafetyPosition(self.shooter))
-        self.climber.setDefaultCommand(NeutralClimberState(self.climber))
+        self.climber.setDefaultCommand(NeutralClimberState(self.climber, self.elevator))
         wpilib.SmartDashboard.putData(constants.kIntakeSubsystemKey, self.intake)
         wpilib.SmartDashboard.putData(constants.kShooterSubsystemKey, self.shooter)
 
