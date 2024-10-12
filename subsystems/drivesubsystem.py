@@ -489,17 +489,13 @@ class DriveSubsystem(Subsystem):
         """
 
         swervePositions = (
-                self.frontLeftModule.getPosition(),
-                self.frontRightModule.getPosition(),
-                self.backLeftModule.getPosition(),
-                self.backRightModule.getPosition(),
-            )
-        self.odometry.update(
-            self.getRotation(),
-            swervePositions
+            self.frontLeftModule.getPosition(),
+            self.frontRightModule.getPosition(),
+            self.backLeftModule.getPosition(),
+            self.backRightModule.getPosition(),
         )
+        self.odometry.update(self.getRotation(), swervePositions)
         robotPose = self.getPose()
-
 
         # putSDArray(
         #     constants.kSwerveActualStatesKey,
@@ -534,9 +530,7 @@ class DriveSubsystem(Subsystem):
         self.estimator.updateWithTime(
             self.printTimer.getFPGATimestamp(),
             self.odometry.getPose().rotation(),
-            [
-                *swervePositions
-            ],
+            [*swervePositions],
         )
         self.vision.poseList.clear()
 

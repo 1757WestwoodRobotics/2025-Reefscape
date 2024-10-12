@@ -1056,7 +1056,7 @@ kSpeakerDistanceKey = "SpeakerDistance"
 
 # NEEDS TEST DATA
 kShooterAngleAdjustmentMappingFunction = (
-    lambda x: 0.989 - 3.64 * x + 3.79 * x * x + 1.01 * x * x * x -2.31 * x * x * x * x
+    lambda x: 0.989 - 3.64 * x + 3.79 * x * x + 1.01 * x * x * x - 2.31 * x * x * x * x
 )
 # kShooterAngleAdjustmentMappingFunction = lambda x: 0
 

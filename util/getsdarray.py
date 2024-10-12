@@ -2,6 +2,7 @@ from ntcore import NetworkTableInstance
 
 inst = NetworkTableInstance.getDefault().getTable("SmartDashboard")
 
+
 def getSDArray(key: str, defaultValue):
     """use only for number arrays"""
     return (
@@ -9,6 +10,7 @@ def getSDArray(key: str, defaultValue):
         if inst.getEntry(key).getValue().isValid()
         else defaultValue
     )
+
 
 def putSDArray(key: str, value):
     """use only for number arrays"""

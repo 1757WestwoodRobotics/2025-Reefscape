@@ -21,6 +21,7 @@ def convertToSendablePoses(poses: List[Pose3d]) -> List[float]:
 
     return functools.reduce(operator.add, sendablePoses, [])
 
+
 def convertToPose2dSendable(poses: List[Pose2d]) -> List[float]:
     sendablePoses = []
     for pose in poses:
@@ -28,6 +29,6 @@ def convertToPose2dSendable(poses: List[Pose2d]) -> List[float]:
         y = pose.Y()
         theta = pose.rotation().radians()
 
-        sendablePoses.append([x,y,theta])
+        sendablePoses.append([x, y, theta])
 
     return functools.reduce(operator.add, sendablePoses, [])

@@ -6,6 +6,7 @@ from wpimath.geometry import Pose3d, Rotation2d, Rotation3d, Translation2d, Pose
 
 number = typing.Union[float, int]
 
+
 def deadband(input, band) -> float:
     if abs(input) <= band:
         return 0

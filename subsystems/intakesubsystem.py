@@ -119,10 +119,10 @@ class IntakeSubsystem(Subsystem):
                 # self.putInPlace = True
 
             if self.intakeAtPosition():
-               self.intakeMotor.set(
-                   NEOBrushless.ControlMode.Position,
-                   self.heldPosition,
-               )
+                self.intakeMotor.set(
+                    NEOBrushless.ControlMode.Position,
+                    self.heldPosition,
+                )
 
         # elif frontLimitState:
         #     if not self.positionFigured:

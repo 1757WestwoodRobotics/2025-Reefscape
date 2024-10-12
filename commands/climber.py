@@ -49,7 +49,9 @@ class ExtendClimberPosition(SetClimberState):
         self.climber.setClimberTargetPosition(
             self.targetPosition + constants.kClimberHeightOffset
         )
-        self.elevator.setTargetPosition(self.targetPosition + constants.kClimberHeightExtendOffsetElevator)
+        self.elevator.setTargetPosition(
+            self.targetPosition + constants.kClimberHeightExtendOffsetElevator
+        )
 
 
 class RetractClimberPosition(SetClimberState):
@@ -77,15 +79,16 @@ class RetractClimberPosition(SetClimberState):
         self.climber.setClimberTargetPosition(
             self.targetPosition + constants.kClimberHeightOffset
         )
-        self.elevator.setTargetPosition(self.targetPosition - constants.kClimberFloorTargetElevatorExtra)
+        self.elevator.setTargetPosition(
+            self.targetPosition - constants.kClimberFloorTargetElevatorExtra
+        )
 
 
 class NeutralClimberState(SetClimberState):
-    def __init__(self, climberSubsystem: ClimberSubsystem):
-        Command.__init__(self)
-        self.setName(__class__.__name__)
-        self.climber = climberSubsystem
-        self.addRequirements(self.climber)
+    def __init__(
+        self, climberSubsystem: ClimberSubsystem, elevatorSubsystem: ElevatorSubsystem
+    ):
+        SetClimberState.__init__(self, climberSubsystem, elevatorSubsystem)
 
     def execute(self) -> None:
         self.climber.setClimberHold()
