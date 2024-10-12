@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ac0d927e97b9a76cafca737b0aabc7914c06c22b24b017b5dfe5d152356534ba"
+            "sha256": "feda5e71c528d7d993297fb78cbffc2b4cb93e9acea95ec481376650534fa36c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -795,7 +795,8 @@
                 "sha256:2ebe24485c53d303f690b0ec092806a085f07af5a5aa1464f3931eec36caaa38",
                 "sha256:d46d457a85337051c36524bc5349dd91b1877838e2979ac5ced3e710ed8a60ed"
             ],
-            "markers": "python_version < '3.11'",
+            "index": "pypi",
+            "markers": "python_version >= '3.8'",
             "version": "==2.0.2"
         },
         "tomlkit": {
@@ -811,7 +812,7 @@
                 "sha256:04e5ca0351e0f3f85c6853954072df659d0d13fac324d0072316b67d7794700d",
                 "sha256:1a7ead55c7e559dd4dee8856e3a88b41225abfe1ce8df57b7c13915fe121ffb8"
             ],
-            "markers": "python_version < '3.11'",
+            "markers": "python_version >= '3.8'",
             "version": "==4.12.2"
         },
         "wpilib": {
