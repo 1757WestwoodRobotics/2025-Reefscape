@@ -292,6 +292,7 @@ class PhysicsEngine:
 
     # pylint: disable-next=unused-argument
     def __init__(self, physics_controller: PhysicsInterface, robot: MentorBot):
+        assert robot.container is not None
         self.physics_controller = physics_controller
         self.bot = robot
 
