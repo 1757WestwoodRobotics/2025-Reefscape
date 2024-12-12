@@ -28,70 +28,7 @@ class LoggingSubsystem(Subsystem):
         )
 
     def updateBotPositions(self) -> None:
-        botPose = pose3dFrom2d(
-            Pose2d(*getSDArray(constants.kRobotPoseArrayKeys.valueKey, [0, 0, 0]))
-        )
-
-        elevatorHeight = SmartDashboard.getNumber(constants.kElevatorPositionKey, 0)
-        elevatorPosition = (
-            botPose
-            + constants.kRobotToElevatorTransform
-            + Transform3d(0, 0, elevatorHeight, Rotation3d())
-        )
-
-        elevatorPoses = advantagescopeconvert.convertToSendablePoses([elevatorPosition])
-        putSDArray(constants.kElevatorPoseArrayKey, elevatorPoses)
-
-        armRotation = -SmartDashboard.getNumber(constants.kPivotAngleKey, 0)
-        armRootPosition = elevatorPosition + Transform3d(
-            0,
-            constants.kRobotToElevatorTransform.Y(),
-            0,
-            Rotation3d(0, armRotation, 0),
-        )
-        armEndPosition = armRootPosition + Transform3d(
-            constants.kIntakeArmLength,
-            0,
-            0,
-            Rotation3d(
-                0,
-                # -armRotation,
-                map_range(
-                    armRotation,
-                    0,
-                    -constants.kFloorPositionAngle.radians(),
-                    pi - 1.022,
-                    pi / 2,
-                )
-                - armRotation,
-                0,
-            ),
-        )
-
-        intakePoses = advantagescopeconvert.convertToSendablePoses(
-            [armRootPosition, armEndPosition]
-        )
-        putSDArray(constants.kIntakePoseKey, intakePoses)
-
-        shooterRotation = SmartDashboard.getNumber(constants.kShooterAngleKey, 0)
-        shooterPose = (
-            botPose
-            + constants.kRobotToShooterTransform
-            + Transform3d(0, 0, 0, Rotation3d(0, -shooterRotation, 0))
-        )
-
-        shooterPoses = advantagescopeconvert.convertToSendablePoses([shooterPose])
-        putSDArray(constants.kShooterPosesKey, shooterPoses)
-
-        climberHeight = SmartDashboard.getNumber(constants.kClimberHeightKey, 0)
-        climberPosition = (
-            botPose
-            + constants.kRobotToClimberTransform
-            + Transform3d(0, 0, climberHeight, Rotation3d()),
-        )
-
-        climberPose = advantagescopeconvert.convertToSendablePoses(climberPosition)
-        putSDArray(constants.kClimberPositionKey, climberPose)
+        pass
 
     def periodic(self) -> None:
         SmartDashboard.putData(self.pdh)

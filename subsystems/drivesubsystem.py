@@ -537,22 +537,6 @@ class DriveSubsystem(Subsystem):
 
         self.visionEstimate = self.estimator.getEstimatedPosition()
 
-        # I swear there's an easier way to do this but I couldn't figure it out
-        speakerDistance = (
-            Transform3d(Pose3d(), convenientmath.pose3dFrom2d(robotPose))
-            .translation()
-            .distance(
-                Transform3d(
-                    Pose3d(),
-                    (
-                        constants.kSpeakerCenterBlue
-                        if DriverStation.getAlliance() == DriverStation.Alliance.kBlue
-                        else constants.kSpeakerCenterRed
-                    ),
-                ).translation()
-            )
-        )
-        SmartDashboard.putNumber(constants.kSpeakerDistanceKey, speakerDistance)
         SmartDashboard.putBoolean(
             constants.kRobotVisionPoseArrayKeys.validKey, hasTargets
         )
