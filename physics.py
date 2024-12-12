@@ -24,7 +24,6 @@ from pyfrc.physics.core import PhysicsInterface
 import constants
 from robot import MentorBot
 from subsystems.drivesubsystem import DriveSubsystem
-from subsystems.intakesubsystem import IntakeSubsystem
 from util.advantagescopeconvert import convertToSendablePoses
 from util.convenientmath import clamp, pointInCircle
 from util.motorsimulator import MotorSimulator
@@ -188,103 +187,6 @@ class SwerveDriveSim:
         self.pose = newPose
 
 
-class NoteSim:
-    def __init__(self) -> None:
-        self.midlineNotes = constants.kNotesStartingMidline
-        self.blueNotes = constants.kNotesStartingBlueWing
-        self.redNotes = constants.kNotesStartingRedWing
-
-        self.loadingNotes = [
-            constants.kNoteLoadingStationPositionBlue,
-            constants.kNoteLoadingStationPositionRed,
-        ]
-
-    def canPickup(self, note: Pose3d, botPose) -> bool:
-        if pointInCircle(botPose.translation(), note.toPose2d().translation(), 0.5):
-            return True
-        return False
-
-    def update(self, _tm_diff, bot: MentorBot):
-        SmartDashboard.putNumberArray(
-            constants.kSimNotePositionsKey,
-            convertToSendablePoses(
-                [
-                    *self.midlineNotes,
-                    *self.blueNotes,
-                    *self.redNotes,
-                    *self.loadingNotes,
-                ]
-            ),
-        )
-
-        # check whether intaking, update sensors according to position on field
-
-        intaking = bot.container.intake.state == IntakeSubsystem.IntakeState.Intaking
-        holding = (
-            bot.container.intake.state == IntakeSubsystem.IntakeState.Holding
-            or bot.container.intake.overrideIntake
-        )
-        atPose = bot.container.intake.intakeAtPosition()
-
-        botPose = Pose2d(*getSDArray(constants.kSimRobotPoseArrayKey, [0, 0, 0]))
-
-        hasNote = SmartDashboard.getBoolean(constants.kIntakeHasNoteKey, False)
-
-        if intaking:
-            notestate = hasNote
-            for stationObject in self.loadingNotes:
-                if self.canPickup(stationObject, botPose):
-                    notestate = True
-
-            for blueWingNote in self.blueNotes:
-                # remove the note from the field
-                if self.canPickup(blueWingNote, botPose):
-                    notestate = True
-                    self.blueNotes.remove(blueWingNote)
-
-            for redWingNote in self.redNotes:
-                # remove the note from the field
-                if self.canPickup(redWingNote, botPose):
-                    notestate = True
-                    self.redNotes.remove(redWingNote)
-
-            for midlineNote in self.midlineNotes:
-                # remove the note from the field
-                if self.canPickup(midlineNote, botPose):
-                    notestate = True
-                    self.midlineNotes.remove(midlineNote)
-
-            SmartDashboard.putBoolean(
-                f"{bot.container.intake.intakeMotor.getNettableIden()}/fwdLimit",
-                notestate,
-            )
-            SmartDashboard.putBoolean(
-                f"{bot.container.intake.intakeMotor.getNettableIden()}/bckLimit",
-                notestate,
-            )
-        if holding and atPose:
-            SmartDashboard.putBoolean(
-                f"{bot.container.intake.intakeMotor.getNettableIden()}/fwdLimit",
-                False,
-            )
-
-        # shooting a note clears the note
-        feeding = bot.container.intake.state == IntakeSubsystem.IntakeState.Feeding
-
-        if feeding:
-            if hasNote:
-                pass  # Logic for calculating a shot
-
-            SmartDashboard.putBoolean(
-                f"{bot.container.intake.intakeMotor.getNettableIden()}/fwdLimit",
-                False,
-            )
-            SmartDashboard.putBoolean(
-                f"{bot.container.intake.intakeMotor.getNettableIden()}/bckLimit",
-                False,
-            )
-
-
 class PhysicsEngine:
     """
     Simulates a drivetrain
@@ -358,7 +260,6 @@ class PhysicsEngine:
         ]
 
         self.driveSim = SwerveDriveSim(tuple(self.swerveModuleSims))
-        self.noteSim = NoteSim()
 
         driveSubsystem.resetSimPosition = self.driveSim.resetPose
 
@@ -367,41 +268,6 @@ class PhysicsEngine:
         self.sim_initialized = False
 
         self.motorsim = MotorSimulator()
-        self.motorsim.addFalcon(
-            robot.container.shooter.angleMotor,
-            1,
-            constants.kSimulationRotationalInertia,
-        )
-        self.motorsim.addFalcon(
-            robot.container.elevator.elevatorMotor1,
-            1,
-            constants.kSimulationRotationalInertia,
-        )
-        self.motorsim.addFalcon(
-            robot.container.elevator.elevatorMotor2,
-            1,
-            constants.kSimulationRotationalInertia,
-        )
-        self.motorsim.addFalcon(
-            robot.container.intake.pivotMotor,
-            1,
-            constants.kSimulationRotationalInertia,
-        )
-        self.motorsim.addFalcon(
-            robot.container.climber.climberMotor,
-            1,
-            constants.kSimulationRotationalInertia,
-        )
-        self.motorsim.addKraken(
-            robot.container.shooter.leftShootingMotor,
-            1,
-            constants.kSimulationRotationalInertiaFlywheel,
-        )
-        self.motorsim.addKraken(
-            robot.container.shooter.rightShootingMotor,
-            1,
-            constants.kSimulationRotationalInertiaFlywheel,
-        )
 
         targets = []
         for target in constants.kApriltagPositionDict.values():
@@ -448,7 +314,6 @@ class PhysicsEngine:
 
         self.motorsim.update(tm_diff, voltage)
         self.driveSim.update(tm_diff, voltage)
-        self.noteSim.update(tm_diff, self.bot)
 
         simRobotPose = self.driveSim.getPose()
         self.physics_controller.field.setRobotPose(simRobotPose)
