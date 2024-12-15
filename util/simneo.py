@@ -1,6 +1,6 @@
 from enum import Enum, auto
+from ntcore import NetworkTableInstance
 from rev import CANSparkFlex, REVLibError, SparkMaxLimitSwitch
-from wpilib import SmartDashboard
 from wpilib._wpilib import RobotBase
 
 
@@ -49,13 +49,54 @@ class NEOBrushless:
         self.reverseSwitch = self.motor.getReverseLimitSwitch(limitSwitchPolarity)
 
         self._nettableidentifier = f"motors/{self.name}({self.id})"
-        SmartDashboard.putNumber(f"{self._nettableidentifier}/gains/p", pGain)
-        SmartDashboard.putNumber(f"{self._nettableidentifier}/gains/i", iGain)
-        SmartDashboard.putNumber(f"{self._nettableidentifier}/gains/d", dGain)
-        SmartDashboard.putBoolean(f"{self._nettableidentifier}/inverted", isInverted)
+        self.pGainPublisher = (
+            NetworkTableInstance.getDefault()
+            .getDoubleTopic(f"{self._nettableidentifier}/gains/p")
+            .publish()
+        )
+        self.pGainPublisher.set(pGain)
+        self.iGainPublisher = (
+            NetworkTableInstance.getDefault()
+            .getDoubleTopic(f"{self._nettableidentifier}/gains/i")
+            .publish()
+        )
+        self.iGainPublisher.set(iGain)
+        self.dGainPublisher = (
+            NetworkTableInstance.getDefault()
+            .getDoubleTopic(f"{self._nettableidentifier}/gains/d")
+            .publish()
+        )
+        self.dGainPublisher.set(dGain)
+        self.invertedPublisher = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(f"{self._nettableidentifier}/inverted")
+            .publish()
+        )
+        self.invertedPublisher.set(isInverted)
 
-        SmartDashboard.putBoolean(f"{self._nettableidentifier}/fwdLimit", False)
-        SmartDashboard.putBoolean(f"{self._nettableidentifier}/bckLimit", False)
+        self.fwdLimitPublisher = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(f"{self._nettableidentifier}/fwdLimit")
+            .publish()
+        )
+        self.fwdLimitPublisher.set(False)
+        self.fwdLimitGetter = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(f"{self._nettableidentifier}/fwdLimit")
+            .subscribe(False)
+        )
+
+        self.bckLimitPublisher = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(f"{self._nettableidentifier}/bckLimit")
+            .publish()
+        )
+        self.bckLimitPublisher.set(False)
+        self.bckLimitGetter = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(f"{self._nettableidentifier}/bckLimit")
+            .subscribe(False)
+        )
 
         # if not revCheckError("factoryConfig", self.motor.restoreFactoryDefaults()):
         #     return
@@ -108,7 +149,7 @@ class NEOBrushless:
             else CANSparkFlex.IdleMode.kCoast
         )
 
-    def enableLimitSwitch(self, switch: LimitSwitch, enable: True):
+    def enableLimitSwitch(self, switch: LimitSwitch, enable: bool):
         if switch == NEOBrushless.LimitSwitch.Forwards:
             self.forwardSwitch.enableLimitSwitch(enable)
         if switch == NEOBrushless.LimitSwitch.Backwards:
@@ -126,15 +167,9 @@ class NEOBrushless:
                 return self.reverseSwitch.get()
         else:
             if switch == NEOBrushless.LimitSwitch.Forwards:
-                return SmartDashboard.getBoolean(
-                    f"{self._nettableidentifier}/fwdLimit", False
-                )
+                return self.fwdLimitGetter.get()
             if switch == NEOBrushless.LimitSwitch.Backwards:
-                return SmartDashboard.getBoolean(
-                    f"{self._nettableidentifier}/bckLimit", False
-                )
-
-        return False
+                return self.bckLimitGetter.get()
 
     def setSmartCurrentLimit(self, limit: int = 25) -> None:
         self.motor.setSmartCurrentLimit(limit)

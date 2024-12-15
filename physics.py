@@ -12,13 +12,14 @@
 import functools
 import operator
 import typing
+from ntcore import NetworkTableInstance
 from phoenix6.sim.cancoder_sim_state import CANcoderSimState
 from phoenix6.sim.talon_fx_sim_state import TalonFXSimState
 from phoenix6.unmanaged import feed_enable
 from photonlibpy.simulation.photonCameraSim import PhotonCameraSim
 from photonlibpy.simulation.visionSystemSim import VisionSystemSim
 from photonlibpy.simulation.simCameraProperties import SimCameraProperties
-from wpilib import RobotController, SmartDashboard
+from wpilib import RobotController
 from wpilib.simulation import DCMotorSim
 from wpimath.geometry import Pose2d, Rotation2d, Transform2d, Translation2d, Pose3d
 from wpimath.system.plant import DCMotor, LinearSystemId
@@ -89,6 +90,14 @@ class SwerveDriveSim:
         )
         self.pose = constants.kSimDefaultRobotLocation
         self.outputs = None
+
+        self.robotVelocityPublisher = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic(
+                constants.kSimRobotVelocityArrayKey, wpimath.kinematics.ChassisSpeeds
+            )
+            .publish()
+        )
 
     def resetPose(self, pose) -> None:
         self.pose = pose
@@ -186,10 +195,7 @@ class SwerveDriveSim:
         deltaX = chassisSpeed.vx * deltaT
         deltaY = chassisSpeed.vy * deltaT
 
-        SmartDashboard.putNumberArray(
-            constants.kSimRobotVelocityArrayKey,
-            [chassisSpeed.vx, chassisSpeed.vy, chassisSpeed.omega],
-        )
+        self.robotVelocityPublisher.set(chassisSpeed)
 
         deltaTrans = Transform2d(deltaX, deltaY, deltaHeading)
 
@@ -218,7 +224,6 @@ class VisionSim:
 
     def update(self, robotPose: Pose2d):
         self.sim.update(robotPose)
-
 
 
 class PhysicsEngine:
@@ -305,26 +310,17 @@ class PhysicsEngine:
 
         self.motorsim = MotorSimulator()
 
-        targets = []
-        for target in constants.kApriltagPositionDict.values():
-            x = target.X()
-            y = target.Y()
-            z = target.Z()
-            rotationQuaternion = target.rotation().getQuaternion()
-            w_rot = rotationQuaternion.W()
-            x_rot = rotationQuaternion.X()
-            y_rot = rotationQuaternion.Y()
-            z_rot = rotationQuaternion.Z()
+        self.fieldSimTargetPublisher = (
+            NetworkTableInstance.getDefault()
+            .getStructArrayTopic(constants.kFieldSimTargetKey, Pose3d)
+            .publish()
+        )
+        self.fieldSimTargetPublisher.set(list(constants.kApriltagPositionDict.values()))
 
-            targets.append(
-                [x, y, z, w_rot, x_rot, y_rot, z_rot]
-            )  # https://github.com/Mechanical-Advantage/AdvantageScope/blob/main/docs/tabs/3D-FIELD.md#cones
-
-        SmartDashboard.putNumberArray(
-            constants.kFieldSimTargetKey,
-            functools.reduce(
-                operator.add, targets, []
-            ),  # adds all the values found within targets (converts [[]] to [])
+        self.simRobotPosePublisher = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic(constants.kSimRobotPoseArrayKey, Pose2d)
+            .publish()
         )
 
     # pylint: disable-next=unused-argument
@@ -357,7 +353,4 @@ class PhysicsEngine:
         self.visionSim.update(simRobotPose)
 
         # publish the simulated robot pose to nt
-        SmartDashboard.putNumberArray(
-            constants.kSimRobotPoseArrayKey,
-            [simRobotPose.X(), simRobotPose.Y(), simRobotPose.rotation().radians()],
-        )
+        self.simRobotPosePublisher.set(simRobotPose)

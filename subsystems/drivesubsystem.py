@@ -12,7 +12,6 @@ from phoenix6.sim.cancoder_sim_state import CANcoderSimState
 from phoenix6.sim.talon_fx_sim_state import TalonFXSimState
 from wpilib import (
     RobotBase,
-    SmartDashboard,
     Timer,
     DataLogManager,
     DriverStation,
@@ -256,7 +255,6 @@ class DriveSubsystem(Subsystem):
     def __init__(self, vision: VisionSubsystem) -> None:
         Subsystem.__init__(self)
         self.setName(__class__.__name__)
-        SmartDashboard.putBoolean(constants.kRobotPoseArrayKeys.validKey, False)
 
         self.vision = vision
         self.rotationOffset = 0
@@ -396,9 +394,22 @@ class DriveSubsystem(Subsystem):
             .getStructTopic(constants.kRobotPoseArrayKeys.valueKey, Pose2d)
             .publish()
         )
+        self.robotPoseValidPublisher = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kRobotPoseArrayKeys.validKey)
+            .publish()
+        )
+        self.robotPoseValidPublisher.set(True)
+
         self.visionPosePublisher = (
             NetworkTableInstance.getDefault()
             .getStructTopic(constants.kRobotVisionPoseArrayKeys.valueKey, Pose2d)
+            .publish()
+        )
+
+        self.visionPoseValidPublisher = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kRobotVisionPoseArrayKeys.validKey)
             .publish()
         )
         self.driveVelocityPublisher = (
@@ -406,11 +417,25 @@ class DriveSubsystem(Subsystem):
             .getStructTopic(constants.kDriveVelocityKeys, ChassisSpeeds)
             .publish()
         )
+        self.targetAngleRobotRelative = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic(
+                constants.kTargetAngleRelativeToRobotKeys.valueKey, Rotation2d
+            )
+            .subscribe(Rotation2d())
+        )
+        self.targetAngleRobotRelativeValid = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kTargetAngleRelativeToRobotKeys.valueKey)
+            .subscribe(False)
+        )
 
         if RobotBase.isSimulation():
-            self.simVelocityGetter = NetworkTableInstance.getDefault().getStructTopic(
-                constants.kSimRobotVelocityArrayKey, Pose2d
-            ).subscribe(Pose2d())
+            self.simVelocityGetter = (
+                NetworkTableInstance.getDefault()
+                .getStructTopic(constants.kSimRobotVelocityArrayKey, ChassisSpeeds)
+                .subscribe(ChassisSpeeds())
+            )
 
     def resetDriveAtPosition(self, pose: Pose2d):
         self.resetSwerveModules()
@@ -480,7 +505,8 @@ class DriveSubsystem(Subsystem):
     def getAngularVelocity(self) -> float:
         """radians"""
         if RobotBase.isSimulation():
-            return self.simVelocityGetter.get().rotation().radians()
+            value: ChassisSpeeds = self.simVelocityGetter.get()
+            return value.omega
         return (
             self.gyro.get_angular_velocity_z_world().value * constants.kRadiansPerDegree
         )
@@ -544,7 +570,7 @@ class DriveSubsystem(Subsystem):
         # robotPoseArray = [robotPose.X(), robotPose.Y(), robotPose.rotation().radians()]
 
         self.robotPosePublisher.set(robotPose)
-        SmartDashboard.putBoolean(constants.kRobotPoseArrayKeys.validKey, True)
+        self.robotPoseValidPublisher.set(True)
 
         estimatedCameraPoses = self.vision.poseList
         hasTargets = False
@@ -568,9 +594,7 @@ class DriveSubsystem(Subsystem):
 
         self.visionEstimate = self.estimator.estimatedPose
 
-        SmartDashboard.putBoolean(
-            constants.kRobotVisionPoseArrayKeys.validKey, hasTargets
-        )
+        self.visionPoseValidPublisher.set(hasTargets)
         self.visionPosePublisher.set(self.visionEstimate)
 
         # curTime = self.printTimer.get()
@@ -635,11 +659,7 @@ class DriveSubsystem(Subsystem):
     def arcadeDriveWithSpeeds(
         self, chassisSpeeds: ChassisSpeeds, coordinateMode: CoordinateMode
     ) -> None:
-        targetAngle = Rotation2d(
-            SmartDashboard.getNumber(
-                constants.kTargetAngleRelativeToRobotKeys.valueKey, 0
-            )
-        )
+        targetAngle = self.targetAngleRobotRelative.get()
         discritizedSpeeds = ChassisSpeeds.discretize(
             chassisSpeeds, constants.kRobotUpdatePeriod
         )
@@ -658,9 +678,7 @@ class DriveSubsystem(Subsystem):
                 ),
             )
         elif coordinateMode is DriveSubsystem.CoordinateMode.TargetRelative:
-            if SmartDashboard.getBoolean(
-                constants.kTargetAngleRelativeToRobotKeys.validKey, False
-            ):
+            if self.targetAngleRobotRelativeValid.get():
                 robotSpeeds = Translation2d(chassisSpeeds.vx, chassisSpeeds.vy)
                 targetAlignedSpeeds = robotSpeeds.rotateBy(targetAngle)
                 robotChassisSpeeds = ChassisSpeeds(

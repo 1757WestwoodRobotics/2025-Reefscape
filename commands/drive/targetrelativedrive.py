@@ -1,6 +1,6 @@
 import typing
 
-from wpilib import SmartDashboard
+from ntcore import NetworkTableInstance
 from wpimath.controller import PIDController
 from wpimath.geometry import Rotation2d
 
@@ -32,19 +32,26 @@ class TargetRelativeDrive(Command):
             constants.kTargetRelativeDriveAngleDGain,
         )
 
+        self.angleValid = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kTargetAngleRelativeToRobotKeys.validKey)
+            .subscribe(False)
+        )
+        self.angle = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic(
+                constants.kTargetAngleRelativeToRobotKeys.valueKey, Rotation2d
+            )
+            .subscribe(Rotation2d)
+        )
+
         self.addRequirements(self.drive)
         self.setName(__class__.__name__)
 
     def execute(self) -> None:
         angleControllerOutput = 0
-        if SmartDashboard.getBoolean(
-            constants.kTargetAngleRelativeToRobotKeys.validKey, False
-        ):
-            targetAngle = Rotation2d(
-                SmartDashboard.getNumber(
-                    constants.kTargetAngleRelativeToRobotKeys.valueKey, 0
-                )
-            )
+        if self.angleValid.get():
+            targetAngle = self.angle.get()
 
             angleControllerOutput = self.angleController.calculate(
                 -1 * targetAngle.radians(), 0

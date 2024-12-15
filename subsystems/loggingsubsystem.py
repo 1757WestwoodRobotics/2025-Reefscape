@@ -4,7 +4,7 @@ from operator import add
 
 from commands2 import Subsystem
 from ntcore import NetworkTableInstance
-from wpilib import PowerDistribution, SmartDashboard, DriverStation
+from wpilib import PowerDistribution, DriverStation
 
 from wpimath.geometry import Pose2d, Transform3d, Rotation3d
 
@@ -31,7 +31,6 @@ class LoggingSubsystem(Subsystem):
         pass
 
     def periodic(self) -> None:
-        SmartDashboard.putData(self.pdh)
 
         for controller in self.oi.controllers.values():
             self.dsTable.putNumber(
