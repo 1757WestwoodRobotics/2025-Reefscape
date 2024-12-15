@@ -5,6 +5,7 @@ from math import sqrt
 from typing import Tuple
 import typing
 from commands2 import Subsystem
+from ntcore import NetworkTableInstance
 from phoenix6.configs.pigeon2_configs import Pigeon2Configuration
 from phoenix6.hardware.pigeon2 import Pigeon2
 from phoenix6.sim.cancoder_sim_state import CANcoderSimState
@@ -43,7 +44,6 @@ from util import convenientmath
 from util.angleoptimize import optimizeAngle
 from util.simcoder import CTREEncoder
 from util.simtalon import Talon
-from util.getsdarray import getSDArray, putSDArray
 from subsystems.visionsubsystem import VisionSubsystem
 
 
@@ -114,13 +114,13 @@ class SwerveModule:
         )
 
     def applyState(self, state: SwerveModuleState) -> None:
-        optimizedState = SwerveModuleState.optimize(state, self.getSwerveAngle())
+        state.optimize(self.getSwerveAngle())
 
-        self.setWheelLinearVelocityTarget(optimizedState.speed)
+        self.setWheelLinearVelocityTarget(state.speed)
         if (
-            abs(optimizedState.speed) >= constants.kMinWheelLinearVelocity
+            abs(state.speed) >= constants.kMinWheelLinearVelocity
         ):  # prevent unneccisary movement for what would otherwise not move the robot
-            optimizedAngle = self.optimizedAngle(optimizedState.angle)
+            optimizedAngle = self.optimizedAngle(state.angle)
             self.setSwerveAngleTarget(optimizedAngle)
 
 
@@ -381,6 +381,37 @@ class DriveSubsystem(Subsystem):
             self,
         )
 
+        self.swerveStatePublisher = (
+            NetworkTableInstance.getDefault()
+            .getStructArrayTopic(constants.kSwerveActualStatesKey, SwerveModuleState)
+            .publish()
+        )
+        self.swerveStateExpectedPublisher = (
+            NetworkTableInstance.getDefault()
+            .getStructArrayTopic(constants.kSwerveExpectedStatesKey, SwerveModuleState)
+            .publish()
+        )
+        self.robotPosePublisher = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic(constants.kRobotPoseArrayKeys.valueKey, Pose2d)
+            .publish()
+        )
+        self.visionPosePublisher = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic(constants.kRobotVisionPoseArrayKeys.valueKey, Pose2d)
+            .publish()
+        )
+        self.driveVelocityPublisher = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic(constants.kDriveVelocityKeys, ChassisSpeeds)
+            .publish()
+        )
+
+        if RobotBase.isSimulation():
+            self.simVelocityGetter = NetworkTableInstance.getDefault().getStructTopic(
+                constants.kSimRobotVelocityArrayKey, Pose2d
+            ).subscribe(Pose2d())
+
     def resetDriveAtPosition(self, pose: Pose2d):
         self.resetSwerveModules()
         self.resetGyro(pose)
@@ -420,7 +451,12 @@ class DriveSubsystem(Subsystem):
         rotation = self.getRotation()
         return Pose2d(translation, rotation)
 
-    def applyStates(self, moduleStates: Tuple[SwerveModuleState]) -> None:
+    def applyStates(
+        self,
+        moduleStates: Tuple[
+            SwerveModuleState, SwerveModuleState, SwerveModuleState, SwerveModuleState
+        ],
+    ) -> None:
         (
             frontLeftState,
             frontRightState,
@@ -430,18 +466,8 @@ class DriveSubsystem(Subsystem):
             moduleStates, constants.kMaxWheelLinearVelocity
         )
 
-        putSDArray(
-            constants.kSwerveExpectedStatesKey,
-            [
-                frontLeftState.angle.radians(),
-                frontLeftState.speed,
-                frontRightState.angle.radians(),
-                frontRightState.speed,
-                backLeftState.angle.radians(),
-                backLeftState.speed,
-                backRightState.angle.radians(),
-                backRightState.speed,
-            ],
+        self.swerveStateExpectedPublisher.set(
+            [frontLeftState, frontRightState, backLeftState, backRightState]
         )
         self.frontLeftModule.applyState(frontLeftState)
         self.frontRightModule.applyState(frontRightState)
@@ -454,7 +480,7 @@ class DriveSubsystem(Subsystem):
     def getAngularVelocity(self) -> float:
         """radians"""
         if RobotBase.isSimulation():
-            return getSDArray(constants.kSimRobotVelocityArrayKey, [0, 0, 0])[2]
+            return self.simVelocityGetter.get().rotation().radians()
         return (
             self.gyro.get_angular_velocity_z_world().value * constants.kRadiansPerDegree
         )
@@ -506,24 +532,19 @@ class DriveSubsystem(Subsystem):
         self.odometry.update(self.getRotation(), swervePositions)
         robotPose = self.getPose()
 
-        # putSDArray(
-        #     constants.kSwerveActualStatesKey,
-        #     [
-        #         self.frontLeftModule.getSwerveEncoderAngle().radians(),
-        #         self.frontLeftModule.getWheelLinearVelocity(),
-        #         self.frontRightModule.getSwerveEncoderAngle().radians(),
-        #         self.frontRightModule.getWheelLinearVelocity(),
-        #         self.backLeftModule.getSwerveEncoderAngle().radians(),
-        #         self.backLeftModule.getWheelLinearVelocity(),
-        #         self.backRightModule.getSwerveEncoderAngle().radians(),
-        #         self.backRightModule.getWheelLinearVelocity(),
-        #     ],
-        # )
+        self.swerveStatePublisher.set(
+            [
+                self.frontLeftModule.getState(),
+                self.frontRightModule.getState(),
+                self.backLeftModule.getState(),
+                self.backRightModule.getState(),
+            ]
+        )
 
-        robotPoseArray = [robotPose.X(), robotPose.Y(), robotPose.rotation().radians()]
+        # robotPoseArray = [robotPose.X(), robotPose.Y(), robotPose.rotation().radians()]
 
-        putSDArray(constants.kRobotPoseArrayKeys.valueKey, robotPoseArray)
-        # SmartDashboard.putBoolean(constants.kRobotPoseArrayKeys.validKey, True)
+        self.robotPosePublisher.set(robotPose)
+        SmartDashboard.putBoolean(constants.kRobotPoseArrayKeys.validKey, True)
 
         estimatedCameraPoses = self.vision.poseList
         hasTargets = False
@@ -550,14 +571,8 @@ class DriveSubsystem(Subsystem):
         SmartDashboard.putBoolean(
             constants.kRobotVisionPoseArrayKeys.validKey, hasTargets
         )
-        putSDArray(
-            constants.kRobotVisionPoseArrayKeys.valueKey,
-            [
-                self.visionEstimate.X(),
-                self.visionEstimate.Y(),
-                self.visionEstimate.rotation().radians(),
-            ],
-        )
+        self.visionPosePublisher.set(self.visionEstimate)
+
         # curTime = self.printTimer.get()
         # if self.printTimer.hasElapsed(constants.kPrintPeriod):
         #     # DataLogManager.log(
@@ -663,10 +678,7 @@ class DriveSubsystem(Subsystem):
             -self.getRotation(),
         )
 
-        putSDArray(
-            constants.kDriveVelocityKeys,
-            [fieldSpeeds.vx, fieldSpeeds.vy, fieldSpeeds.omega],
-        )
+        self.driveVelocityPublisher.set(fieldSpeeds)
 
         moduleStates = self.kinematics.toSwerveModuleStates(robotChassisSpeeds)
         self.applyStates(moduleStates)
