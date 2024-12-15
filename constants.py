@@ -33,7 +33,6 @@ from wpimath.geometry import (
     Rotation2d,
     Rotation3d,
     Transform3d,
-    Transform2d,
     Translation2d,
 )
 from wpimath.system.plant import DCMotor
@@ -42,8 +41,6 @@ from pathplannerlib.config import (
     PIDConstants,
     ReplanningConfig,
 )
-
-from pathplannerlib.auto import PathConstraints
 
 from util.keyorganization import OptionalValueKeys
 

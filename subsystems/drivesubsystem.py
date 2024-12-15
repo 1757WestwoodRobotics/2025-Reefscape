@@ -22,8 +22,6 @@ from wpimath.geometry import (
     Rotation2d,
     Transform2d,
     Translation2d,
-    Transform3d,
-    Pose3d,
     Twist2d,
 )
 from wpimath.filter import SlewRateLimiter
@@ -246,6 +244,7 @@ class CTRESwerveModule(SwerveModule):
         )
 
 
+# pylint: disable-next=too-many-instance-attributes
 class DriveSubsystem(Subsystem):
     class CoordinateMode(Enum):
         RobotRelative = auto()
@@ -534,13 +533,6 @@ class DriveSubsystem(Subsystem):
                 self.backRightModule.getPosition(),
             ),
             pose,
-        )
-
-    def getClosestWaypoint(self):
-        return (
-            self.getPose().nearest(constants.kWaypointsBlue)
-            if DriverStation.getAlliance() == DriverStation.Alliance.kBlue
-            else self.getPose().nearest(constants.kWaypointsRed)
         )
 
     def periodic(self):

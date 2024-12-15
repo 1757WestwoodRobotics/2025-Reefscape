@@ -170,6 +170,7 @@ class NEOBrushless:
                 return self.fwdLimitGetter.get()
             if switch == NEOBrushless.LimitSwitch.Backwards:
                 return self.bckLimitGetter.get()
+        return False
 
     def setSmartCurrentLimit(self, limit: int = 25) -> None:
         self.motor.setSmartCurrentLimit(limit)
