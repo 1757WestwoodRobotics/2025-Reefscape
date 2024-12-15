@@ -26,6 +26,7 @@ Swerve Module Layout:
 
 import math
 from phoenix6.configs.config_groups import CurrentLimitsConfigs
+from robotpy_apriltag import AprilTagField, AprilTagFieldLayout
 from wpimath.geometry import (
     Pose3d,
     Pose2d,
@@ -227,18 +228,6 @@ kLimelightRelativeToRobotTransform = Transform3d(
 # Photonvision related
 kPhotonvisionCameraName = "camcam"
 kPhotonvisionCameraArray = ["frontLeft", "frontRight", "backLeft", "backRight"]
-
-kPhotonvisionFrontLeftCameraKey = "cameras/frontLeftCamera"
-kPhotonvisionFrontRightCameraKey = "cameras/frontRightCamera"
-kPhotonvisionBackLeftCameraKey = "cameras/backLeftCamera"
-kPhotonvisionBackRightCameraKey = "cameras/backRightCamera"
-
-kPhotonvisionKeyArray = [
-    kPhotonvisionFrontLeftCameraKey,
-    kPhotonvisionFrontRightCameraKey,
-    kPhotonvisionBackLeftCameraKey,
-    kPhotonvisionBackRightCameraKey,
-]
 
 kPhotonvisionNoteCameraKey = "noteCamera"
 kNoteInViewKey = OptionalValueKeys("noteInView")
@@ -484,6 +473,7 @@ kThetaStdDevCoeff = 0.01
 
 kTargetName = "Target"
 
+kApriltagFieldLayout = AprilTagFieldLayout.loadField(AprilTagField.k2024Crescendo)
 kApriltagPositionDict = {  # thanks 6328 for FieldConstants!
     1: Pose3d(
         (kMetersPerInch * 593.68),
