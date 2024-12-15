@@ -1,5 +1,5 @@
 from collections import deque
-from math import hypot, inf, sin, tan, atan
+from math import hypot, inf, sin
 
 # import numpy as np
 
@@ -8,21 +8,15 @@ from ntcore import NetworkTableInstance
 from photonlibpy.photonCamera import PhotonCamera
 from photonlibpy.photonPoseEstimator import PhotonPoseEstimator, PoseStrategy
 from robotpy_apriltag import AprilTagField, AprilTagFieldLayout
-from wpilib import RobotBase, Timer
+from wpilib import Timer
+
 from wpimath.geometry import (
     Transform3d,
     Pose3d,
-    Pose2d,
     Rotation2d,
-    Translation3d,
-    Transform2d,
-    Rotation3d,
 )
 
 import constants
-from util import advantagescopeconvert
-from util.convenientmath import pose3dFrom2d
-from util.getsdarray import getSDArray
 
 
 class EstimatedPose:
@@ -133,6 +127,7 @@ class VisionSubsystem(Subsystem):
                 isMultitag = len(tagsUsed) > 1
 
                 if isMultitag:
+                    # TODO: fix this
                     avgDistance = (
                         botPose.transformBy(camera.robotToCameraTransform)
                         .relativeTo(estimator._fieldTags.getOrigin())

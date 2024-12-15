@@ -3,7 +3,7 @@ from enum import Enum, auto
 from typing import Callable, Tuple
 from commands2.button import Trigger
 from ntcore import NetworkTableInstance
-from wpilib import Joystick, SmartDashboard
+from wpilib import Joystick
 
 
 Axis = Callable[[], float]
@@ -24,7 +24,7 @@ class SmartDashboardButton(Trigger):
         self.key.publish().set(False)
 
         self.get = self.key.subscribe(False)
-        super().__init__(lambda: self.get.get())
+        super().__init__(self.get.get)
 
 
 class ModifiableJoystickButton(Trigger):

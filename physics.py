@@ -9,8 +9,6 @@
 # of your robot code without too much extra effort.
 #
 
-import functools
-import operator
 import typing
 from ntcore import NetworkTableInstance
 from phoenix6.sim.cancoder_sim_state import CANcoderSimState
@@ -29,10 +27,8 @@ import constants
 from robot import MentorBot
 from subsystems.drivesubsystem import DriveSubsystem
 from subsystems.visionsubsystem import VisionSubsystem
-from util.advantagescopeconvert import convertToSendablePoses
-from util.convenientmath import clamp, pointInCircle
+from util.convenientmath import clamp
 from util.motorsimulator import MotorSimulator
-from util.getsdarray import getSDArray
 
 
 class SwerveModuleSim:

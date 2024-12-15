@@ -5,19 +5,18 @@ import commands2
 import commands2.button
 from pathplannerlib.auto import (
     PathPlannerAuto,
-    NamedCommands,
 )
 from commands.drive.absoluterelativedrive import AbsoluteRelativeDrive
 from commands.resetdrive import ResetDrive
 from commands.drivedistance import DriveDistance
 from commands.defensestate import DefenseState
-from commands.drive.drivewaypoint import DriveWaypoint
+# from commands.drive.drivewaypoint import DriveWaypoint
 from subsystems.drivesubsystem import DriveSubsystem
 from subsystems.loggingsubsystem import LoggingSubsystem
 from subsystems.visionsubsystem import VisionSubsystem
 
 from operatorinterface import OperatorInterface
-from util.helpfultriggerwrappers import ModifiableJoystickButton, SmartDashboardButton
+from util.helpfultriggerwrappers import ModifiableJoystickButton
 
 import constants
 
@@ -111,9 +110,9 @@ class RobotContainer:
         #     )
         # )
 
-        ModifiableJoystickButton(self.operatorInterface.alignClosestWaypoint).whileTrue(
-            DriveWaypoint(self.drive)
-        )
+        # ModifiableJoystickButton(self.operatorInterface.alignClosestWaypoint).whileTrue(
+        #     DriveWaypoint(self.drive)
+        # )
 
         ModifiableJoystickButton(self.operatorInterface.resetGyro).onTrue(
             ResetDrive(self.drive, Pose2d(1.37, 5.49, 0))

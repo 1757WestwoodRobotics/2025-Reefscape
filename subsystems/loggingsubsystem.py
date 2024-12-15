@@ -1,19 +1,14 @@
 from functools import reduce
-from math import pi
 from operator import add
 
 from commands2 import Subsystem
 from ntcore import NetworkTableInstance
 from wpilib import PowerDistribution, DriverStation
 
-from wpimath.geometry import Pose2d, Transform3d, Rotation3d
 
 from operatorinterface import OperatorInterface
 
 import constants
-from util import advantagescopeconvert
-from util.convenientmath import map_range, pose3dFrom2d
-from util.getsdarray import getSDArray, putSDArray
 
 
 class LoggingSubsystem(Subsystem):
