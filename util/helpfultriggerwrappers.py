@@ -2,6 +2,7 @@ from enum import Enum, auto
 
 from typing import Callable, Tuple
 from commands2.button import Trigger
+from ntcore import NetworkTableInstance
 from wpilib import Joystick, SmartDashboard
 
 
@@ -19,8 +20,11 @@ class AxisButton(Trigger):
 
 class SmartDashboardButton(Trigger):
     def __init__(self, key: str) -> None:
-        SmartDashboard.putBoolean(key, False)
-        super().__init__(lambda: SmartDashboard.getBoolean(key, False))
+        self.key = NetworkTableInstance.getDefault().getBooleanTopic(key)
+        self.key.publish().set(False)
+
+        self.get = self.key.subscribe(False)
+        super().__init__(lambda: self.get.get())
 
 
 class ModifiableJoystickButton(Trigger):

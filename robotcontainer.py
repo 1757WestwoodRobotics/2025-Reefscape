@@ -90,6 +90,7 @@ class RobotContainer:
 
         wpilib.DataLogManager.start()
         wpilib.DataLogManager.logNetworkTables(True)
+        wpilib.DriverStation.startDataLog(wpilib.DataLogManager.getLog())
         wpilib.DriverStation.silenceJoystickConnectionWarning(True)
 
     def configureButtonBindings(self):

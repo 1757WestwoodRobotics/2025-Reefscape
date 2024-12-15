@@ -1,5 +1,5 @@
 from enum import Enum, auto
-from wpilib import SmartDashboard
+from ntcore import NetworkTableInstance
 from commands2.subsystem import Subsystem
 
 import constants
@@ -16,9 +16,23 @@ class VelocityControl(Subsystem):
         Subsystem.__init__(self)
         self.setName(__class__.__name__)
 
-        SmartDashboard.putNumber(constants.kVelocitySetpoint1ControlKey, 0)
-        SmartDashboard.putNumber(constants.kVelocitySetpoint2ControlKey, 0)
-        SmartDashboard.putNumber(constants.kVelocityControlGearRatio, 1)
+        self.setpoint1 = NetworkTableInstance.getDefault().getDoubleTopic(
+            constants.kVelocitySetpoint1ControlKey
+        )
+        self.setpoint2 = NetworkTableInstance.getDefault().getDoubleTopic(
+            constants.kVelocitySetpoint2ControlKey
+        )
+        self.gearratio = NetworkTableInstance.getDefault().getDoubleTopic(
+            constants.kVelocityControlGearRatio
+        )
+
+        self.setpoint1.publish().set(0)
+        self.setpoint2.publish().set(0)
+        self.gearratio.publish().set(1)
+
+        self.setpoint1getter = self.setpoint1.subscribe(0)
+        self.setpoint2getter = self.setpoint2.subscribe(0)
+        self.gearratiogetter = self.gearratio.subscribe(1)
 
         self.motor = Talon(
             constants.kVelocityControlCANId,
@@ -39,14 +53,12 @@ class VelocityControl(Subsystem):
         elif self.state == VelocityControl.ControlState.Setpoint1:
             self.motor.set(
                 Talon.ControlMode.Velocity,
-                SmartDashboard.getNumber(constants.kVelocitySetpoint1ControlKey, 0)
-                / SmartDashboard.getNumber(constants.kVelocityControlGearRatio, 1),
+                self.setpoint1getter.get() / self.gearratiogetter.get(),
             )
         elif self.state == VelocityControl.ControlState.Setpoint2:
             self.motor.set(
                 Talon.ControlMode.Velocity,
-                SmartDashboard.getNumber(constants.kVelocitySetpoint2ControlKey, 0)
-                / SmartDashboard.getNumber(constants.kVelocityControlGearRatio, 1),
+                self.setpoint2getter.get() / self.gearratiogetter.get(),
             )
 
     def setState(self, state: ControlState) -> None:

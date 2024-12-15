@@ -4,10 +4,10 @@ from math import hypot, inf, sin, tan, atan
 # import numpy as np
 
 from commands2 import Subsystem
+from ntcore import NetworkTableInstance
 from photonlibpy.photonCamera import PhotonCamera
 from photonlibpy.photonPoseEstimator import PhotonPoseEstimator, PoseStrategy
 from robotpy_apriltag import AprilTagField, AprilTagFieldLayout
-from wpilib import SmartDashboard
 from wpilib import RobotBase, Timer
 from wpimath.geometry import (
     Transform3d,
@@ -22,7 +22,7 @@ from wpimath.geometry import (
 import constants
 from util import advantagescopeconvert
 from util.convenientmath import pose3dFrom2d
-from util.getsdarray import getSDArray, putSDArray
+from util.getsdarray import getSDArray
 
 
 class EstimatedPose:
@@ -45,7 +45,11 @@ class VisionCamera:  # hi its landon here
         self.camera = camera
         self.name = camera.getName()
 
-        self.key = f"cameras/{self.name}Camera"
+        self.key = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic(f"cameras/{self.name}Camera", Pose3d)
+            .publish()
+        )
 
         self.robotToCameraTransform = robotToCameraTransform
         self.cameraToRobotTransform = robotToCameraTransform.inverse()
@@ -80,6 +84,33 @@ class VisionSubsystem(Subsystem):
         self.poseList = deque([])
 
         self.dRobotAngle = Rotation2d()
+
+        self.robotToTagPose = (
+            NetworkTableInstance.getDefault()
+            .getStructArrayTopic(constants.kRobotToTagPoseKey, Pose3d)
+            .publish()
+        )
+        self.idPublisher = (
+            NetworkTableInstance.getDefault()
+            .getIntegerArrayTopic(constants.kRobotToTagIdKey)
+            .publish()
+        )
+        self.ambiguityPublisher = (
+            NetworkTableInstance.getDefault()
+            .getDoubleArrayTopic(constants.kRobotToTagAmbiguityKey)
+            .publish()
+        )
+
+        # self.visionPoseGetter = (
+        #     NetworkTableInstance.getDefault()
+        #     .getStructTopic(constants.kRobotVisionPoseArrayKeys.valueKey, Pose2d)
+        #     .subscribe(Pose2d())
+        # )
+        # self.robotPoseGetter = (
+        #     NetworkTableInstance.getDefault()
+        #     .getStructTopic(constants.kRobotPoseArrayKeys.valueKey, Pose2d)
+        #     .subscribe(Pose2d())
+        # )
         # if RobotBase.isSimulation():
         #     inst = NetworkTableInstance.getDefault()
         #     inst.stopServer()
@@ -87,10 +118,7 @@ class VisionSubsystem(Subsystem):
         #     inst.startClient4("Robot Sim")
 
     def periodic(self) -> None:
-        visionPose = getSDArray(constants.kRobotVisionPoseArrayKeys.valueKey, [0, 0, 0])
-        robotPose = getSDArray(constants.kRobotPoseArrayKeys.valueKey, [0, 0, 0])
 
-        combinedPose = pose3dFrom2d(Pose2d(visionPose[0], visionPose[1], robotPose[2]))
         self.robotToTags = []
         for camera, estimator in zip(self.cameras, self.estimators):
 
@@ -105,18 +133,20 @@ class VisionSubsystem(Subsystem):
                 isMultitag = len(tagsUsed) > 1
 
                 if isMultitag:
-                    avgDistance = botPose.transformBy(
-                        camera.robotToCameraTransform
-                    ).relativeTo(estimator._fieldTags.getOrigin()).translation().norm()
+                    avgDistance = (
+                        botPose.transformBy(camera.robotToCameraTransform)
+                        .relativeTo(estimator._fieldTags.getOrigin())
+                        .translation()
+                        .norm()
+                    )
                 else:
                     bestTarget = camResult.getBestTarget()
                     assert bestTarget is not None
-                    avgDistance = bestTarget.getBestCameraToTarget().translation().norm()
+                    avgDistance = (
+                        bestTarget.getBestCameraToTarget().translation().norm()
+                    )
 
-
-                VisionSubsystem.updateAdvantagescopePose(
-                    botPose, camera.key, combinedPose, camera.cameraToRobotTransform
-                )
+                camera.key.set(botPose + camera.cameraToRobotTransform.inverse())
 
                 xyStdDev = (
                     constants.kXyStdDevCoeff
@@ -145,22 +175,9 @@ class VisionSubsystem(Subsystem):
         if len(self.robotToTags) > 0:
             poses, ids, ambiguitys = list(zip(*self.robotToTags))
 
-            poses3d = advantagescopeconvert.convertToSendablePoses(poses)
-            putSDArray(constants.kRobotToTagPoseKey, poses3d)
-            putSDArray(constants.kRobotToTagIdKey, ids)
-            putSDArray(constants.kRobotToTagAmbiguityKey, ambiguitys)
-
-    @staticmethod
-    def updateAdvantagescopePose(
-        cameraPose3d: Pose3d,
-        cameraKey: str,
-        botPose: Pose3d,
-        cameraToRobotTransform: Transform3d,
-    ) -> None:
-        cameraPose = advantagescopeconvert.convertToSendablePoses(
-            [cameraPose3d, botPose + cameraToRobotTransform.inverse()]
-        )
-        putSDArray(cameraKey, cameraPose)
+            self.robotToTagPose.set(poses)
+            self.idPublisher.set(ids)
+            self.ambiguityPublisher.set(ambiguitys)
 
 
 class CameraTargetRelation:
