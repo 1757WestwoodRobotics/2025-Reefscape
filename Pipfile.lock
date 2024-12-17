@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b71a1c04c881174878b193138d7eca581ebcdccd04d5e41de62d97529362c42f"
+            "sha256": "5b20590b753acdd158230c0d6bd77f535a770d3f2dda4f8f93c83f35948c300e"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -522,6 +522,14 @@
             "markers": "python_version >= '3.8'",
             "version": "==2024.0.0"
         },
+        "robotpy-commands-v2": {
+            "hashes": [
+                "sha256:8865f418e86855b69b794b4428b3c538e5848192f0b7939b3a8f37020dc9c57f",
+                "sha256:d186ce4be4ed3eff8a93b3b9689efaaf47b0a3b7cd8d6488572e6cb4944f6f03"
+            ],
+            "markers": "python_version >= '3.9'",
+            "version": "==2025.0.0b1"
+        },
         "robotpy-cscore": {
             "hashes": [
                 "sha256:07e2a1c7c05db4d6967d9eac343e95baacd49423872ae1c39a5109acfb62c93d",
@@ -592,6 +600,15 @@
             ],
             "markers": "platform_machine != 'roborio' and platform_machine != 'armv7l' and platform_machine != 'aarch64'",
             "version": "==2025.0.0b3"
+        },
+        "robotpy-pathplannerlib": {
+            "hashes": [
+                "sha256:5351e2a67cf42113b23d6d0a4a6fab862b4aed020cf74d8b9c15e5a0fda68da9",
+                "sha256:e0da5d49011c02765fc2d9fae38ba296942cd66b4274cf6e24cd0280bd3e41cd"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.8'",
+            "version": "==2025.0.0b5"
         },
         "robotpy-wpilib-utilities": {
             "hashes": [
