@@ -6,6 +6,8 @@ from typing import Tuple
 import typing
 from commands2 import Subsystem
 from ntcore import NetworkTableInstance
+from pathplannerlib.path import DriveFeedforwards, RobotConfig
+from pathplannerlib.controller import PPHolonomicDriveController
 from phoenix6.configs.pigeon2_configs import Pigeon2Configuration
 from phoenix6.hardware.pigeon2 import Pigeon2
 from phoenix6.sim.cancoder_sim_state import CANcoderSimState
@@ -365,15 +367,20 @@ class DriveSubsystem(Subsystem):
 
         self.pastTime = self.printTimer.get()
 
-        AutoBuilder.configureHolonomic(
+        self.config = RobotConfig.fromGUISettings()
+
+        AutoBuilder.configure(
             self.getPose,
             self.resetDriveAtPosition,
             self.getRobotRelativeSpeeds,
-            partial(
-                self.arcadeDriveWithSpeeds,
-                coordinateMode=DriveSubsystem.CoordinateMode.RobotRelative,
+            self.drivePathPlanned,
+            PPHolonomicDriveController(
+                constants.kPathFollowingTranslationConstants,
+                constants.kPathFollowingRotationConstants
             ),
-            constants.kPathFollowingConfig,
+            #controller
+            self.config,
+            #robot_config
             (lambda: DriverStation.getAlliance() == DriverStation.Alliance.kRed),
             self,
         )
@@ -648,6 +655,10 @@ class DriveSubsystem(Subsystem):
 
         self.arcadeDriveWithSpeeds(chassisSpeeds, coordinateMode)
 
+    def drivePathPlanned(
+        self, chassisSpeeds: ChassisSpeeds, feedForward: DriveFeedforwards
+    ):
+        return self.arcadeDriveWithSpeeds(chassisSpeeds, DriveSubsystem.CoordinateMode.RobotRelative)
     def arcadeDriveWithSpeeds(
         self, chassisSpeeds: ChassisSpeeds, coordinateMode: CoordinateMode
     ) -> None:
