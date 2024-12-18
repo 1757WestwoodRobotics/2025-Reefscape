@@ -137,7 +137,7 @@ class Talon:
         ff: float = 0,
         duty_cycle: bool = True,
     ) -> None:
-        self.updateDashboard()
+        # self.updateDashboard()
 
         self._mainTable.putNumber("target", demand)
         c = None
@@ -215,7 +215,7 @@ class Talon:
         return False
 
     def get(self, controlMode: ControlMode) -> float:
-        self.updateDashboard()
+        # self.updateDashboard()
 
         if controlMode == Talon.ControlMode.Position:
             return self.positionSignal.value
