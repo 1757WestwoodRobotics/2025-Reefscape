@@ -1,7 +1,6 @@
 from phoenix6.hardware.cancoder import CANcoder
 from phoenix6.configs.cancoder_configs import CANcoderConfiguration
 from phoenix6.configs.config_groups import MagnetSensorConfigs
-from phoenix6.signals.spn_enums import AbsoluteSensorRangeValue
 from phoenix6.sim.cancoder_sim_state import CANcoderSimState
 from wpilib import DataLogManager
 from wpimath.geometry import Rotation2d
@@ -14,9 +13,10 @@ class CTREEncoder:
         self.encoder = CANcoder(canId, canbus)
         self.offset = offset
 
+        # not sure if this change is functionally the same
         config = CANcoderConfiguration().with_magnet_sensor(
             MagnetSensorConfigs()
-            .with_absolute_sensor_range(AbsoluteSensorRangeValue.SIGNED_PLUS_MINUS_HALF)
+            .with_absolute_sensor_discontinuity_point(0.5)
             .with_magnet_offset(-1 * self.offset)
         )
         DataLogManager.log(f"Encoder {canId} initialized")

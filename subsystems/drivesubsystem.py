@@ -1,13 +1,14 @@
 from enum import Enum, auto
-from functools import partial
 
 from math import sqrt
 from typing import Tuple
 import typing
 from commands2 import Subsystem
 from ntcore import NetworkTableInstance
-from pathplannerlib.path import DriveFeedforwards, RobotConfig
+from pathplannerlib.path import RobotConfig
 from pathplannerlib.controller import PPHolonomicDriveController
+from pathplannerlib.auto import AutoBuilder
+
 from phoenix6.configs.pigeon2_configs import Pigeon2Configuration
 from phoenix6.hardware.pigeon2 import Pigeon2
 from phoenix6.sim.cancoder_sim_state import CANcoderSimState
@@ -35,8 +36,6 @@ from wpimath.kinematics import (
     SwerveModulePosition,
 )
 from wpimath.interpolation import TimeInterpolatablePose2dBuffer
-
-from pathplannerlib.auto import AutoBuilder
 
 import constants
 from util import convenientmath
@@ -376,11 +375,11 @@ class DriveSubsystem(Subsystem):
             self.drivePathPlanned,
             PPHolonomicDriveController(
                 constants.kPathFollowingTranslationConstants,
-                constants.kPathFollowingRotationConstants
+                constants.kPathFollowingRotationConstants,
             ),
-            #controller
+            # controller
             self.config,
-            #robot_config
+            # robot_config
             (lambda: DriverStation.getAlliance() == DriverStation.Alliance.kRed),
             self,
         )
@@ -655,10 +654,11 @@ class DriveSubsystem(Subsystem):
 
         self.arcadeDriveWithSpeeds(chassisSpeeds, coordinateMode)
 
-    def drivePathPlanned(
-        self, chassisSpeeds: ChassisSpeeds, feedForward: DriveFeedforwards
-    ):
-        return self.arcadeDriveWithSpeeds(chassisSpeeds, DriveSubsystem.CoordinateMode.RobotRelative)
+    def drivePathPlanned(self, chassisSpeeds: ChassisSpeeds):
+        return self.arcadeDriveWithSpeeds(
+            chassisSpeeds, DriveSubsystem.CoordinateMode.RobotRelative
+        )
+
     def arcadeDriveWithSpeeds(
         self, chassisSpeeds: ChassisSpeeds, coordinateMode: CoordinateMode
     ) -> None:
