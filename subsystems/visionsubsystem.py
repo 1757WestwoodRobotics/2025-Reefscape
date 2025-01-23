@@ -128,7 +128,7 @@ class VisionSubsystem(Subsystem):
 
                 if isMultitag:
                     # definitelynotTODO: fix this
-                    # pylint:disable-next=protected-access
+                    # pylint:disable=protected-access
                     avgDistance = (
                         botPose.transformBy(camera.robotToCameraTransform)
                         .relativeTo(estimator._fieldTags.getOrigin())
