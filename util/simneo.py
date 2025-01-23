@@ -1,6 +1,6 @@
 from enum import Enum, auto
 from ntcore import NetworkTableInstance
-from rev import CANSparkFlex, REVLibError, SparkMaxLimitSwitch
+from rev import SparkFlex, REVLibError, LimitSwitchConfig
 from wpilib._wpilib import RobotBase
 
 
@@ -37,12 +37,12 @@ class NEOBrushless:
         isInverted: bool = False,
         kV: float = 0,
         enableLimitSwitches: bool = True,
-        limitSwitchPolarity: SparkMaxLimitSwitch.Type = SparkMaxLimitSwitch.Type.kNormallyOpen,
+        limitSwitchPolarity: LimitSwitchConfig.Type = LimitSwitchConfig.Type.kNormallyOpen,
     ):
         print(f"Init Spark FLEX with port {canID} with name {name}")
         self.name = name
         self.id = canID
-        self.motor = CANSparkFlex(canID, CANSparkFlex.MotorType.kBrushless)
+        self.motor = SparkFlex(canID, SparkFlex.MotorType.kBrushless)
         self.controller = self.motor.getPIDController()
         self.encoder = self.motor.getEncoder()
         self.forwardSwitch = self.motor.getForwardLimitSwitch(limitSwitchPolarity)
@@ -123,14 +123,14 @@ class NEOBrushless:
         """input is in rotations or rpm"""
         if controlMode == NEOBrushless.ControlMode.Velocity:
             self.controller.setReference(
-                demand, CANSparkFlex.ControlType.kVelocity, slot, arbFeedforward=ff
+                demand, SparkFlex.ControlType.kVelocity, slot, arbFeedforward=ff
             )
         elif controlMode == NEOBrushless.ControlMode.Position:
             self.controller.setReference(
-                demand, CANSparkFlex.ControlType.kPosition, slot, arbFeedforward=ff
+                demand, SparkFlex.ControlType.kPosition, slot, arbFeedforward=ff
             )
         elif controlMode == NEOBrushless.ControlMode.Percent:
-            # self.controller.setReference(demand, CANSparkFlex.ControlType.kDutyCycle)
+            # self.controller.setReference(demand, SparkFlex.ControlType.kDutyCycle)
             self.motor.setVoltage(demand * 12)
 
     def get(self, controlMode: ControlMode) -> float:
@@ -144,9 +144,9 @@ class NEOBrushless:
 
     def setNeutralOutput(self, output: NeutralMode) -> None:
         self.motor.setIdleMode(
-            CANSparkFlex.IdleMode.kBrake
+            SparkFlex.IdleMode.kBrake
             if output == NEOBrushless.NeutralMode.Brake
-            else CANSparkFlex.IdleMode.kCoast
+            else SparkFlex.IdleMode.kCoast
         )
 
     def enableLimitSwitch(self, switch: LimitSwitch, enable: bool):
