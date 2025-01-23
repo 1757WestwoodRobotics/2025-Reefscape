@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "5b20590b753acdd158230c0d6bd77f535a770d3f2dda4f8f93c83f35948c300e"
+            "sha256": "40258d44ae4d9ecc9365ff3cb425660ca4568c422c2bd8b27cfb30e4c5b542da"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -370,6 +370,18 @@
             "markers": "python_version >= '3.8'",
             "version": "==0.12.1"
         },
+        "phoenix6": {
+            "hashes": [
+                "sha256:5d3799d4c70f1c72276dbb6dd45ddc128e2010cab8cb70fe95c24ad30b27ed3c",
+                "sha256:5e492103f5ca429c71c74427b0f37eb9459e6b551bbe57b88a9ccdc75d330fe3",
+                "sha256:720de9d060bb061dbeb68c60f3eed545d9e8ae3cd6b510be05b626c5a40badde",
+                "sha256:8daf243283e42f9ddc04da22092318a2d8b834bc3fe9d968dd71bac6eade3ae0",
+                "sha256:d194d5ab36e2bcad8fd0b3d787dbf4e4eb03e62df4eb7bc4fbeeb86a712aa2c7"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.10' and python_version < '4'",
+            "version": "==25.2.1"
+        },
         "photonlibpy": {
             "hashes": [
                 "sha256:9ed8d1404f361398bf572bf720d0132c97736fe209bf28bab10fc77baae4544c",
@@ -688,6 +700,14 @@
             ],
             "markers": "python_version >= '3.8'",
             "version": "==2025.0.0b2"
+        },
+        "setuptools": {
+            "hashes": [
+                "sha256:c5afc8f407c626b8313a86e10311dd3f661c6cd9c09d4bf8c15c0e11f9f2b0e6",
+                "sha256:e3982f444617239225d675215d51f6ba05f845d4eec313da4418fdbb56fb27e3"
+            ],
+            "markers": "python_version >= '3.9'",
+            "version": "==75.8.0"
         },
         "tomli": {
             "hashes": [
