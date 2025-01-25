@@ -64,6 +64,16 @@ class ElevatorSubsystem(Subsystem):
             .getBooleanTopic(constants.kElevatorAtPositionKey)
             .publish()
         )
+        self.elevatorFudgePublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kElevatorFudgeKey)
+            .publish()
+        )
+        self.elevatorFudgeGetter = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kElevatorFudgeKey)
+            .subscribe(0)
+        )
 
     def periodic(self) -> None:
         if self.state == self.ElevatorState.L4Position:
@@ -86,7 +96,7 @@ class ElevatorSubsystem(Subsystem):
         self.elevatorAtPositionPublisher.set(self.atPosition())
 
     def setElevatorMotorsAtPosition(self, beltPosition) -> None:
-        self.targetPosition = beltPosition
+        self.targetPosition = beltPosition + self.elevatorFudgeGetter.get()
         self.elevatorMotor1.set(
             Talon.ControlMode.MotionMagic,
             clamp(
