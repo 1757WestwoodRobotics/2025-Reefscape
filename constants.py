@@ -751,3 +751,37 @@ kVelocityControlDGain = 0
 
 kVelocityControlMotorType = DCMotor.falcon500()
 kVelocityControlkV = 0.01
+
+# taken from last year, update when cad finished
+kIntakeCANID = 25
+kIntakeName = "IntakeMotor"
+kIntakePGain = 0.8
+kIntakeIGain = 0
+kIntakeDGain = 0
+kIntakeKv = 0.00200  # stolen from shooter :)
+kIntakeKs = 0.33329
+
+kPivotCANID = 19
+kPivotName = "PivotMotor"
+kPivotPGain = 0.9
+kPivotIGain = 0
+kPivotDGain = 0
+
+kPivotAccel = 400
+kPivotVel = 150
+
+kPivotGearRatio = (4 / 1) * (50 / 16) * (84 / 16)
+
+kIntakeInverted = True
+kPivotInverted = False
+
+kPivotEncoderID = 46
+kPivotEncoderOffset = 0.363525 - 0.25
+
+kIntakeMotorSpeed = 0.25
+
+kIntakingAngle = Rotation2d.fromDegrees(261.043551)
+kScoreAngle = Rotation2d.fromDegrees(77.160502)
+kKnockAngle = Rotation2d(0)
+
+kIntakeAtPositionKey = "intake/atPosition"
