@@ -751,3 +751,41 @@ kVelocityControlDGain = 0
 
 kVelocityControlMotorType = DCMotor.falcon500()
 kVelocityControlkV = 0.01
+
+# constants copied from last year, update when cad is done
+kElevator1CANID = 55
+kElevator1Name = "Elevator1Motor"
+kElevator1PGain = 0.9
+kElevator1IGain = 0
+kElevator1DGain = 0
+kElevator1Inverted = True
+
+kElevatorMaxAccel = 390
+kElevatorMaxVel = 300
+
+kElevator2CANID = 56
+kElevator2Name = "Elevator2Motor"
+kElevator2PGain = 0.12
+kElevator2IGain = 0
+kElevator2DGain = 0
+kElevator2Inverted = False
+
+kElevatorTolerance = 0.05
+
+kMotorPulleyGearRatio = 60 / 18 * 4 / 1
+
+kPulleyGearPitchDiameter = 1.504 * kMetersPerInch
+"""meters"""
+
+kElevatorPositionKey = "elevator/position"
+kElevatorStateKey = "elevator/state"
+kElevatorAtPositionKey = "elevator/atPosition"
+
+# taken from cad
+kL4PositionBeltPosition = 52.75 * kMetersPerInch
+kL3PositionBeltPosition = 27.5 * kMetersPerInch
+kL2PositionBeltPosition = 11 * kMetersPerInch
+kL1PositionBeltPosition = 0 * kMetersPerInch
+kIntakePositionBeltPosition = 39.5 * kMetersPerInch
+kAlgaeLowBeltPosition = 15.5 * kMetersPerInch
+kAlgaeHighBeltPosition = 31.5 * kMetersPerInch
