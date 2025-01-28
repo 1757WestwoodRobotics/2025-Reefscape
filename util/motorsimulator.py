@@ -1,6 +1,7 @@
 from typing import List
 from phoenix6.sim.talon_fx_sim_state import TalonFXSimState
-from wpimath.system.plant import DCMotor
+from wpimath.system.plant import DCMotor, LinearSystemId
+from wpimath.system import LinearSystem_2_1_2
 from wpilib.simulation import DCMotorSim
 
 from util.simtalon import Talon
@@ -22,7 +23,9 @@ class SimTalon:
         self.gearing = gearing
         self.motortype = motortype
         self.inertia = inertia
-        self.sim = DCMotorSim(self.motortype, self.gearing, self.inertia)
+        self.sim = DCMotorSim(
+            LinearSystemId.DCMotorSystem(motortype, inertia, gearing), self.motortype
+        )
         self.simstate = sim
 
 

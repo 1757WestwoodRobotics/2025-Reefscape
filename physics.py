@@ -305,6 +305,16 @@ class PhysicsEngine:
         self.sim_initialized = False
 
         self.motorsim = MotorSimulator()
+        self.motorsim.addFalcon(
+            robot.container.elevator.elevatorMotor1,
+            1,
+            constants.kSimulationRotationalInertia,
+        )
+        self.motorsim.addFalcon(
+            robot.container.elevator.elevatorMotor2,
+            1,
+            constants.kSimulationRotationalInertia,
+        )
 
         self.fieldSimTargetPublisher = (
             NetworkTableInstance.getDefault()
