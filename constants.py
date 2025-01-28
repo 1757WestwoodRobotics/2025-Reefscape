@@ -780,6 +780,7 @@ kPulleyGearPitchDiameter = 1.504 * kMetersPerInch
 kElevatorPositionKey = "elevator/position"
 kElevatorStateKey = "elevator/state"
 kElevatorAtPositionKey = "elevator/atPosition"
+kElevatorFudgeKey = "elevator/fudge"
 
 # taken from cad
 kL4PositionBeltPosition = 52.75 * kMetersPerInch
