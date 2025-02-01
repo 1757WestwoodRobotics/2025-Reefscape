@@ -785,3 +785,16 @@ kScoreAngle = Rotation2d.fromDegrees(77.160502)
 kKnockAngle = Rotation2d(0)
 
 kIntakeAtPositionKey = "intake/atPosition"
+kPivotAngleKey = "intake/pivotAngle"
+kIntakeStateKey = "intake/state"
+
+kIntakeCurrentLimit = (
+    CurrentLimitsConfigs()
+    .with_stator_current_limit(80)
+    .with_stator_current_limit_enable(True)
+    .with_supply_current_limit(80)
+    .with_supply_current_limit_enable(True)
+)
+
+kIntakeRealZero = -0.25
+kIntakePivotTolerance = 0.1  # radians

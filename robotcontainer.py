@@ -10,11 +10,18 @@ from commands.drive.absoluterelativedrive import AbsoluteRelativeDrive
 from commands.resetdrive import ResetDrive
 from commands.drivedistance import DriveDistance
 from commands.defensestate import DefenseState
+from commands.intakesetting import (
+    IntakeCoral,
+    IntakeKnock,
+    IntakePrepScore,
+    IntakeScoring,
+)
 
 # from commands.drive.drivewaypoint import DriveWaypoint
 from subsystems.drivesubsystem import DriveSubsystem
 from subsystems.loggingsubsystem import LoggingSubsystem
 from subsystems.visionsubsystem import VisionSubsystem
+from subsystems.intakesubsystem import IntakeSubsystem
 
 from operatorinterface import OperatorInterface
 from util.helpfultriggerwrappers import ModifiableJoystickButton
@@ -38,7 +45,7 @@ class RobotContainer:
         self.vision = VisionSubsystem()
         self.drive = DriveSubsystem(self.vision)
         self.log = LoggingSubsystem(self.operatorInterface)
-
+        self.intake = IntakeSubsystem()
         # Robot demo subsystems
         # self.velocity = VelocityControl()
 
@@ -88,6 +95,8 @@ class RobotContainer:
             )
         )
 
+        self.intake.setDefaultCommand(IntakePrepScore(self.intake))
+
         wpilib.DataLogManager.start()
         wpilib.DataLogManager.logNetworkTables(True)
         wpilib.DriverStation.startDataLog(wpilib.DataLogManager.getLog())
@@ -121,6 +130,16 @@ class RobotContainer:
 
         ModifiableJoystickButton(self.operatorInterface.defenseStateControl).whileTrue(
             DefenseState(self.drive)
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.intakeCoral).whileTrue(
+            IntakeCoral(self.intake).repeatedly()
+        )
+        ModifiableJoystickButton(self.operatorInterface.intakeKnock).whileTrue(
+            IntakeKnock(self.intake).repeatedly()
+        )
+        ModifiableJoystickButton(self.operatorInterface.intakeScoring).whileTrue(
+            IntakeScoring(self.intake).repeatedly()
         )
 
     def getAutonomousCommand(self) -> commands2.Command:
