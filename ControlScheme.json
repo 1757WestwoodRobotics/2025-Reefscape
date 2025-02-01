@@ -82,5 +82,26 @@
       "Button": 3
     },
     "placeholder"
+  ],
+  "intakeScoring": [
+    1,
+    {
+      "Button": 11
+    },
+    "placeholder"
+  ],
+  "intakeKnock": [
+    1,
+    {
+      "Button": 12
+    },
+    "placeholder"
+  ],
+  "intakeCoral": [
+    1,
+    {
+      "Button": 13
+    },
+    "placeholder"
   ]
 }

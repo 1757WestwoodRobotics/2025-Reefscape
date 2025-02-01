@@ -1,5 +1,6 @@
 from enum import Enum, auto
 from commands2 import Subsystem
+from wpilib import RobotBase
 from wpimath.geometry import Rotation2d
 from util.simtalon import Talon
 from util.simcoder import CTREEncoder
@@ -32,7 +33,7 @@ class IntakeSubsystem(Subsystem):
             constants.kIntakeDGain,
             constants.kIntakeInverted,
         )
-        self.intakeMotor.setCurrentLimit(80)
+        self.intakeMotor.setCurrentLimit(constants.kIntakeCurrentLimit)
         self.pivotMotor = Talon(
             constants.kPivotCANID,
             constants.kPivotName,
@@ -55,6 +56,16 @@ class IntakeSubsystem(Subsystem):
             .getBooleanTopic(constants.kIntakeAtPositionKey)
             .publish()
         )
+        self.pivotAnglePublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kPivotAngleKey)
+            .publish()
+        )
+        self.intakeStatePublisher = (
+            NetworkTableInstance.getDefault()
+            .getStringTopic(constants.kIntakeStateKey)
+            .publish()
+        )
 
     def periodic(self) -> None:
         # a lot simpler when there isn't a convoluted intake sequence
@@ -74,6 +85,13 @@ class IntakeSubsystem(Subsystem):
             self.intakeMotor.set(Talon.ControlMode.Percent, 0)
 
         self.intakeAtPositionPublisher.set(self.intakeAtPosition())
+        self.intakeStatePublisher.set(str(self.state))
+        if RobotBase.isSimulation():
+            self.pivotAnglePublisher.set(self.getPivotAngle())
+        else:
+            self.pivotAnglePublisher.set(
+                intakeAccountForSillyEncoder(self.pivotEncoder.getPosition().radians())
+            )
 
     def resetPivot(self) -> None:
         encoderInRadians = intakeAccountForSillyEncoder(
@@ -107,3 +125,15 @@ class IntakeSubsystem(Subsystem):
             abs(self.targetAngle.radians() - self.getPivotAngle())
             < constants.kIntakePivotTolerance
         )
+
+    def setIntaking(self) -> None:
+        self.state = self.IntakeState.Intaking
+
+    def setScore(self) -> None:
+        self.state = self.IntakeState.Score
+
+    def setScoring(self) -> None:
+        self.state = self.IntakeState.Scoring
+
+    def setKnock(self) -> None:
+        self.state = self.IntakeState.Knock
