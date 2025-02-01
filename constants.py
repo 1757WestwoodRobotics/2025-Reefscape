@@ -776,7 +776,7 @@ kIntakeInverted = True
 kPivotInverted = False
 
 kPivotEncoderID = 46
-kPivotEncoderOffset = 0.363525 - 0.25
+kPivotEncoderOffset = 0
 
 kIntakeMotorSpeed = 0.25
 
@@ -796,5 +796,5 @@ kIntakeCurrentLimit = (
     .with_supply_current_limit_enable(True)
 )
 
-kIntakeRealZero = -0.25
+kIntakeRealZero = 0
 kIntakePivotTolerance = 0.1  # radians
