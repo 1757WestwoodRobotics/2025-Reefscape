@@ -774,7 +774,7 @@ kElevatorTolerance = 0.05
 
 kMotorPulleyGearRatio = (60 / 18) * (60 / 18)
 
-kPulleyGearPitchDiameter = 1.504 * kMetersPerInch
+kPulleyGearPitchDiameter = 0.0572957795
 """meters"""
 
 kElevatorPositionKey = "elevator/position"
