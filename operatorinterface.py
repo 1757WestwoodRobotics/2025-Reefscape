@@ -151,6 +151,14 @@ class OperatorInterface:
         self.velocitySetpoint1 = getButtonBindingOfName("setpoint1velocity")
         self.velocitySetpoint2 = getButtonBindingOfName("setpoint2velocity")
 
+        self.elevatorL1 = getButtonBindingOfName("elevatorL1")
+        self.elevatorL2 = getButtonBindingOfName("elevatorL2")
+        self.elevatorL3 = getButtonBindingOfName("elevatorL3")
+        self.elevatorL4 = getButtonBindingOfName("elevatorL4")
+        self.elevatorAlgaeLow = getButtonBindingOfName("elevatorAlgaeLow")
+        self.elevatorAlgaeHigh = getButtonBindingOfName("elevatorAlgaeHigh")
+        self.elevatorL1Toggle = getButtonBindingOfName("elevatorL1Toggle")
+
         self.chassisControls = HolonomicInput(
             SignSquare(
                 Invert(

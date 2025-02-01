@@ -772,7 +772,7 @@ kElevator2Inverted = False
 
 kElevatorTolerance = 0.05
 
-kMotorPulleyGearRatio = 60 / 18 * 4 / 1
+kMotorPulleyGearRatio = (60 / 18) * (60 / 18)
 
 kPulleyGearPitchDiameter = 1.504 * kMetersPerInch
 """meters"""
@@ -781,6 +781,7 @@ kElevatorPositionKey = "elevator/position"
 kElevatorStateKey = "elevator/state"
 kElevatorAtPositionKey = "elevator/atPosition"
 kElevatorFudgeKey = "elevator/fudge"
+kElevatorPoseKey = "elevator/pose"
 
 # taken from cad
 kL4PositionBeltPosition = 52.75 * kMetersPerInch
@@ -792,3 +793,7 @@ kAlgaeLowBeltPosition = 15.5 * kMetersPerInch
 kAlgaeHighBeltPosition = 31.5 * kMetersPerInch
 
 kElevatorFudgeAmount = 1 * kMetersPerInch
+
+kRobotToElevatorTransform = Transform3d(
+    0, -5.5 * kMetersPerInch, 11.35 * kMetersPerInch, Rotation3d()
+)
