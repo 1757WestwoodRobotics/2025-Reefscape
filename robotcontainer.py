@@ -3,13 +3,20 @@ import wpilib
 from wpimath.geometry import Pose2d
 import commands2
 import commands2.button
-from pathplannerlib.auto import (
-    PathPlannerAuto,
-)
+from pathplannerlib.auto import PathPlannerAuto, NamedCommands
 from commands.drive.absoluterelativedrive import AbsoluteRelativeDrive
 from commands.resetdrive import ResetDrive
 from commands.drivedistance import DriveDistance
 from commands.defensestate import DefenseState
+from commands.elevatorsetting import (
+    ElevatorIntakePosition,
+    ElevatorL1Position,
+    ElevatorL2Position,
+    ElevatorL3Position,
+    ElevatorL4Position,
+    ElevatorAlgaeHigh,
+    ElevatorAlgaeLow,
+)
 
 # from commands.drive.drivewaypoint import DriveWaypoint
 from subsystems.drivesubsystem import DriveSubsystem
@@ -62,6 +69,16 @@ class RobotContainer:
         self.chooser = wpilib.SendableChooser()
 
         # Add commands to the autonomous command chooser
+        NamedCommands.registerCommand("elevatorL1", ElevatorL1Position(self.elevator))
+        NamedCommands.registerCommand("elevatorL2", ElevatorL2Position(self.elevator))
+        NamedCommands.registerCommand("elevatorL3", ElevatorL3Position(self.elevator))
+        NamedCommands.registerCommand("elevatorL4", ElevatorL4Position(self.elevator))
+        NamedCommands.registerCommand(
+            "elevatorAlgaeLow", ElevatorAlgaeLow(self.elevator)
+        )
+        NamedCommands.registerCommand(
+            "elevatorAlgaeHigh", ElevatorAlgaeHigh(self.elevator)
+        )
 
         pathsPath = os.path.join(wpilib.getDeployDirectory(), "pathplanner", "autos")
         for file in os.listdir(pathsPath):
@@ -89,6 +106,7 @@ class RobotContainer:
                 self.operatorInterface.chassisControls.rotationY,
             )
         )
+        self.elevator.setDefaultCommand(ElevatorIntakePosition(self.elevator))
 
         wpilib.DataLogManager.start()
         wpilib.DataLogManager.logNetworkTables(True)
@@ -123,6 +141,28 @@ class RobotContainer:
 
         ModifiableJoystickButton(self.operatorInterface.defenseStateControl).whileTrue(
             DefenseState(self.drive)
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.elevatorL1).whileTrue(
+            ElevatorL1Position(self.elevator).repeatedly()
+        )
+        ModifiableJoystickButton(self.operatorInterface.elevatorL2).whileTrue(
+            ElevatorL2Position(self.elevator).repeatedly()
+        )
+        ModifiableJoystickButton(self.operatorInterface.elevatorL3).whileTrue(
+            ElevatorL3Position(self.elevator).repeatedly()
+        )
+        ModifiableJoystickButton(self.operatorInterface.elevatorL4).whileTrue(
+            ElevatorL4Position(self.elevator).repeatedly()
+        )
+        ModifiableJoystickButton(self.operatorInterface.elevatorAlgaeLow).whileTrue(
+            ElevatorAlgaeLow(self.elevator).repeatedly()
+        )
+        ModifiableJoystickButton(self.operatorInterface.elevatorAlgaeHigh).whileTrue(
+            ElevatorAlgaeHigh(self.elevator).repeatedly()
+        )
+        ModifiableJoystickButton(self.operatorInterface.elevatorL1Toggle).toggleOnTrue(
+            ElevatorL1Position(self.elevator).repeatedly()
         )
 
     def getAutonomousCommand(self) -> commands2.Command:

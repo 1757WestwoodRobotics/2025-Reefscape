@@ -1,7 +1,6 @@
 from typing import List
 from phoenix6.sim.talon_fx_sim_state import TalonFXSimState
 from wpimath.system.plant import DCMotor, LinearSystemId
-from wpimath.system import LinearSystem_2_1_2
 from wpilib.simulation import DCMotorSim
 
 from util.simtalon import Talon
