@@ -2,10 +2,10 @@ from enum import Enum, auto
 from commands2 import Subsystem
 from wpilib import RobotBase
 from wpimath.geometry import Rotation2d
+from ntcore import NetworkTableInstance
 from util.simtalon import Talon
 from util.simcoder import CTREEncoder
 from util.angleoptimize import intakeAccountForSillyEncoder
-from ntcore import NetworkTableInstance
 
 import constants
 
@@ -50,6 +50,7 @@ class IntakeSubsystem(Subsystem):
         self.resetPivot()
 
         self.state = self.IntakeState.Score
+        self.targetAngle = Rotation2d()
 
         self.intakeAtPositionPublisher = (
             NetworkTableInstance.getDefault()
