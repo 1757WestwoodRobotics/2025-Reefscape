@@ -772,9 +772,11 @@ kElevator2Inverted = False
 
 kElevatorTolerance = 0.05
 
+# from CAD
 kMotorPulleyGearRatio = (60 / 18) * (60 / 18)
 
-kPulleyGearPitchDiameter = 0.0572957795
+# 36 teeth 5mm pitch
+kPulleyGearPitchDiameter = 36 * 0.005 / math.pi
 """meters"""
 
 kElevatorPositionKey = "elevator/position"
