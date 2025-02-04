@@ -76,20 +76,21 @@ class ElevatorSubsystem(Subsystem):
         )
 
     def periodic(self) -> None:
-        if self.state == self.ElevatorState.L4Position:
-            self.setElevatorMotorsAtPosition(constants.kL4PositionBeltPosition)
-        elif self.state == self.ElevatorState.L3Position:
-            self.setElevatorMotorsAtPosition(constants.kL3PositionBeltPosition)
-        elif self.state == self.ElevatorState.L2Position:
-            self.setElevatorMotorsAtPosition(constants.kL2PositionBeltPosition)
-        elif self.state == self.ElevatorState.L1Position:
-            self.setElevatorMotorsAtPosition(constants.kL1PositionBeltPosition)
-        elif self.state == self.ElevatorState.AlgaeHigh:
-            self.setElevatorMotorsAtPosition(constants.kAlgaeHighBeltPosition)
-        elif self.state == self.ElevatorState.AlgaeLow:
-            self.setElevatorMotorsAtPosition(constants.kAlgaeLowBeltPosition)
-        elif self.state == self.ElevatorState.IntakePosition:
-            self.setElevatorMotorsAtPosition(constants.kIntakePositionBeltPosition)
+        match self.state:
+            case self.ElevatorState.L4Position:
+                self.setElevatorMotorsAtPosition(constants.kL4PositionBeltPosition)
+            case self.ElevatorState.L3Position:
+                self.setElevatorMotorsAtPosition(constants.kL3PositionBeltPosition)
+            case self.ElevatorState.L2Position:
+                self.setElevatorMotorsAtPosition(constants.kL2PositionBeltPosition)
+            case self.ElevatorState.L1Position:
+                self.setElevatorMotorsAtPosition(constants.kL1PositionBeltPosition)
+            case self.ElevatorState.AlgaeHigh:
+                self.setElevatorMotorsAtPosition(constants.kAlgaeHighBeltPosition)
+            case self.ElevatorState.AlgaeLow:
+                self.setElevatorMotorsAtPosition(constants.kAlgaeLowBeltPosition)
+            case self.ElevatorState.IntakePosition:
+                self.setElevatorMotorsAtPosition(constants.kIntakePositionBeltPosition)
 
         self.elevatorStatePublisher.set(str(self.state))
         self.elevatorPositionPublisher.set(self.getElevatorPosition())
