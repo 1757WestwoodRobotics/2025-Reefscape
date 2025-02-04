@@ -760,8 +760,8 @@ kElevator1IGain = 0
 kElevator1DGain = 0
 kElevator1Inverted = True
 
-kElevatorMaxAccel = 390
-kElevatorMaxVel = 300
+kElevatorMaxAccel = 390  # rotations / s^2
+kElevatorMaxVel = 300  # rotations / s
 
 kElevator2CANID = 56
 kElevator2Name = "Elevator2Motor"
