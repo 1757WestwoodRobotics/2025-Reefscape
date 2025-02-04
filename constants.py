@@ -767,8 +767,8 @@ kPivotPGain = 0.9
 kPivotIGain = 0
 kPivotDGain = 0
 
-kPivotAccel = 400
-kPivotVel = 150
+kPivotAccel = 400  # rotations / s^2
+kPivotVel = 150  # rotations / s
 
 # from CAD
 kPivotGearRatio = (5 / 1) * (50 / 16) * (84 / 16)
