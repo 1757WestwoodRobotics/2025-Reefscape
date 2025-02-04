@@ -70,20 +70,23 @@ class IntakeSubsystem(Subsystem):
 
     def periodic(self) -> None:
         # a lot simpler when there isn't a convoluted intake sequence
-        if self.state == self.IntakeState.Intaking:
-            self.setPivotAngle(constants.kIntakingAngle)
-            self.intakeMotor.set(
-                Talon.ControlMode.Percent, -1 * constants.kIntakeMotorSpeed
-            )
-        elif self.state == self.IntakeState.Score:
-            self.setPivotAngle(constants.kScoreAngle)
-            self.intakeMotor.set(Talon.ControlMode.Percent, 0)
-        elif self.state == self.IntakeState.Scoring:
-            self.setPivotAngle(constants.kScoreAngle)
-            self.intakeMotor.set(Talon.ControlMode.Percent, constants.kIntakeMotorSpeed)
-        elif self.state == self.IntakeState.Knock:
-            self.setPivotAngle(constants.kKnockAngle)
-            self.intakeMotor.set(Talon.ControlMode.Percent, 0)
+        match self.state:
+            case self.IntakeState.Intaking:
+                self.setPivotAngle(constants.kIntakingAngle)
+                self.intakeMotor.set(
+                    Talon.ControlMode.Percent, -1 * constants.kIntakeMotorSpeed
+                )
+            case self.IntakeState.Score:
+                self.setPivotAngle(constants.kScoreAngle)
+                self.intakeMotor.set(Talon.ControlMode.Percent, 0)
+            case self.IntakeState.Scoring:
+                self.setPivotAngle(constants.kScoreAngle)
+                self.intakeMotor.set(
+                    Talon.ControlMode.Percent, constants.kIntakeMotorSpeed
+                )
+            case self.IntakeState.Knock:
+                self.setPivotAngle(constants.kKnockAngle)
+                self.intakeMotor.set(Talon.ControlMode.Percent, 0)
 
         self.intakeAtPositionPublisher.set(self.intakeAtPosition())
         self.intakeStatePublisher.set(str(self.state))

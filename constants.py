@@ -770,7 +770,8 @@ kPivotDGain = 0
 kPivotAccel = 400
 kPivotVel = 150
 
-kPivotGearRatio = (4 / 1) * (50 / 16) * (84 / 16)
+# from CAD
+kPivotGearRatio = (5 / 1) * (50 / 16) * (84 / 16)
 
 kIntakeInverted = True
 kPivotInverted = False
@@ -780,6 +781,7 @@ kPivotEncoderOffset = 0
 
 kIntakeMotorSpeed = 0.25
 
+# CAD angles, taken from horizontal
 kIntakingAngle = Rotation2d.fromDegrees(261.043551)
 kScoreAngle = Rotation2d.fromDegrees(77.160502)
 kKnockAngle = Rotation2d(0)
@@ -790,11 +792,11 @@ kIntakeStateKey = "intake/state"
 
 kIntakeCurrentLimit = (
     CurrentLimitsConfigs()
-    .with_stator_current_limit(80)
+    .with_stator_current_limit(25)
     .with_stator_current_limit_enable(True)
-    .with_supply_current_limit(80)
+    .with_supply_current_limit(25)
     .with_supply_current_limit_enable(True)
 )
 
-kIntakeRealZero = 0
+kIntakeRealZero = 0  # MAY NEED CHANGING LATER
 kIntakePivotTolerance = 0.1  # radians
