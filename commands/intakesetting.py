@@ -23,12 +23,12 @@ class SetIntakeState(Command):
         return self.intake.intakeAtPosition() and self.t.get() > 0.1
 
 
-class IntakePrepScore(SetIntakeState):
+class IntakeIdle(SetIntakeState):
     def __init__(self, intakeSubsystem: IntakeSubsystem) -> None:
         SetIntakeState.__init__(self, intakeSubsystem)
 
     def execute(self) -> None:
-        self.intake.setScore()
+        self.intake.setIdle()
 
 
 class IntakeScoring(SetIntakeState):

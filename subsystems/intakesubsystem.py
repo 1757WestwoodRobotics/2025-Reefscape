@@ -13,7 +13,7 @@ import constants
 class IntakeSubsystem(Subsystem):
     class IntakeState(Enum):
         Intaking = auto()
-        Score = auto()
+        Idle = auto()
         Scoring = auto()
         Knock = auto()
 
@@ -49,7 +49,7 @@ class IntakeSubsystem(Subsystem):
 
         self.resetPivot()
 
-        self.state = self.IntakeState.Score
+        self.state = self.IntakeState.Idle
         self.targetAngle = Rotation2d()
 
         self.intakeAtPositionPublisher = (
@@ -76,7 +76,7 @@ class IntakeSubsystem(Subsystem):
                 self.intakeMotor.set(
                     Talon.ControlMode.Percent, -1 * constants.kIntakeMotorSpeed
                 )
-            case self.IntakeState.Score:
+            case self.IntakeState.Idle:
                 self.setPivotAngle(constants.kScoreAngle)
                 self.intakeMotor.set(Talon.ControlMode.Percent, 0)
             case self.IntakeState.Scoring:
@@ -133,8 +133,8 @@ class IntakeSubsystem(Subsystem):
     def setIntaking(self) -> None:
         self.state = self.IntakeState.Intaking
 
-    def setScore(self) -> None:
-        self.state = self.IntakeState.Score
+    def setIdle(self) -> None:
+        self.state = self.IntakeState.Idle
 
     def setScoring(self) -> None:
         self.state = self.IntakeState.Scoring

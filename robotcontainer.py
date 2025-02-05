@@ -13,7 +13,7 @@ from commands.defensestate import DefenseState
 from commands.intakesetting import (
     IntakeCoral,
     IntakeKnock,
-    IntakePrepScore,
+    IntakeIdle,
     IntakeScoring,
 )
 
@@ -95,7 +95,7 @@ class RobotContainer:
             )
         )
 
-        self.intake.setDefaultCommand(IntakePrepScore(self.intake))
+        self.intake.setDefaultCommand(IntakeIdle(self.intake))
 
         wpilib.DataLogManager.start()
         wpilib.DataLogManager.logNetworkTables(True)
