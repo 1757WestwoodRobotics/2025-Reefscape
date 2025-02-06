@@ -8,6 +8,12 @@ from commands.drive.absoluterelativedrive import AbsoluteRelativeDrive
 from commands.resetdrive import ResetDrive
 from commands.drivedistance import DriveDistance
 from commands.defensestate import DefenseState
+from commands.intakesetting import (
+    IntakeCoral,
+    IntakeKnock,
+    IntakeIdle,
+    IntakeScoring,
+)
 from commands.elevatorsetting import (
     ElevatorIntakePosition,
     ElevatorL1Position,
@@ -22,6 +28,7 @@ from commands.elevatorsetting import (
 from subsystems.drivesubsystem import DriveSubsystem
 from subsystems.loggingsubsystem import LoggingSubsystem
 from subsystems.visionsubsystem import VisionSubsystem
+from subsystems.intakesubsystem import IntakeSubsystem
 from subsystems.elevatorsubsystem import ElevatorSubsystem
 
 from operatorinterface import OperatorInterface
@@ -46,6 +53,7 @@ class RobotContainer:
         self.vision = VisionSubsystem()
         self.drive = DriveSubsystem(self.vision)
         self.log = LoggingSubsystem(self.operatorInterface)
+        self.intake = IntakeSubsystem()
         self.elevator = ElevatorSubsystem()
 
         # Robot demo subsystems
@@ -108,6 +116,8 @@ class RobotContainer:
         )
         self.elevator.setDefaultCommand(ElevatorIntakePosition(self.elevator))
 
+        self.intake.setDefaultCommand(IntakeIdle(self.intake))
+
         wpilib.DataLogManager.start()
         wpilib.DataLogManager.logNetworkTables(True)
         wpilib.DriverStation.startDataLog(wpilib.DataLogManager.getLog())
@@ -143,6 +153,15 @@ class RobotContainer:
             DefenseState(self.drive)
         )
 
+        ModifiableJoystickButton(self.operatorInterface.intakeCoral).whileTrue(
+            IntakeCoral(self.intake).repeatedly()
+        )
+        ModifiableJoystickButton(self.operatorInterface.intakeKnock).whileTrue(
+            IntakeKnock(self.intake).repeatedly()
+        )
+        ModifiableJoystickButton(self.operatorInterface.intakeScoring).whileTrue(
+            IntakeScoring(self.intake).repeatedly()
+        )
         ModifiableJoystickButton(self.operatorInterface.elevatorL1).whileTrue(
             ElevatorL1Position(self.elevator).repeatedly()
         )

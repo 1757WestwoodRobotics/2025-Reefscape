@@ -151,6 +151,10 @@ class OperatorInterface:
         self.velocitySetpoint1 = getButtonBindingOfName("setpoint1velocity")
         self.velocitySetpoint2 = getButtonBindingOfName("setpoint2velocity")
 
+        self.intakeCoral = getButtonBindingOfName("intakeCoral")
+        self.intakeKnock = getButtonBindingOfName("intakeKnock")
+        self.intakeScoring = getButtonBindingOfName("intakeScoring")
+
         self.elevatorL1 = getButtonBindingOfName("elevatorL1")
         self.elevatorL2 = getButtonBindingOfName("elevatorL2")
         self.elevatorL3 = getButtonBindingOfName("elevatorL3")
