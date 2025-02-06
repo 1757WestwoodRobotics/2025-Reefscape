@@ -800,3 +800,51 @@ kIntakeCurrentLimit = (
 
 kIntakeRealZero = 0  # MAY NEED CHANGING LATER: "I think we just set the starting config, looked at what the encoder said, and offset it by that much" - Landon
 kIntakePivotTolerance = 0.1  # radians
+
+# constants copied from last year, update when cad is done
+kElevator1CANID = 55
+kElevator1Name = "Elevator1Motor"
+kElevator1PGain = 0.9
+kElevator1IGain = 0
+kElevator1DGain = 0
+kElevator1Inverted = True
+
+kElevatorMaxAccel = 390  # rotations / s^2
+kElevatorMaxVel = 300  # rotations / s
+
+kElevator2CANID = 56
+kElevator2Name = "Elevator2Motor"
+kElevator2PGain = 0.12
+kElevator2IGain = 0
+kElevator2DGain = 0
+kElevator2Inverted = False
+
+kElevatorTolerance = 0.05
+
+# from CAD
+kMotorPulleyGearRatio = (60 / 18) * (60 / 18)
+
+# 36 teeth 5mm pitch
+kPulleyGearPitchDiameter = 36 * 0.005 / math.pi
+"""meters"""
+
+kElevatorPositionKey = "elevator/position"
+kElevatorStateKey = "elevator/state"
+kElevatorAtPositionKey = "elevator/atPosition"
+kElevatorFudgeKey = "elevator/fudge"
+kElevatorPoseKey = "elevator/pose"
+
+# taken from cad
+kL4PositionBeltPosition = 52.75 * kMetersPerInch
+kL3PositionBeltPosition = 27.5 * kMetersPerInch
+kL2PositionBeltPosition = 11 * kMetersPerInch
+kL1PositionBeltPosition = 0 * kMetersPerInch
+kIntakePositionBeltPosition = 39.5 * kMetersPerInch
+kAlgaeLowBeltPosition = 15.5 * kMetersPerInch
+kAlgaeHighBeltPosition = 31.5 * kMetersPerInch
+
+kElevatorFudgeAmount = 1 * kMetersPerInch
+
+kRobotToElevatorTransform = Transform3d(
+    0, -5.5 * kMetersPerInch, 11.35 * kMetersPerInch, Rotation3d()
+)

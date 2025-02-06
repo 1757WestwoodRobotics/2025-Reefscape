@@ -5,7 +5,13 @@ from commands2 import Subsystem
 from ntcore import NetworkTableInstance
 from wpilib import PowerDistribution, DriverStation
 
-
+from wpimath.geometry import (
+    Pose2d,
+    Transform3d,
+    Rotation3d,
+    Pose3d,
+)
+from util.convenientmath import pose3dFrom2d
 from operatorinterface import OperatorInterface
 
 import constants
@@ -22,8 +28,31 @@ class LoggingSubsystem(Subsystem):
             constants.kJoystickKeyLogPrefix
         )
 
+        self.robotPoseGetter = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic(constants.kRobotPoseArrayKeys.valueKey, Pose2d)
+            .subscribe(Pose2d())
+        )
+        self.elevatorPositionGetter = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kElevatorPositionKey)
+            .subscribe(0)
+        )
+        self.elevatorPosePublisher = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic(constants.kElevatorPoseKey, Pose3d)
+            .publish()
+        )
+
     def updateBotPositions(self) -> None:
-        pass
+        botPose = pose3dFrom2d(self.robotPoseGetter.get(Pose2d()))
+        elevatorHeight = self.elevatorPositionGetter.get(0)
+        elevatorPosition = (
+            botPose
+            + constants.kRobotToElevatorTransform
+            + Transform3d(0, 0, elevatorHeight, Rotation3d())
+        )
+        self.elevatorPosePublisher.set(elevatorPosition)
 
     def periodic(self) -> None:
 

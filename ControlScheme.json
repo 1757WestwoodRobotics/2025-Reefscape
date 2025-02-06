@@ -103,5 +103,54 @@
       "Button": 13
     },
     "placeholder"
+  ],
+  "elevatorL1": [
+    1,
+    {
+      "Button": 4
+    },
+    "placeholder"
+  ],
+  "elevatorL2": [
+    1,
+    {
+      "Button": 5
+    },
+    "placeholder"
+  ],
+  "elevatorL3": [
+    1,
+    {
+      "Button": 6
+    },
+    "placeholder"
+  ],
+  "elevatorL4": [
+    1,
+    {
+      "Button": 7
+    },
+    "placeholder"
+  ],
+  "elevatorAlgaeLow": [
+    1,
+    {
+      "Button": 8
+    },
+    "placeholder"
+  ],
+  "elevatorAlgaeHigh": [
+    1,
+    {
+      "Button": 9
+    },
+    "placeholder"
+  ],
+  "elevatorL1Toggle": [
+    1,
+    {
+      "Button": 10
+    },
+    "placeholder"
   ]
 }
