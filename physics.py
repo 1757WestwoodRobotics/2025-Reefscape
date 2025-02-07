@@ -319,6 +319,12 @@ class PhysicsEngine:
             .publish()
         )
 
+        self.motorsim.addFalcon(
+            robot.container.climber.climberMotor,
+            1,
+            constants.kSimulationRotationalInertia,
+        )
+
     # pylint: disable-next=unused-argument
     def update_sim(self, now: float, tm_diff: float) -> None:
         """

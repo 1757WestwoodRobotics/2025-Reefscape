@@ -15,6 +15,7 @@ from commands.defensestate import DefenseState
 from subsystems.drivesubsystem import DriveSubsystem
 from subsystems.loggingsubsystem import LoggingSubsystem
 from subsystems.visionsubsystem import VisionSubsystem
+from subsystems.climbersubsystem import ClimberSubsystem
 
 from operatorinterface import OperatorInterface
 from util.helpfultriggerwrappers import ModifiableJoystickButton
@@ -38,6 +39,7 @@ class RobotContainer:
         self.vision = VisionSubsystem()
         self.drive = DriveSubsystem(self.vision)
         self.log = LoggingSubsystem(self.operatorInterface)
+        self.climber = ClimberSubsystem(self.operatorInterface)
 
         # Robot demo subsystems
         # self.velocity = VelocityControl()
