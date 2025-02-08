@@ -840,11 +840,21 @@ kL3PositionBeltPosition = 27.5 * kMetersPerInch
 kL2PositionBeltPosition = 11 * kMetersPerInch
 kL1PositionBeltPosition = 0 * kMetersPerInch
 kIntakePositionBeltPosition = 39.5 * kMetersPerInch
-kAlgaeLowBeltPosition = 15.5 * kMetersPerInch
+kAlgaeLowBeltPosition = 18.5 * kMetersPerInch
 kAlgaeHighBeltPosition = 31.5 * kMetersPerInch
 
 kElevatorFudgeAmount = 1 * kMetersPerInch
 
 kRobotToElevatorTransform = Transform3d(
     0, -5.5 * kMetersPerInch, 11.35 * kMetersPerInch, Rotation3d()
+)
+
+kPivotToArmRoot = 3 * kMetersPerInch
+
+# from CAD, pivot to middle of intake shoulders
+kArmRootToArmEndTransform = Transform3d(
+    20.809180 * kMetersPerInch,
+    0,
+    -5.543945 * kMetersPerInch,
+    Rotation3d(0, (90 + 51.944769) * kRadiansPerDegree, 0),
 )
