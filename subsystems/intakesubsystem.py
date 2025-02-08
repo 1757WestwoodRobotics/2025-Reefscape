@@ -6,7 +6,7 @@ from ntcore import NetworkTableInstance
 from util.simtalon import Talon
 from util.simcoder import CTREEncoder
 from util.angleoptimize import intakeAccountForSillyEncoder
-
+from util.convenientmath import clamp
 import constants
 
 
@@ -112,7 +112,7 @@ class IntakeSubsystem(Subsystem):
         self.targetAngle = rotation
         self.pivotMotor.set(
             Talon.ControlMode.MotionMagic,
-            rotation.radians()
+            clamp(rotation.radians(), 0, constants.kIntakingAngle.radians())
             / constants.kRadiansPerRevolution
             * constants.kPivotGearRatio,
         )
