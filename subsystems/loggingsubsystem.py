@@ -43,6 +43,16 @@ class LoggingSubsystem(Subsystem):
             .getStructTopic(constants.kElevatorPoseKey, Pose3d)
             .publish()
         )
+        self.pivotAngleGetter = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kPivotAngleKey)
+            .subscribe(0)
+        )
+        self.intakePosesPublisher = (
+            NetworkTableInstance.getDefault()
+            .getStructArrayTopic("intake/poses", Pose3d)
+            .publish()
+        )
 
     def updateBotPositions(self) -> None:
         botPose = pose3dFrom2d(self.robotPoseGetter.get(Pose2d()))
@@ -53,6 +63,15 @@ class LoggingSubsystem(Subsystem):
             + Transform3d(0, 0, elevatorHeight, Rotation3d())
         )
         self.elevatorPosePublisher.set(elevatorPosition)
+        armRotation = -self.pivotAngleGetter.get()
+        armRootPosition = elevatorPosition + Transform3d(
+            0,
+            -constants.kPivotToArmRoot,
+            0,
+            Rotation3d(0, armRotation, 0),
+        )
+        armEndPosition = armRootPosition + constants.kArmRootToArmEndTransform
+        self.intakePosesPublisher.set([armRootPosition, armEndPosition])
 
     def periodic(self) -> None:
 
