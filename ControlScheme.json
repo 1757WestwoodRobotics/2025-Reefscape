@@ -1,6 +1,6 @@
 {
   "alignClosestWaypoint": [
-    2,
+    1,
     {
       "Button": 2
     },
@@ -21,14 +21,14 @@
     "Joystick Horizontal (ThrustmasterTWCSThrottle)"
   ],
   "chassisXRotation": [
-    2,
+    1,
     {
       "Axis": 0
     },
     "Joystick Horizontal (ThrustmasterTWCSThrottle)"
   ],
   "chassisYRotation": [
-    2,
+    1,
     {
       "Axis": 1
     },
@@ -56,7 +56,7 @@
     "Middle POV left (ThrustmasterTWCSThrottle)"
   ],
   "turboSpeed": [
-    2,
+    1,
     {
       "Button": 2
     },
