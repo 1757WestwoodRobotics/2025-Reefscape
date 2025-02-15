@@ -2,7 +2,7 @@ import os
 import wpilib
 from wpimath.geometry import Pose2d
 import commands2
-import commands2.button
+from commands2.button import POVButton
 from pathplannerlib.auto import PathPlannerAuto, NamedCommands
 from commands.drive.absoluterelativedrive import AbsoluteRelativeDrive
 from commands.resetdrive import ResetDrive
@@ -174,10 +174,10 @@ class RobotContainer:
         ModifiableJoystickButton(self.operatorInterface.elevatorL4).whileTrue(
             ElevatorL4Position(self.elevator).repeatedly()
         )
-        ModifiableJoystickButton(self.operatorInterface.elevatorAlgaeLow).whileTrue(
+        POVButton(*self.operatorInterface.elevatorAlgaeLow).whileTrue(
             ElevatorAlgaeLow(self.elevator).repeatedly()
         )
-        ModifiableJoystickButton(self.operatorInterface.elevatorAlgaeHigh).whileTrue(
+        POVButton(*self.operatorInterface.elevatorAlgaeHigh).whileTrue(
             ElevatorAlgaeHigh(self.elevator).repeatedly()
         )
         ModifiableJoystickButton(self.operatorInterface.elevatorL1Toggle).toggleOnTrue(
