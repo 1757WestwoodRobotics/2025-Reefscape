@@ -2,42 +2,42 @@
   "alignClosestWaypoint": [
     1,
     {
-      "Button": 2
+      "Button": 12
     },
-    "HOTAS Ring Button"
+    "placeholder"
   ],
   "chassisForwardsBackwards": [
     0,
     {
       "Axis": 1
     },
-    "Joystick Vertical (ThrustmasterTWCSThrottle)"
+    "Joystick Vertical (ThrustmasterT16000M)"
   ],
   "chassisSideToSide": [
     0,
     {
       "Axis": 0
     },
-    "Joystick Horizontal (ThrustmasterTWCSThrottle)"
+    "Joystick Horizontal (ThrustmasterT16000M)"
   ],
   "chassisXRotation": [
     1,
     {
       "Axis": 0
     },
-    "Joystick Horizontal (ThrustmasterTWCSThrottle)"
+    "Joystick Horizontal (ThrustmasterT16000M)"
   ],
   "chassisYRotation": [
     1,
     {
       "Axis": 1
     },
-    "Joystick Vertical (ThrustmasterTWCSThrottle)"
+    "Joystick Vertical (ThrustmasterT16000M)"
   ],
   "defenseStateControl": [
     0,
     {
-      "Button": 4
+      "Button": 11
     },
     "left button on top of joystick (ThrustmasterT16000M)"
   ],
@@ -46,111 +46,117 @@
     {
       "Button": 6
     },
-    "Middle Down (ThrustmasterTWCSThrottle)"
+    "right button set, middle top (ThrustmasterT16000M)"
   ],
   "resetGyro": [
     0,
     {
       "Button": 16
     },
-    "Middle POV left (ThrustmasterTWCSThrottle)"
+    "left button set, left bottom (ThrustmasterT16000M)"
   ],
   "turboSpeed": [
     1,
     {
-      "Button": 2
+      "Button": 13
     },
     "bottom button on top of joystick (ThrustmasterT16000M)"
   ],
   "offVelocity": [
     1,
     {
-      "Button": 1
+      "Button": 11
     },
-    "placeholder"
+    "left button set, left top (ThrustmasterT16000M)"
   ],
   "setpoint1velocity": [
     1,
     {
-      "Button": 2
+      "Button": 14
     },
-    "placeholder"
+    "bottom button on top of joystick (ThrustmasterT16000M)"
   ],
   "setpoint2velocity": [
     1,
     {
-      "Button": 3
+      "Button": 15
     },
-    "placeholder"
+    "left button set, middle bottom (Thrustmaster T16000M"
   ],
   "intakeScoring": [
     1,
     {
-      "Button": 11
+      "Button": 1
     },
-    "placeholder"
+    "trigger (ThrustmasterT16000M)"
   ],
   "intakeKnock": [
     1,
     {
-      "Button": 12
+      "Button": 4
     },
-    "placeholder"
+    "right button on top of joystick (ThrustmasterT16000M)"
   ],
   "intakeCoral": [
     1,
     {
-      "Button": 13
+      "Button": 2
     },
-    "placeholder"
+    "bottom button on top of joystick (ThrustmasterT16000M)"
   ],
   "elevatorL1": [
-    1,
+    0,
+    {
+      "Button": 3
+    },
+    "left button on top of joystick (ThrustmasterT16000M)"
+  ],
+  "elevatorL2": [
+    0,
+    {
+      "Button": 2
+    },
+    "bottom button on top of joystick (ThrustmasterT16000M)"
+  ],
+  "elevatorL3": [
+    0,
     {
       "Button": 4
     },
-    "placeholder"
-  ],
-  "elevatorL2": [
-    1,
-    {
-      "Button": 5
-    },
-    "placeholder"
-  ],
-  "elevatorL3": [
-    1,
-    {
-      "Button": 6
-    },
-    "placeholder"
+    "right button on top of joystick (ThrustmasterT16000M)"
   ],
   "elevatorL4": [
-    1,
+    0,
     {
-      "Button": 7
+      "Button": 1
     },
-    "placeholder"
+    "trigger (ThrustmasterT16000M"
   ],
   "elevatorAlgaeLow": [
-    1,
+    0,
     {
-      "Button": 8
+      "POV": [
+        0,
+        180
+      ]
     },
-    "placeholder"
+    "POV down"
   ],
   "elevatorAlgaeHigh": [
-    1,
+    0,
     {
-      "Button": 9
+      "POV": [
+        0,
+        0
+      ]
     },
-    "placeholder"
+    "POV up"
   ],
   "elevatorL1Toggle": [
     1,
     {
       "Button": 10
     },
-    "placeholder"
+    "farmtable"
   ]
 }
