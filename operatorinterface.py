@@ -159,8 +159,8 @@ class OperatorInterface:
         self.elevatorL2 = getButtonBindingOfName("elevatorL2")
         self.elevatorL3 = getButtonBindingOfName("elevatorL3")
         self.elevatorL4 = getButtonBindingOfName("elevatorL4")
-        self.elevatorAlgaeLow = getButtonBindingOfName("elevatorAlgaeLow")
-        self.elevatorAlgaeHigh = getButtonBindingOfName("elevatorAlgaeHigh")
+        self.elevatorAlgaeLow = getPOVBindingOfName("elevatorAlgaeLow")
+        self.elevatorAlgaeHigh = getPOVBindingOfName("elevatorAlgaeHigh")
         self.elevatorL1Toggle = getButtonBindingOfName("elevatorL1Toggle")
 
         self.chassisControls = HolonomicInput(
