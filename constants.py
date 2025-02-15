@@ -751,3 +751,17 @@ kVelocityControlDGain = 0
 
 kVelocityControlMotorType = DCMotor.falcon500()
 kVelocityControlkV = 0.01
+
+# Climber constants
+kClimberCANID = 56
+kClimberName = "ClimberMotor"
+kClimberPGain = 0.12
+kClimberIGain = 0
+kClimberDGain = 0
+
+kClimberPositionKey = "climber/position"
+kClimberStateKey = "climber/state"
+
+kTuckedPosition = 2 * kInchesPerFoot
+kAtFramePosition = 2 * kInchesPerFoot
+kEndClimbPosition = 1 * kInchesPerFoot
