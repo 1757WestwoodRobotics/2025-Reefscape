@@ -604,6 +604,141 @@ kApriltagPositionDict = {
     ),
 }
 
+kApriltagPositionDictAndyMark = {
+    1: Pose3d(
+        (kMetersPerInch * 656.98),
+        (kMetersPerInch * 24.73),
+        (kMetersPerInch * 58.50),
+        Rotation3d(0.0, 0.0, 126 * kRadiansPerDegree),
+    ),
+    2: Pose3d(
+        (kMetersPerInch * 656.98),
+        (kMetersPerInch * 291.90),
+        (kMetersPerInch * 58.50),
+        Rotation3d(0.0, 0.0, 234 * kRadiansPerDegree),
+    ),
+    3: Pose3d(
+        (kMetersPerInch * 452.40),
+        (kMetersPerInch * 316.21),
+        (kMetersPerInch * 51.25),
+        Rotation3d(0.0, 0.0, 270 * kRadiansPerDegree),
+    ),
+    4: Pose3d(
+        (kMetersPerInch * 365.20),
+        (kMetersPerInch * 241.44),
+        (kMetersPerInch * 73.54),
+        Rotation3d(0.0, 30 * kRadiansPerDegree, 0.0),
+    ),
+    5: Pose3d(
+        (kMetersPerInch * 365.20),
+        (kMetersPerInch * 75.19),
+        (kMetersPerInch * 73.54),
+        Rotation3d(0.0, 30 * kRadiansPerDegree, 0.0),
+    ),
+    6: Pose3d(
+        (kMetersPerInch * 530.49),
+        (kMetersPerInch * 120.97),
+        (kMetersPerInch * 12.13),
+        Rotation3d(0.0, 0.0, 300 * kRadiansPerDegree),
+    ),
+    7: Pose3d(
+        (kMetersPerInch * 546.87),
+        (kMetersPerInch * 158.30),
+        (kMetersPerInch * 12.13),
+        Rotation3d(0.0, 0.0, 0.0),
+    ),
+    8: Pose3d(
+        (kMetersPerInch * 530.49),
+        (kMetersPerInch * 186.63),
+        (kMetersPerInch * 12.13),
+        Rotation3d(0.0, 0.0, 60 * kRadiansPerDegree),
+    ),
+    9: Pose3d(
+        (kMetersPerInch * 497.77),
+        (kMetersPerInch * 186.63),
+        (kMetersPerInch * 12.13),
+        Rotation3d(0.0, 0.0, 120 * kRadiansPerDegree),
+    ),
+    10: Pose3d(
+        (kMetersPerInch * 481.39),
+        (kMetersPerInch * 158.30),
+        (kMetersPerInch * 12.13),
+        Rotation3d(0.0, 0.0, 180 * kRadiansPerDegree),
+    ),
+    11: Pose3d(
+        (kMetersPerInch * 497.77),
+        (kMetersPerInch * 120.97),
+        (kMetersPerInch * 12.13),
+        Rotation3d(0.0, 0.0, 240 * kRadiansPerDegree),
+    ),
+    12: Pose3d(
+        (kMetersPerInch * 33.91),
+        (kMetersPerInch * 24.73),
+        (kMetersPerInch * 58.50),
+        Rotation3d(0.0, 0.0, 54 * kRadiansPerDegree),
+    ),
+    13: Pose3d(
+        (kMetersPerInch * 33.91),
+        (kMetersPerInch * 291.90),
+        (kMetersPerInch * 58.50),
+        Rotation3d(0.0, 0.0, 306 * kRadiansPerDegree),
+    ),
+    14: Pose3d(
+        (kMetersPerInch * 325.68),
+        (kMetersPerInch * 241.44),
+        (kMetersPerInch * 73.54),
+        Rotation3d(0.0, 30 * kRadiansPerDegree, 180 * kRadiansPerDegree),
+    ),
+    15: Pose3d(
+        (kMetersPerInch * 325.68),
+        (kMetersPerInch * 75.19),
+        (kMetersPerInch * 73.54),
+        Rotation3d(0.0, 30 * kRadiansPerDegree, 180 * kRadiansPerDegree),
+    ),
+    16: Pose3d(
+        (kMetersPerInch * 238.49),
+        (kMetersPerInch * 0.42),
+        (kMetersPerInch * 51.25),
+        Rotation3d(0.0, 0.0, 90 * kRadiansPerDegree),
+    ),
+    17: Pose3d(
+        (kMetersPerInch * 160.39),
+        (kMetersPerInch * 129.97),
+        (kMetersPerInch * 12.13),
+        Rotation3d(0.0, 0.0, 240 * kRadiansPerDegree),
+    ),
+    18: Pose3d(
+        (kMetersPerInch * 144.00),
+        (kMetersPerInch * 158.30),
+        (kMetersPerInch * 12.13),
+        Rotation3d(0.0, 0.0, 180 * kRadiansPerDegree),
+    ),
+    19: Pose3d(
+        (kMetersPerInch * 160.39),
+        (kMetersPerInch * 186.63),
+        (kMetersPerInch * 12.13),
+        Rotation3d(0.0, 0.0, 120 * kRadiansPerDegree),
+    ),
+    20: Pose3d(
+        (kMetersPerInch * 193.10),
+        (kMetersPerInch * 186.63),
+        (kMetersPerInch * 12.13),
+        Rotation3d(0.0, 0.0, 60 * kRadiansPerDegree),
+    ),
+    21: Pose3d(
+        (kMetersPerInch * 209.49),
+        (kMetersPerInch * 158.30),
+        (kMetersPerInch * 12.13),
+        Rotation3d(0.0, 0.0, 0.0),
+    ),
+    22: Pose3d(
+        (kMetersPerInch * 193.10),
+        (kMetersPerInch * 129.97),
+        (kMetersPerInch * 12.13),
+        Rotation3d(0.0, 0.0, 300 * kRadiansPerDegree),
+    ),
+}
+
 # Autonomous
 kAutoDriveDistance = -8 * kWheelCircumference
 """meters"""
