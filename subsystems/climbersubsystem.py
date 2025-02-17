@@ -28,14 +28,13 @@ class ClimberSubsystem(Subsystem):
         self.state = self.ClimberState.TuckedPosition
 
     def periodic(self) -> None:
-        if self.state == self.ClimberState.TuckedPosition:
-            self.setClimberMotorAtPosition(constants.kTuckedPosition)
-
-        elif self.state == self.ClimberState.AtFramePosition:
-            self.setClimberMotorAtPosition(constants.kClimberAtFramePosition)
-
-        elif self.state == self.ClimberState.EndClimbPosition:
-            self.setClimberMotorAtPosition(constants.kClimberEndClimbPosition)
+        match self.state:
+            case self.ClimberState.TuckedPosition:
+                self.setClimberMotorAtPosition(constants.kTuckedPosition)
+            case self.ClimberState.AtFramePosition:
+                self.setClimberMotorAtPosition(constants.kClimberAtFramePosition)
+            case self.ClimberState.EndClimbPosition:
+                self.setClimberMotorAtPosition(constants.kClimberEndClimbPosition)
 
     def setClimberMotorAtPosition(self, winchPosition) -> None:
         self.ClimberMotor.set(
