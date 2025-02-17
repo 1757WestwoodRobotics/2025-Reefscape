@@ -1005,6 +1005,7 @@ kClimberDGain = 0
 kClimberPositionKey = "climber/position"
 kClimberStateKey = "climber/state"
 
-kTuckedPosition = 2 * kInchesPerFoot
-kAtFramePosition = 2 * kInchesPerFoot
-kEndClimbPosition = 1 * kInchesPerFoot
+# these are placeholders
+kTuckedPosition = 2 * kMetersPerInch
+kAtFramePosition = 2 * kMetersPerInch
+kEndClimbPosition = 1 * kMetersPerInch
