@@ -82,5 +82,19 @@
       "Button": 3
     },
     "placeholder"
+  ],
+  "pullClimberUp": [
+    1,
+    {
+      "Button": 4
+    },
+    "top left orange button (ButtonBox)"
+  ],
+  "pullClimberDown": [
+    1,
+    {
+      "Button": 9
+    },
+    "bottom left orange button (ButtonBox)"
   ]
 }
