@@ -41,68 +41,19 @@
     },
     "left button on top of joystick (ThrustmasterT16000M)"
   ],
-  "fieldRelativeCoordinateModeControl": [
+  "elevatorAlgaeHigh": [
     0,
     {
-      "Button": 6
+      "POV": [0, 0]
     },
-    "right button set, middle top (ThrustmasterT16000M)"
+    "POV up"
   ],
-  "resetGyro": [
+  "elevatorAlgaeLow": [
     0,
     {
-      "Button": 16
+      "POV": [0, 180]
     },
-    "left button set, left bottom (ThrustmasterT16000M)"
-  ],
-  "turboSpeed": [
-    1,
-    {
-      "Button": 13
-    },
-    "bottom button on top of joystick (ThrustmasterT16000M)"
-  ],
-  "offVelocity": [
-    1,
-    {
-      "Button": 11
-    },
-    "left button set, left top (ThrustmasterT16000M)"
-  ],
-  "setpoint1velocity": [
-    1,
-    {
-      "Button": 14
-    },
-    "bottom button on top of joystick (ThrustmasterT16000M)"
-  ],
-  "setpoint2velocity": [
-    1,
-    {
-      "Button": 15
-    },
-    "left button set, middle bottom (Thrustmaster T16000M"
-  ],
-  "intakeScoring": [
-    1,
-    {
-      "Button": 1
-    },
-    "trigger (ThrustmasterT16000M)"
-  ],
-  "intakeKnock": [
-    1,
-    {
-      "Button": 4
-    },
-    "right button on top of joystick (ThrustmasterT16000M)"
-  ],
-  "intakeCoral": [
-    1,
-    {
-      "Button": 2
-    },
-    "bottom button on top of joystick (ThrustmasterT16000M)"
+    "POV down"
   ],
   "elevatorL1": [
     0,
@@ -132,31 +83,60 @@
     },
     "trigger (ThrustmasterT16000M"
   ],
-  "elevatorAlgaeLow": [
+  "fieldRelativeCoordinateModeControl": [
     0,
     {
-      "POV": [
-        0,
-        180
-      ]
+      "Button": 6
     },
-    "POV down"
+    "right button set, middle top (ThrustmasterT16000M)"
   ],
-  "elevatorAlgaeHigh": [
-    0,
-    {
-      "POV": [
-        0,
-        0
-      ]
-    },
-    "POV up"
-  ],
-  "elevatorL1Toggle": [
+  "intakeCoral": [
     1,
     {
-      "Button": 10
+      "Button": 2
     },
-    "farmtable"
+    "bottom button on top of joystick (ThrustmasterT16000M)"
+  ],
+  "intakeKnock": [
+    1,
+    {
+      "Button": 4
+    },
+    "right button on top of joystick (ThrustmasterT16000M)"
+  ],
+  "intakeScoring": [
+    1,
+    {
+      "Button": 1
+    },
+    "trigger (ThrustmasterT16000M)"
+  ],
+  "pullClimberDown": [
+    1,
+    {
+      "Button": 9
+    },
+    "placeholder"
+  ],
+  "pullClimberUp": [
+    1,
+    {
+      "Button": 4
+    },
+    "placeholder"
+  ],
+  "resetGyro": [
+    0,
+    {
+      "Button": 16
+    },
+    "left button set, left bottom (ThrustmasterT16000M)"
+  ],
+  "turboSpeed": [
+    1,
+    {
+      "Button": 13
+    },
+    "bottom button on top of joystick (ThrustmasterT16000M)"
   ]
 }
