@@ -4,10 +4,10 @@ from subsystems.climbersubsystem import ClimberSubsystem
 
 
 class SetClimberState(Command):
-    def __init__(self, ClimberSubsystem: ClimberSubsystem) -> None:
+    def __init__(self, climberSubsystem: ClimberSubsystem) -> None:
         Command.__init__(self)
         self.setName(__class__.__name__)
-        self.climber = ClimberSubsystem
+        self.climber = climberSubsystem
         self.addRequirements(self.climber)
 
         self.t = Timer()
@@ -20,7 +20,7 @@ class SetClimberState(Command):
         raise NotImplementedError("Must be implemented by subclass")
 
     def isFinished(self) -> bool:
-        return self.climber.setClimberMotorAtPosition() and self.t.get() > 0.1
+        return self.climber.climberAtPosition() and self.t.get() > 0.1
 
 
 class ClimberTucked(SetClimberState):

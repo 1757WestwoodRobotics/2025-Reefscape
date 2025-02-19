@@ -1,7 +1,8 @@
 from enum import Enum, auto
-from wpilib import SmartDashboard
 from commands2 import Subsystem
-from math import pi
+from math import inf
+
+from ntcore import NetworkTableInstance
 
 from util.simtalon import Talon
 import constants
@@ -26,22 +27,61 @@ class ClimberSubsystem(Subsystem):
         )
 
         self.state = self.ClimberState.TuckedPosition
+        self.targetPosition = inf
+
+        self.climberPositionPublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kClimberPositionKey)
+            .publish()
+        )
+
+        self.climberPositionTargetPublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kClimberTargetKey)
+            .publish()
+        )
+
+        self.climberStatePublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kClimberStateKey)
+            .publish()
+        )
 
     def periodic(self) -> None:
         match self.state:
             case self.ClimberState.TuckedPosition:
-                self.setClimberMotorAtPosition(constants.kTuckedPosition)
+                self.setClimberMotorAtPosition(constants.kClimberTuckedPosition)
             case self.ClimberState.AtFramePosition:
                 self.setClimberMotorAtPosition(constants.kClimberAtFramePosition)
             case self.ClimberState.EndClimbPosition:
                 self.setClimberMotorAtPosition(constants.kClimberEndClimbPosition)
 
+        self.climberStatePublisher.set(str(self.state))
+        self.climberPositionPublisher.set(
+            self.climberMotor.get(Talon.ControlMode.Position)
+        )
+        self.climberPositionTargetPublisher.set(self.targetPosition)
+
     def setClimberMotorAtPosition(self, winchPosition) -> None:
         self.ClimberMotor.set(
             Talon.ControlMode.Position,
             (winchPosition)
-            / (constants.kWinchDiameter * pi)
+            / (constants.kClimberWinchDiameter * pi)
             * constants.kMotorWinchGearRatio,
+        )
+
+        self.targetPosition = (
+            winchPosition
+            / constants.kClimberWinchCircumferance
+            * constants.kClimberGearRatio
+        )
+
+        self.climberMotor.set(Talon.ControlMode.Position, self.targetPosition)
+
+    def climberAtPosition(self) -> bool:
+        return (
+            abs(self.climberMotor.get(Talon.ControlMode.Position) - self.targetPosition)
+            < constants.kClimberPositionTolerance
         )
 
     def setTuckedPosition(self) -> None:
