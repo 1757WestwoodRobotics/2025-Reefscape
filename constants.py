@@ -1004,8 +1004,17 @@ kClimberDGain = 0
 
 kClimberPositionKey = "climber/position"
 kClimberStateKey = "climber/state"
+kClimberTargetKey = "climber/target"
+
+kClimberGearRatio = 100 / 1
+kClimberWinchDiameter = 1.2 * kMetersPerInch
+kClimberWinchCircumferance = kClimberWinchDiameter * math.pi
+kClimberPositionTolerance = (
+    0.5 * kMetersPerInch / kClimberWinchCircumferance * kClimberGearRatio
+)
+kMotorWinchGearRatio = 1 * kMetersPerInch
 
 # these are placeholders
-kTuckedPosition = 2 * kMetersPerInch
-kAtFramePosition = 2 * kMetersPerInch
-kEndClimbPosition = 1 * kMetersPerInch
+kClimberTuckedPosition = 2 * kMetersPerInch
+kClimberAtFramePosition = 2 * kMetersPerInch
+kClimberEndClimbPosition = 1 * kMetersPerInch

@@ -162,6 +162,8 @@ class OperatorInterface:
         self.elevatorAlgaeLow = getPOVBindingOfName("elevatorAlgaeLow")
         self.elevatorAlgaeHigh = getPOVBindingOfName("elevatorAlgaeHigh")
         self.elevatorL1Toggle = getButtonBindingOfName("elevatorL1Toggle")
+        self.climberDown = getButtonBindingOfName("pullClimberDown")
+        self.climberUp = getButtonBindingOfName("pullClimberUp")
 
         self.chassisControls = HolonomicInput(
             SignSquare(
