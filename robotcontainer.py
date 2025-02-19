@@ -10,11 +10,13 @@ from commands.drive.absoluterelativedrive import AbsoluteRelativeDrive
 from commands.resetdrive import ResetDrive
 from commands.drivedistance import DriveDistance
 from commands.defensestate import DefenseState
+from commands.climbersetting import ClimberAtFrame, ClimberTucked
 
 # from commands.drive.drivewaypoint import DriveWaypoint
 from subsystems.drivesubsystem import DriveSubsystem
 from subsystems.loggingsubsystem import LoggingSubsystem
 from subsystems.visionsubsystem import VisionSubsystem
+from subsystems.climbersubsystem import ClimberSubsystem
 
 from operatorinterface import OperatorInterface
 from util.helpfultriggerwrappers import ModifiableJoystickButton
@@ -38,6 +40,7 @@ class RobotContainer:
         self.vision = VisionSubsystem()
         self.drive = DriveSubsystem(self.vision)
         self.log = LoggingSubsystem(self.operatorInterface)
+        self.climber = ClimberSubsystem()
 
         # Robot demo subsystems
         # self.velocity = VelocityControl()
@@ -121,6 +124,14 @@ class RobotContainer:
 
         ModifiableJoystickButton(self.operatorInterface.defenseStateControl).whileTrue(
             DefenseState(self.drive)
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.climberUp).onTrue(
+            ClimberAtFrame(self.climber)
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.climberDown).onTrue(
+            ClimberTucked(self.climber)
         )
 
     def getAutonomousCommand(self) -> commands2.Command:
