@@ -1012,7 +1012,6 @@ kClimberWinchCircumferance = kClimberWinchDiameter * math.pi
 kClimberPositionTolerance = (
     0.5 * kMetersPerInch / kClimberWinchCircumferance * kClimberGearRatio
 )
-kMotorWinchGearRatio = 1 * kMetersPerInch
 
 # these are placeholders
 kClimberTuckedPosition = 2 * kMetersPerInch
