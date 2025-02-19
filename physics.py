@@ -330,6 +330,12 @@ class PhysicsEngine:
             constants.kSimulationRotationalInertia,
         )
 
+        self.motorsim.addFalcon(
+            robot.container.climber.climberMotor,
+            1,
+            constants.kSimulationRotationalInertia,
+        )
+
         self.fieldSimTargetPublisher = (
             NetworkTableInstance.getDefault()
             .getStructArrayTopic(constants.kFieldSimTargetKey, Pose3d)
