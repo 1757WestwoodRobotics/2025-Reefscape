@@ -63,13 +63,6 @@ class ClimberSubsystem(Subsystem):
         self.climberPositionTargetPublisher.set(self.targetPosition)
 
     def setClimberMotorAtPosition(self, winchPosition) -> None:
-        self.ClimberMotor.set(
-            Talon.ControlMode.Position,
-            (winchPosition)
-            / (constants.kClimberWinchDiameter * pi)
-            * constants.kMotorWinchGearRatio,
-        )
-
         self.targetPosition = (
             winchPosition
             / constants.kClimberWinchCircumferance
