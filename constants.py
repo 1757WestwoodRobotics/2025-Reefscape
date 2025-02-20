@@ -993,3 +993,25 @@ kArmRootToArmEndTransform = Transform3d(
     -5.543945 * kMetersPerInch,
     Rotation3d(0, (90 + 51.944769) * kRadiansPerDegree, 0),
 )
+# Climber constants
+kClimberCANID = 56
+kClimberName = "ClimberMotor"
+kClimberPGain = 0.12
+kClimberIGain = 0
+kClimberDGain = 0
+
+kClimberPositionKey = "climber/position"
+kClimberStateKey = "climber/state"
+kClimberTargetKey = "climber/target"
+
+kClimberGearRatio = 100 / 1
+kClimberWinchDiameter = 1.2 * kMetersPerInch
+kClimberWinchCircumferance = kClimberWinchDiameter * math.pi
+kClimberPositionTolerance = (
+    0.5 * kMetersPerInch / kClimberWinchCircumferance * kClimberGearRatio
+)
+
+# these are placeholders
+kClimberTuckedPosition = 10
+kClimberAtFramePosition = 100
+kClimberEndClimbPosition = 1 * kMetersPerInch
