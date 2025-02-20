@@ -44,14 +44,20 @@
   "elevatorAlgaeHigh": [
     0,
     {
-      "POV": [0, 0]
+      "POV": [
+        0,
+        0
+      ]
     },
     "POV up"
   ],
   "elevatorAlgaeLow": [
     0,
     {
-      "POV": [0, 180]
+      "POV": [
+        0,
+        180
+      ]
     },
     "POV down"
   ],
@@ -116,14 +122,14 @@
     {
       "Button": 9
     },
-    "placeholder"
+    "bottom left orange button (button box)"
   ],
   "pullClimberUp": [
     1,
     {
       "Button": 4
     },
-    "placeholder"
+    "top left orange button (button box)"
   ],
   "resetGyro": [
     0,
