@@ -43,7 +43,7 @@ class ClimberSubsystem(Subsystem):
 
         self.climberStatePublisher = (
             NetworkTableInstance.getDefault()
-            .getFloatTopic(constants.kClimberStateKey)
+            .getStringTopic(constants.kClimberStateKey)
             .publish()
         )
 

@@ -1014,6 +1014,6 @@ kClimberPositionTolerance = (
 )
 
 # these are placeholders
-kClimberTuckedPosition = 2 * kMetersPerInch
-kClimberAtFramePosition = 2 * kMetersPerInch
+kClimberTuckedPosition = 10
+kClimberAtFramePosition = 100
 kClimberEndClimbPosition = 1 * kMetersPerInch
