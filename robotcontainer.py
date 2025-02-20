@@ -187,6 +187,8 @@ class RobotContainer:
         )
         ModifiableJoystickButton(self.operatorInterface.elevatorL1Toggle).toggleOnTrue(
             ElevatorL1Position(self.elevator).repeatedly()
+        )
+
         ModifiableJoystickButton(self.operatorInterface.climberUp).onTrue(
             ClimberAtFrame(self.climber)
         )
