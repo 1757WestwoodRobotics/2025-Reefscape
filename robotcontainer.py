@@ -23,7 +23,6 @@ from commands.elevatorsetting import (
     ElevatorAlgaeLow,
 )
 from commands.climbersetting import ClimberAtFrame, ClimberTucked
-from commands.climbersetting import ClimberAtFrame, ClimberTucked
 
 # from commands.drive.drivewaypoint import DriveWaypoint
 from subsystems.drivesubsystem import DriveSubsystem
@@ -31,7 +30,6 @@ from subsystems.loggingsubsystem import LoggingSubsystem
 from subsystems.visionsubsystem import VisionSubsystem
 from subsystems.intakesubsystem import IntakeSubsystem
 from subsystems.elevatorsubsystem import ElevatorSubsystem
-from subsystems.climbersubsystem import ClimberSubsystem
 from subsystems.climbersubsystem import ClimberSubsystem
 
 from operatorinterface import OperatorInterface
@@ -58,7 +56,6 @@ class RobotContainer:
         self.log = LoggingSubsystem(self.operatorInterface)
         self.intake = IntakeSubsystem()
         self.elevator = ElevatorSubsystem()
-        self.climber = ClimberSubsystem()
         self.climber = ClimberSubsystem()
 
         # Robot demo subsystems
@@ -187,14 +184,6 @@ class RobotContainer:
         )
         ModifiableJoystickButton(self.operatorInterface.elevatorL1Toggle).toggleOnTrue(
             ElevatorL1Position(self.elevator).repeatedly()
-        )
-
-        ModifiableJoystickButton(self.operatorInterface.climberUp).onTrue(
-            ClimberAtFrame(self.climber)
-        )
-
-        ModifiableJoystickButton(self.operatorInterface.climberDown).onTrue(
-            ClimberTucked(self.climber)
         )
 
         ModifiableJoystickButton(self.operatorInterface.climberUp).onTrue(
