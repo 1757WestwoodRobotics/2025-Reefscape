@@ -22,7 +22,7 @@ from commands.elevatorsetting import (
     ElevatorAlgaeHigh,
     ElevatorAlgaeLow,
 )
-from commands.climbersetting import ClimberAtFrame, ClimberTucked
+from commands.climbersetting import ClimberAtFrame, ClimberTucked, ClimberNothingPressed
 
 # from commands.drive.drivewaypoint import DriveWaypoint
 from subsystems.drivesubsystem import DriveSubsystem
@@ -120,7 +120,7 @@ class RobotContainer:
 
         self.intake.setDefaultCommand(IntakeIdle(self.intake))
 
-        self.climber.setDefaultCommand(ClimberTucked(self.climber))
+        self.climber.setDefaultCommand(ClimberNothingPressed(self.climber))
 
         wpilib.DataLogManager.start()
         wpilib.DataLogManager.logNetworkTables(True)
