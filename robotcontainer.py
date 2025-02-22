@@ -120,6 +120,8 @@ class RobotContainer:
 
         self.intake.setDefaultCommand(IntakeIdle(self.intake))
 
+        self.climber.setDefaultCommand(ClimberTucked(self.climber))
+
         wpilib.DataLogManager.start()
         wpilib.DataLogManager.logNetworkTables(True)
         wpilib.DriverStation.startDataLog(wpilib.DataLogManager.getLog())
