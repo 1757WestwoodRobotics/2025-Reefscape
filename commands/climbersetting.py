@@ -37,3 +37,11 @@ class ClimberAtFrame(SetClimberState):
 
     def execute(self) -> None:
         self.climber.setAtFramePosition()
+
+
+class ClimberNothingPressed(SetClimberState):
+    def __init__(self, climberSubsystem: ClimberSubsystem) -> None:
+        SetClimberState.__init__(self, climberSubsystem)
+
+    def execute(self) -> None:
+        self.climber.setNothingPressedPosition()

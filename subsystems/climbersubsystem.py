@@ -84,3 +84,6 @@ class ClimberSubsystem(Subsystem):
 
     def setEndClimbPosition(self) -> None:
         self.state = self.ClimberState.EndClimbPosition
+
+    def setNothingPressedPosition(self) -> None:
+        self.state = self.ClimberState.NothingPressed
