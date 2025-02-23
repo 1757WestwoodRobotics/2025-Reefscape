@@ -655,7 +655,7 @@ class DriveSubsystem(Subsystem):
 
         self.arcadeDriveWithSpeeds(chassisSpeeds, coordinateMode)
 
-    def drivePathPlanned(self, chassisSpeeds: ChassisSpeeds):
+    def drivePathPlanned(self, chassisSpeeds: ChassisSpeeds, feedForward):
         return self.arcadeDriveWithSpeeds(
             chassisSpeeds, DriveSubsystem.CoordinateMode.RobotRelative
         )

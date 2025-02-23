@@ -150,7 +150,7 @@ class RobotContainer:
         # )
 
         ModifiableJoystickButton(self.operatorInterface.resetGyro).onTrue(
-            ResetDrive(self.drive, Pose2d(1.37, 5.49, 0))
+            ResetDrive(self.drive, Pose2d(0, 0, 0))
         )
 
         ModifiableJoystickButton(self.operatorInterface.defenseStateControl).whileTrue(
