@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.8060494559151783,
-        "y": 4.159558977399553
+        "x": 2.7647260273972605,
+        "y": 4.287949486301369
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.806049455915179,
-        "y": 4.159558977399553
+        "x": 3.7647260273972614,
+        "y": 4.287949486301369
       },
       "isLocked": false,
       "linkedName": "LeftReef"
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -56.70324641179898
+    "rotation": -53.61186665594834
   },
   "reversed": false,
   "folder": null,
