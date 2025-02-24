@@ -996,7 +996,7 @@ kArmRootToArmEndTransform = Transform3d(
     Rotation3d(0, (90 + 51.944769) * kRadiansPerDegree, 0),
 )
 # Climber constants
-kClimberCANID = 56
+kClimberCANID = 57
 kClimberName = "ClimberMotor"
 kClimberPGain = 0.12
 kClimberIGain = 0
