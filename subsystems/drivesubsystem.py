@@ -229,7 +229,8 @@ class CTRESwerveModule(SwerveModule):
         )
 
     def reset(self) -> None:
-        self.setSwerveAngle(self.swerveEncoder.getPosition())
+        if RobotBase.isReal():
+            self.setSwerveAngle(self.swerveEncoder.getPosition())
 
     def getSimulator(
         self,
