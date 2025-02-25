@@ -912,7 +912,7 @@ kIntakeInverted = True
 kPivotInverted = False
 
 kPivotEncoderID = 46
-kPivotEncoderOffset = 0
+kPivotEncoderOffset = -0.23
 
 kIntakeMotorSpeed = 0.25
 
