@@ -90,9 +90,9 @@ class RobotContainer:
         NamedCommands.registerCommand(
             "elevatorIntake", ElevatorIntakePosition(self.elevator)
         )
-        NamedCommands.registerCommand("IntakeCoral", IntakeCoral(self.intake))
-        NamedCommands.registerCommand("IntakeIdle", IntakeIdle(self.intake))
-        NamedCommands.registerCommand("IntakeScoring", IntakeScoring(self.intake))
+        NamedCommands.registerCommand("intakeCoral", IntakeCoral(self.intake))
+        NamedCommands.registerCommand("intakeIdle", IntakeIdle(self.intake))
+        NamedCommands.registerCommand("intakeScoring", IntakeScoring(self.intake))
 
         pathsPath = os.path.join(wpilib.getDeployDirectory(), "pathplanner", "autos")
         for file in os.listdir(pathsPath):
