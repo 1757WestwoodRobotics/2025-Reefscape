@@ -912,7 +912,7 @@ kIntakeInverted = True
 kPivotInverted = False
 
 kPivotEncoderID = 46
-kPivotEncoderOffset = -0.23
+kPivotEncoderOffset = 0.23
 
 kIntakeMotorSpeed = 0.25
 
@@ -933,7 +933,9 @@ kIntakeCurrentLimit = (
     .with_supply_current_limit_enable(True)
 )
 
-kIntakeRealZero = 0  # MAY NEED CHANGING LATER: "I think we just set the starting config, looked at what the encoder said, and offset it by that much" - Landon
+kIntakeRealZero = (
+    -0.25
+)  # MAY NEED CHANGING LATER: "I think we just set the starting config, looked at what the encoder said, and offset it by that much" - Landon
 kIntakePivotTolerance = 0.1  # radians
 
 # constants copied from last year, update when cad is done
