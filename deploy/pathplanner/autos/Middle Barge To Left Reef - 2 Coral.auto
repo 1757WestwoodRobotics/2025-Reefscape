@@ -5,9 +5,45 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "elevatorL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeIdle"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Middle Barge To Right Reef"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeScoring"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevatorIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeCoral"
           }
         },
         {
@@ -17,9 +53,57 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevatorL4"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Top Source To Left Reef"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeIdle"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeScoring"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevatorIntake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeCoral"
           }
         }
       ]
