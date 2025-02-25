@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.1905821917808215,
-        "y": 4.182769691780822
+        "x": 6.696710526315789,
+        "y": 4.2270559210526315
       },
       "isLocked": false,
       "linkedName": "BottomBarge"
@@ -21,7 +21,7 @@
       },
       "prevControl": {
         "x": 7.0258257480173025,
-        "y": 4.274241843907715
+        "y": 4.274241843907711
       },
       "nextControl": null,
       "isLocked": false,
