@@ -87,6 +87,12 @@ class RobotContainer:
         NamedCommands.registerCommand(
             "elevatorAlgaeHigh", ElevatorAlgaeHigh(self.elevator)
         )
+        NamedCommands.registerCommand(
+            "elevatorIntake", ElevatorIntakePosition(self.elevator)
+        )
+        NamedCommands.registerCommand("intakeCoral", IntakeCoral(self.intake))
+        NamedCommands.registerCommand("intakeIdle", IntakeIdle(self.intake))
+        NamedCommands.registerCommand("intakeScoring", IntakeScoring(self.intake))
 
         pathsPath = os.path.join(wpilib.getDeployDirectory(), "pathplanner", "autos")
         for file in os.listdir(pathsPath):
@@ -146,7 +152,7 @@ class RobotContainer:
         # )
 
         ModifiableJoystickButton(self.operatorInterface.resetGyro).onTrue(
-            ResetDrive(self.drive, Pose2d(1.37, 5.49, 0))
+            ResetDrive(self.drive, Pose2d(0, 0, 0))
         )
 
         ModifiableJoystickButton(self.operatorInterface.defenseStateControl).whileTrue(
