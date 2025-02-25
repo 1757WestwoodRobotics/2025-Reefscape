@@ -46,6 +46,7 @@ class ClimberSubsystem(Subsystem):
             .getStringTopic(constants.kClimberStateKey)
             .publish()
         )
+        self.heldPosition = self.climberMotor.get(Talon.ControlMode.Position)
 
     def periodic(self) -> None:
         match self.state:
@@ -56,9 +57,7 @@ class ClimberSubsystem(Subsystem):
             case self.ClimberState.EndClimbPosition:
                 self.setClimberMotorTowardsPosition(constants.kClimberEndClimbPosition)
             case self.ClimberState.NothingPressed:
-                self.setClimberMotorTowardsPosition(
-                    self.climberMotor.get(Talon.ControlMode.Position)
-                )
+                self.setClimberMotorTowardsPosition(self.heldPosition)
 
         self.climberStatePublisher.set(str(self.state))
         self.climberPositionPublisher.set(
@@ -86,4 +85,8 @@ class ClimberSubsystem(Subsystem):
         self.state = self.ClimberState.EndClimbPosition
 
     def setNothingPressedPosition(self) -> None:
+        if (
+            self.state is not self.ClimberState.NothingPressed
+        ):  # on initiating the state
+            self.heldPosition = self.climberMotor.get(Talon.ControlMode.Position)
         self.state = self.ClimberState.NothingPressed
