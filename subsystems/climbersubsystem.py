@@ -25,6 +25,7 @@ class ClimberSubsystem(Subsystem):
             constants.kClimberIGain,
             constants.kClimberDGain,
         )
+        self.climberMotor.setNeutralMode(Talon.NeutralMode.Brake)
 
         self.state = self.ClimberState.TuckedPosition
         self.targetPosition = constants.kClimberTuckedPosition
