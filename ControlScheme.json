@@ -118,14 +118,14 @@
     "trigger (ThrustmasterT16000M)"
   ],
   "pullClimberDown": [
-    1,
+    2,
     {
       "Button": 9
     },
     "bottom left orange button (button box)"
   ],
   "pullClimberUp": [
-    1,
+    2,
     {
       "Button": 4
     },
