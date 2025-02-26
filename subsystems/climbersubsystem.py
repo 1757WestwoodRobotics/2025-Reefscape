@@ -11,7 +11,6 @@ class ClimberSubsystem(Subsystem):
     class ClimberState(Enum):
         TuckedPosition = auto()
         AtFramePosition = auto()
-        EndClimbPosition = auto()
         NothingPressed = auto()
 
     def __init__(self) -> None:
@@ -55,8 +54,6 @@ class ClimberSubsystem(Subsystem):
                 self.setClimberMotorTowardsPosition(constants.kClimberTuckedPosition)
             case self.ClimberState.AtFramePosition:
                 self.setClimberMotorTowardsPosition(constants.kClimberAtFramePosition)
-            case self.ClimberState.EndClimbPosition:
-                self.setClimberMotorTowardsPosition(constants.kClimberEndClimbPosition)
             case self.ClimberState.NothingPressed:
                 self.setClimberMotorTowardsPosition(self.heldPosition)
 
@@ -81,9 +78,6 @@ class ClimberSubsystem(Subsystem):
 
     def setAtFramePosition(self) -> None:
         self.state = self.ClimberState.AtFramePosition
-
-    def setEndClimbPosition(self) -> None:
-        self.state = self.ClimberState.EndClimbPosition
 
     def setNothingPressedPosition(self) -> None:
         if (
