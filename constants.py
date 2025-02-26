@@ -1013,7 +1013,7 @@ kClimberPositionTolerance = (
     0.5 * kMetersPerInch / kClimberWinchCircumferance * kClimberGearRatio
 )
 
-# these are placeholders
-kClimberTuckedPosition = 10 * kMetersPerInch
-kClimberAtFramePosition = 100 * kMetersPerInch
-kClimberEndClimbPosition = 1 * kMetersPerInch
+# in rotations
+# temporary until we get an actual hardstop (climber roughly 45 degrees)
+kClimberTuckedPosition = 0
+kClimberAtFramePosition = 193
