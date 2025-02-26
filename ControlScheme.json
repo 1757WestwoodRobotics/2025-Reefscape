@@ -89,6 +89,13 @@
     },
     "trigger (ThrustmasterT16000M"
   ],
+  "elevatorL1Toggle": [
+    2,
+    {
+      "Button": 5
+    },
+    "button box"
+  ],
   "fieldRelativeCoordinateModeControl": [
     0,
     {
