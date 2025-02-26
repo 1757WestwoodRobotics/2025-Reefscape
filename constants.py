@@ -927,9 +927,9 @@ kIntakeStateKey = "intake/state"
 
 kIntakeCurrentLimit = (
     CurrentLimitsConfigs()
-    .with_stator_current_limit(25)
+    .with_stator_current_limit(60)
     .with_stator_current_limit_enable(True)
-    .with_supply_current_limit(25)
+    .with_supply_current_limit(60)
     .with_supply_current_limit_enable(True)
 )
 
