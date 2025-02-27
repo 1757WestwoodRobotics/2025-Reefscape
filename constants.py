@@ -1009,9 +1009,7 @@ kClimberTargetKey = "climber/target"
 kClimberGearRatio = 100 / 1
 kClimberWinchDiameter = 1.2 * kMetersPerInch
 kClimberWinchCircumferance = kClimberWinchDiameter * math.pi
-kClimberPositionTolerance = (
-    0.5 * kMetersPerInch / kClimberWinchCircumferance * kClimberGearRatio
-)
+kClimberPositionTolerance = 2
 
 # in rotations
 # temporary until we get an actual hardstop (climber roughly 45 degrees)
