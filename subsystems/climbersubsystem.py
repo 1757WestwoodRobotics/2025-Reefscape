@@ -24,6 +24,7 @@ class ClimberSubsystem(Subsystem):
             constants.kClimberIGain,
             constants.kClimberDGain,
         )
+        self.climberMotor.setCurrentLimit(constants.kIntakeCurrentLimit)
         self.climberMotor.setNeutralMode(Talon.NeutralMode.Brake)
 
         self.state = self.ClimberState.TuckedPosition
@@ -38,6 +39,12 @@ class ClimberSubsystem(Subsystem):
         self.climberPositionTargetPublisher = (
             NetworkTableInstance.getDefault()
             .getFloatTopic(constants.kClimberTargetKey)
+            .publish()
+        )
+
+        self.climberAtPositionPublisher = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kClimberAtPositionKey)
             .publish()
         )
 
@@ -61,6 +68,7 @@ class ClimberSubsystem(Subsystem):
         self.climberPositionPublisher.set(
             self.climberMotor.get(Talon.ControlMode.Position)
         )
+        self.climberAtPositionPublisher.set(self.climberAtPosition())
         self.climberPositionTargetPublisher.set(self.targetPosition)
 
     def setClimberMotorTowardsPosition(self, position) -> None:
