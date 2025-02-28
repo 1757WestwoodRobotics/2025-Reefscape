@@ -1010,7 +1010,7 @@ kClimberAtPositionKey = "climber/atPosition"
 kClimberGearRatio = 100 / 1
 kClimberWinchDiameter = 1.2 * kMetersPerInch
 kClimberWinchCircumferance = kClimberWinchDiameter * math.pi
-kClimberPositionTolerance = 2
+kClimberPositionTolerance = 1
 
 kClimberCurrentLimit = (
     CurrentLimitsConfigs()
