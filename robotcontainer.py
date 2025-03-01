@@ -165,7 +165,10 @@ class RobotContainer:
         )
 
         ModifiableJoystickButton(self.operatorInterface.intakeCoral).whileTrue(
-            IntakeCoral(self.intake).repeatedly()
+            commands2.SequentialCommandGroup(
+                ElevatorIntakePosition(self.elevator).repeatedly(),
+                IntakeCoral(self.intake).repeatedly(),
+            )
         )
         ModifiableJoystickButton(self.operatorInterface.intakeKnock).whileTrue(
             IntakeKnock(self.intake).repeatedly()

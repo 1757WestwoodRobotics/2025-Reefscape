@@ -7,6 +7,8 @@ from util.simtalon import Talon
 from util.simcoder import CTREEncoder
 from util.angleoptimize import intakeAccountForSillyEncoder
 from util.convenientmath import clamp
+from subsystems.elevatorsubsystem import ElevatorSubsystem
+
 import constants
 
 
@@ -68,22 +70,52 @@ class IntakeSubsystem(Subsystem):
             .publish()
         )
 
+        self.intakeL1SpeedPublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kIntakeL1SpeedKey)
+            .subscribe(constants.kIntakeL1MotorSpeed)
+        )
+
+        self.intakeL2ThroughL4SpeedPublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kIntakeL2ThroughL4SpeedKey)
+            .subscribe(constants.kIntakeL2ThroughL4MotorSpeed)
+        )
+
+        self.intakeCoralSpeedPublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kIntakeCoralKey)
+            .subscribe(constants.kIntakeMotorSpeed)
+        )
+
+        self.elevator = ElevatorSubsystem()
+
     def periodic(self) -> None:
         # a lot simpler when there isn't a convoluted intake sequence
+        L1Speed = self.intakeL1SpeedPublisher.get()
+        L2ThroughL4Speed = self.intakeL2ThroughL4SpeedPublisher.get()
+        IntakeCoralSpeed = self.intakeCoralSpeedPublisher.get()
+        print(L1Speed)
+
         match self.state:
             case self.IntakeState.Intaking:
                 self.setPivotAngle(constants.kIntakingAngle)
-                self.intakeMotor.set(
-                    Talon.ControlMode.Percent, -1 * constants.kIntakeMotorSpeed
-                )
+                self.intakeMotor.set(Talon.ControlMode.Percent, -1 * IntakeCoralSpeed)
             case self.IntakeState.Idle:
                 self.setPivotAngle(constants.kScoreAngle)
                 self.intakeMotor.set(Talon.ControlMode.Percent, 0)
             case self.IntakeState.Scoring:
                 self.setPivotAngle(constants.kScoreAngle)
-                self.intakeMotor.set(
-                    Talon.ControlMode.Percent, constants.kIntakeMotorSpeed
-                )
+                if (
+                    self.elevator.ElevatorState
+                    == self.elevator.ElevatorState.L1Position
+                ):
+                    self.intakeMotor.set(Talon.ControlMode.Percent, L1Speed)
+                elif (
+                    self.elevator.ElevatorState
+                    != self.elevator.ElevatorState.L1Position
+                ):
+                    self.intakeMotor.set(Talon.ControlMode.Percent, L2ThroughL4Speed)
             case self.IntakeState.Knock:
                 self.setPivotAngle(constants.kKnockAngle)
                 self.intakeMotor.set(Talon.ControlMode.Percent, 0)
