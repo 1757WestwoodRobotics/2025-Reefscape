@@ -41,7 +41,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "LeftReef"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -64,7 +64,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -179.85689564016243
+    "rotation": -179.85689564016246
   },
   "useDefaultConstraints": true
 }
