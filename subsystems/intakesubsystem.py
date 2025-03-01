@@ -75,6 +75,7 @@ class IntakeSubsystem(Subsystem):
             .getFloatTopic(constants.kIntakeL1SpeedKey)
             .publish()
         )
+        self.intakeL1SpeedPublisher.set(constants.kIntakeL1MotorSpeed)
 
         self.intakeL1SpeedGetter = (
             NetworkTableInstance.getDefault()
@@ -82,11 +83,25 @@ class IntakeSubsystem(Subsystem):
             .subscribe(constants.kIntakeL1MotorSpeed)
         )
 
+        self.intakeL2ThroughL4Publisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kIntakeL2ThroughL4SpeedKey)
+            .publish()
+        )
+        self.intakeL2ThroughL4Publisher.set(constants.kIntakeL2ThroughL4MotorSpeed)
+
         self.intakeL2ThroughL4SpeedGetter = (
             NetworkTableInstance.getDefault()
             .getFloatTopic(constants.kIntakeL2ThroughL4SpeedKey)
             .subscribe(constants.kIntakeL2ThroughL4MotorSpeed)
         )
+
+        self.intakeCoralSpeedPublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kIntakeCoralKey)
+            .publish()
+        )
+        self.intakeCoralSpeedPublisher.set(constants.kIntakeMotorSpeed)
 
         self.intakeCoralSpeedGetter = (
             NetworkTableInstance.getDefault()
