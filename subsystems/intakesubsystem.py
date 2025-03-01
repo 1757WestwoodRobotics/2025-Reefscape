@@ -73,16 +73,22 @@ class IntakeSubsystem(Subsystem):
         self.intakeL1SpeedPublisher = (
             NetworkTableInstance.getDefault()
             .getFloatTopic(constants.kIntakeL1SpeedKey)
+            .publish()
+        )
+
+        self.intakeL1SpeedGetter = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kIntakeL1SpeedKey)
             .subscribe(constants.kIntakeL1MotorSpeed)
         )
 
-        self.intakeL2ThroughL4SpeedPublisher = (
+        self.intakeL2ThroughL4SpeedGetter = (
             NetworkTableInstance.getDefault()
             .getFloatTopic(constants.kIntakeL2ThroughL4SpeedKey)
             .subscribe(constants.kIntakeL2ThroughL4MotorSpeed)
         )
 
-        self.intakeCoralSpeedPublisher = (
+        self.intakeCoralSpeedGetter = (
             NetworkTableInstance.getDefault()
             .getFloatTopic(constants.kIntakeCoralKey)
             .subscribe(constants.kIntakeMotorSpeed)
@@ -92,9 +98,9 @@ class IntakeSubsystem(Subsystem):
 
     def periodic(self) -> None:
         # a lot simpler when there isn't a convoluted intake sequence
-        L1Speed = self.intakeL1SpeedPublisher.get()
-        L2ThroughL4Speed = self.intakeL2ThroughL4SpeedPublisher.get()
-        IntakeCoralSpeed = self.intakeCoralSpeedPublisher.get()
+        L1Speed = self.intakeL1SpeedGetter.get()
+        L2ThroughL4Speed = self.intakeL2ThroughL4SpeedGetter.get()
+        IntakeCoralSpeed = self.intakeCoralSpeedGetter.get()
         print(L1Speed)
 
         match self.state:
