@@ -21,6 +21,9 @@ from commands.elevatorsetting import (
     ElevatorL4Position,
     ElevatorAlgaeHigh,
     ElevatorAlgaeLow,
+    ElevatorManualUp,
+    ElevatorManualDown,
+    ElevatorManualMode,
 )
 from commands.climbersetting import ClimberAtFrame, ClimberTucked, ClimberNothingPressed
 
@@ -33,7 +36,7 @@ from subsystems.elevatorsubsystem import ElevatorSubsystem
 from subsystems.climbersubsystem import ClimberSubsystem
 
 from operatorinterface import OperatorInterface
-from util.helpfultriggerwrappers import ModifiableJoystickButton
+from util.helpfultriggerwrappers import ModifiableJoystickButton, NetworkTableButton
 
 import constants
 
@@ -199,6 +202,19 @@ class RobotContainer:
 
         ModifiableJoystickButton(self.operatorInterface.climberDown).onTrue(
             ClimberTucked(self.climber)
+        )
+
+        # manual elevator
+        NetworkTableButton(constants.kElevatorManualModeKey).whileTrue(
+            ElevatorManualMode(self.elevator)
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.elevatorManualUp).whileTrue(
+            ElevatorManualUp(self.elevator)
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.elevatorManualDown).whileTrue(
+            ElevatorManualDown(self.elevator)
         )
 
     def getAutonomousCommand(self) -> commands2.Command:

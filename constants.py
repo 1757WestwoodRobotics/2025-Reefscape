@@ -978,6 +978,8 @@ kElevatorStateKey = "elevator/state"
 kElevatorAtPositionKey = "elevator/atPosition"
 kElevatorFudgeKey = "elevator/fudge"
 kElevatorPoseKey = "elevator/pose"
+kElevatorManualModeKey = "elevator/manualMode"
+kElevatorManualIncrement = 0.5
 
 # taken from cad
 kL4PositionBeltPosition = 52.50 * kMetersPerInch

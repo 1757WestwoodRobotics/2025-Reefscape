@@ -151,5 +151,19 @@
       "Button": 13
     },
     "bottom button on top of joystick (ThrustmasterT16000M)"
+  ],
+  "elevatorManualUp": [
+    2,
+    {
+      "Button": 1
+    },
+    "placeholder"
+  ],
+  "elevatorManualDown": [
+    2,
+    {
+      "Button": 2
+    },
+    "placeholder"
   ]
 }
