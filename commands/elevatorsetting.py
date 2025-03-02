@@ -2,6 +2,7 @@ from commands2 import Command
 from wpilib import Timer
 from subsystems.elevatorsubsystem import ElevatorSubsystem
 from ntcore import NetworkTableInstance
+from util.convenientmath import clamp
 import constants
 
 
@@ -101,7 +102,7 @@ class ElevatorManualUp(Command):
         )
         self.elevatorPositionGetter = (
             NetworkTableInstance.getDefault()
-            .getFloatTopic(constants.kElevatorAtPositionKey)
+            .getFloatTopic(constants.kElevatorPositionKey)
             .subscribe(constants.kIntakePositionBeltPosition)
         )
         self.elevatorStateGetter = (
@@ -111,12 +112,15 @@ class ElevatorManualUp(Command):
         )
 
     def execute(self):
-        print("manualup")
         if self.elevatorStateGetter.get() == "ElevatorState.ManualMode":
+            elevatorPosition = self.elevatorPositionGetter.get()
             self.elevatorPositionPublisher.set(
-                self.elevatorPositionGetter.get() + constants.kElevatorManualIncrement
+                clamp(
+                    elevatorPosition + constants.kElevatorManualIncrement,
+                    0,
+                    constants.kL4PositionBeltPosition,
+                )
             )
-            print("manual upppppppppp")
 
 
 class ElevatorManualDown(Command):
@@ -124,7 +128,6 @@ class ElevatorManualDown(Command):
         Command.__init__(self)
         self.setName(__class__.__name__)
         self.elevator = elevator
-        self.addRequirements(self.elevator)
 
         self.elevatorPositionPublisher = (
             NetworkTableInstance.getDefault()
@@ -133,7 +136,7 @@ class ElevatorManualDown(Command):
         )
         self.elevatorPositionGetter = (
             NetworkTableInstance.getDefault()
-            .getFloatTopic(constants.kElevatorAtPositionKey)
+            .getFloatTopic(constants.kElevatorPositionKey)
             .subscribe(constants.kIntakePositionBeltPosition)
         )
         self.elevatorStateGetter = (
@@ -144,6 +147,11 @@ class ElevatorManualDown(Command):
 
     def execute(self):
         if self.elevatorStateGetter.get() == "ElevatorState.ManualMode":
+            elevatorPosition = self.elevatorPositionGetter.get()
             self.elevatorPositionPublisher.set(
-                self.elevatorPositionGetter.get() - constants.kElevatorManualIncrement
+                clamp(
+                    elevatorPosition - constants.kElevatorManualIncrement,
+                    0,
+                    constants.kL4PositionBeltPosition,
+                )
             )
