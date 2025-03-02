@@ -1,6 +1,8 @@
-from commands2.command import Command
+from commands2 import Command, ParallelCommandGroup
 from wpilib import Timer
 from subsystems.intakesubsystem import IntakeSubsystem
+from subsystems.elevatorsubsystem import ElevatorSubsystem
+from commands.elevatorsetting import ElevatorIntakePosition
 
 
 class SetIntakeState(Command):
@@ -53,3 +55,15 @@ class IntakeCoral(SetIntakeState):
 
     def execute(self) -> None:
         self.intake.setIntaking()
+
+
+class IntakeCoralProcess(ParallelCommandGroup):
+    def __init__(
+        self, intakeSubsystem: IntakeSubsystem, elevatorSubsystem: ElevatorSubsystem
+    ):
+        ParallelCommandGroup.__init__(
+            self,
+            ElevatorIntakePosition(elevatorSubsystem),
+            IntakeCoral(intakeSubsystem),
+        )
+        self.setName(__class__.__name__)

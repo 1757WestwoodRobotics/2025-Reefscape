@@ -7,7 +7,6 @@ from util.simtalon import Talon
 from util.simcoder import CTREEncoder
 from util.angleoptimize import intakeAccountForSillyEncoder
 from util.convenientmath import clamp
-from subsystems.elevatorsubsystem import ElevatorSubsystem
 
 import constants
 
@@ -109,14 +108,18 @@ class IntakeSubsystem(Subsystem):
             .subscribe(constants.kIntakeMotorSpeed)
         )
 
-        self.elevator = ElevatorSubsystem()
+        self.elevatorPositionGetter = (
+            NetworkTableInstance.getDefault()
+            .getStringTopic(constants.kElevatorStateKey)
+            .subscribe("ElevatorState.L4Position")
+        )
 
     def periodic(self) -> None:
         # a lot simpler when there isn't a convoluted intake sequence
         L1Speed = self.intakeL1SpeedGetter.get()
         L2ThroughL4Speed = self.intakeL2ThroughL4SpeedGetter.get()
         IntakeCoralSpeed = self.intakeCoralSpeedGetter.get()
-        print(L1Speed)
+        ElevatorState = self.elevatorPositionGetter.get()
 
         match self.state:
             case self.IntakeState.Intaking:
@@ -127,15 +130,9 @@ class IntakeSubsystem(Subsystem):
                 self.intakeMotor.set(Talon.ControlMode.Percent, 0)
             case self.IntakeState.Scoring:
                 self.setPivotAngle(constants.kScoreAngle)
-                if (
-                    self.elevator.ElevatorState
-                    == self.elevator.ElevatorState.L1Position
-                ):
+                if ElevatorState == "ElevatorState.L1Position":
                     self.intakeMotor.set(Talon.ControlMode.Percent, L1Speed)
-                elif (
-                    self.elevator.ElevatorState
-                    != self.elevator.ElevatorState.L1Position
-                ):
+                else:
                     self.intakeMotor.set(Talon.ControlMode.Percent, L2ThroughL4Speed)
             case self.IntakeState.Knock:
                 self.setPivotAngle(constants.kKnockAngle)

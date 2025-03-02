@@ -9,10 +9,10 @@ from commands.resetdrive import ResetDrive
 from commands.drivedistance import DriveDistance
 from commands.defensestate import DefenseState
 from commands.intakesetting import (
-    IntakeCoral,
     IntakeKnock,
     IntakeIdle,
     IntakeScoring,
+    IntakeCoralProcess,
 )
 from commands.elevatorsetting import (
     ElevatorIntakePosition,
@@ -91,9 +91,8 @@ class RobotContainer:
             "elevatorAlgaeHigh", ElevatorAlgaeHigh(self.elevator)
         )
         NamedCommands.registerCommand(
-            "elevatorIntake", ElevatorIntakePosition(self.elevator)
+            "intakeCoral", IntakeCoralProcess(self.elevator, self.intake)
         )
-        NamedCommands.registerCommand("intakeCoral", IntakeCoral(self.intake))
         NamedCommands.registerCommand("intakeIdle", IntakeIdle(self.intake))
         NamedCommands.registerCommand("intakeScoring", IntakeScoring(self.intake))
 
@@ -123,7 +122,7 @@ class RobotContainer:
                 self.operatorInterface.chassisControls.rotationY,
             )
         )
-        self.elevator.setDefaultCommand(ElevatorL2Position(self.elevator))
+        self.elevator.setDefaultCommand(ElevatorIntakePosition(self.elevator))
 
         self.intake.setDefaultCommand(IntakeIdle(self.intake))
 
@@ -165,10 +164,7 @@ class RobotContainer:
         )
 
         ModifiableJoystickButton(self.operatorInterface.intakeCoral).whileTrue(
-            commands2.SequentialCommandGroup(
-                ElevatorIntakePosition(self.elevator).repeatedly(),
-                IntakeCoral(self.intake).repeatedly(),
-            )
+            IntakeCoralProcess(self.intake, self.elevator).repeatedly()
         )
         ModifiableJoystickButton(self.operatorInterface.intakeKnock).whileTrue(
             IntakeKnock(self.intake).repeatedly()
