@@ -89,6 +89,8 @@ class ElevatorSubsystem(Subsystem):
 
     def periodic(self) -> None:
         match self.state:
+            case self.ElevatorState.ManualMode:
+                self.setElevatorMotorsAtPosition(self.elevatorPositionGetter.get())
             case self.ElevatorState.L4Position:
                 self.setElevatorMotorsAtPosition(constants.kL4PositionBeltPosition)
             case self.ElevatorState.L3Position:
@@ -103,8 +105,6 @@ class ElevatorSubsystem(Subsystem):
                 self.setElevatorMotorsAtPosition(constants.kAlgaeLowBeltPosition)
             case self.ElevatorState.IntakePosition:
                 self.setElevatorMotorsAtPosition(constants.kIntakePositionBeltPosition)
-            case self.ElevatorState.ManualMode:
-                self.setElevatorMotorsAtPosition(self.elevatorPositionGetter.get())
 
         self.elevatorStatePublisher.set(str(self.state))
         if self.state != self.ElevatorState.ManualMode:

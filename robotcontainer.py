@@ -206,15 +206,15 @@ class RobotContainer:
 
         # manual elevator
         NetworkTableButton(constants.kElevatorManualModeKey).whileTrue(
-            ElevatorManualMode(self.elevator)
+            ElevatorManualMode(self.elevator).repeatedly()
         )
 
         ModifiableJoystickButton(self.operatorInterface.elevatorManualUp).whileTrue(
-            ElevatorManualUp(self.elevator)
+            ElevatorManualUp(self.elevator).repeatedly()
         )
 
         ModifiableJoystickButton(self.operatorInterface.elevatorManualDown).whileTrue(
-            ElevatorManualDown(self.elevator)
+            ElevatorManualDown(self.elevator).repeatedly()
         )
 
     def getAutonomousCommand(self) -> commands2.Command:
