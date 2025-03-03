@@ -15,7 +15,6 @@ from commands.intakesetting import (
     IntakeCoralProcess,
 )
 from commands.elevatorsetting import (
-    ElevatorIntakePosition,
     ElevatorL1Position,
     ElevatorL2Position,
     ElevatorL3Position,
