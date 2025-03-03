@@ -62,7 +62,7 @@ class ElevatorSubsystem(Subsystem):
         )
         self.elevatorPositionGetter = (
             NetworkTableInstance.getDefault()
-            .getFloatTopic(constants.kElevatorAtPositionKey)
+            .getFloatTopic(constants.kElevatorPositionKey)
             .subscribe(constants.kIntakePositionBeltPosition)
         )
         self.elevatorAtPositionPublisher = (
@@ -141,24 +141,31 @@ class ElevatorSubsystem(Subsystem):
 
     def setL4Position(self) -> None:
         self.state = self.ElevatorState.L4Position
+        self.elevatorManualModePublisher.set(False)
 
     def setL3Position(self) -> None:
         self.state = self.ElevatorState.L3Position
+        self.elevatorManualModePublisher.set(False)
 
     def setL2Position(self) -> None:
         self.state = self.ElevatorState.L2Position
+        self.elevatorManualModePublisher.set(False)
 
     def setL1Position(self) -> None:
         self.state = self.ElevatorState.L1Position
+        self.elevatorManualModePublisher.set(False)
 
     def setAlgaeHigh(self) -> None:
         self.state = self.ElevatorState.AlgaeHigh
+        self.elevatorManualModePublisher.set(False)
 
     def setAlgaeLow(self) -> None:
         self.state = self.ElevatorState.AlgaeLow
+        self.elevatorManualModePublisher.set(False)
 
     def setIntakePosition(self) -> None:
         self.state = self.ElevatorState.IntakePosition
+        self.elevatorManualModePublisher.set(False)
 
     def setManualMode(self) -> None:
         self.state = self.ElevatorState.ManualMode

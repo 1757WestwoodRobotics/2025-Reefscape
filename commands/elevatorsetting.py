@@ -100,20 +100,10 @@ class ElevatorManualUp(Command):
             .getFloatTopic(constants.kElevatorPositionKey)
             .publish()
         )
-        self.elevatorPositionGetter = (
-            NetworkTableInstance.getDefault()
-            .getFloatTopic(constants.kElevatorPositionKey)
-            .subscribe(constants.kIntakePositionBeltPosition)
-        )
-        self.elevatorStateGetter = (
-            NetworkTableInstance.getDefault()
-            .getStringTopic(constants.kElevatorStateKey)
-            .subscribe("ElevatorState.IntakePosition")
-        )
 
     def execute(self):
-        if self.elevatorStateGetter.get() == "ElevatorState.ManualMode":
-            elevatorPosition = self.elevatorPositionGetter.get()
+        if self.elevator.state == self.elevator.ElevatorState.ManualMode:
+            elevatorPosition = self.elevator.getElevatorPosition()
             self.elevatorPositionPublisher.set(
                 clamp(
                     elevatorPosition + constants.kElevatorManualIncrement,
@@ -134,20 +124,10 @@ class ElevatorManualDown(Command):
             .getFloatTopic(constants.kElevatorPositionKey)
             .publish()
         )
-        self.elevatorPositionGetter = (
-            NetworkTableInstance.getDefault()
-            .getFloatTopic(constants.kElevatorPositionKey)
-            .subscribe(constants.kIntakePositionBeltPosition)
-        )
-        self.elevatorStateGetter = (
-            NetworkTableInstance.getDefault()
-            .getStringTopic(constants.kElevatorStateKey)
-            .subscribe("ElevatorState.IntakePosition")
-        )
 
     def execute(self):
-        if self.elevatorStateGetter.get() == "ElevatorState.ManualMode":
-            elevatorPosition = self.elevatorPositionGetter.get()
+        if self.elevator.state == self.elevator.ElevatorState.ManualMode:
+            elevatorPosition = self.elevator.getElevatorPosition()
             self.elevatorPositionPublisher.set(
                 clamp(
                     elevatorPosition - constants.kElevatorManualIncrement,

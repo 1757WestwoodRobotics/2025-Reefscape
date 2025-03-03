@@ -21,10 +21,7 @@ class AxisButton(Trigger):
 class NetworkTableButton(Trigger):
     def __init__(self, key: str) -> None:
         super().__init__(
-            lambda: NetworkTableInstance.getDefault()
-            .getBooleanTopic(key)
-            .subscribe(False)
-            .get()
+            NetworkTableInstance.getDefault().getBooleanTopic(key).subscribe(False).get
         )
 
 
