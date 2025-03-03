@@ -107,7 +107,7 @@ class ElevatorSubsystem(Subsystem):
                 self.setElevatorMotorsAtPosition(constants.kIntakePositionBeltPosition)
 
         self.elevatorStatePublisher.set(str(self.state))
-        if self.state != self.ElevatorState.ManualMode:
+        if self.state is not self.ElevatorState.ManualMode:
             self.elevatorPositionPublisher.set(self.getElevatorPosition())
         self.elevatorAtPositionPublisher.set(self.atPosition())
 
