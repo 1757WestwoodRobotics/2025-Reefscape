@@ -919,8 +919,11 @@ kIntakeL1MotorSpeed = 0.35
 kIntakeL2ThroughL4MotorSpeed = 0.20
 
 # CAD angles, taken from horizontal
-kIntakingAngle = Rotation2d.fromDegrees(261.043551)
-kScoreAngle = Rotation2d.fromDegrees(77.160502)
+
+kIntakeToArmOffset = 51.944769
+
+kIntakingAngle = Rotation2d.fromDegrees(360 - kIntakeToArmOffset - 35)
+kScoreAngle = Rotation2d.fromDegrees(180 - kIntakeToArmOffset - 45.047053)
 kKnockAngle = Rotation2d(0)
 
 kIntakeAtPositionKey = "intake/atPosition"
