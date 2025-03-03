@@ -1,6 +1,9 @@
 from commands2 import Command
 from wpilib import Timer
+from ntcore import NetworkTableInstance
 from subsystems.elevatorsubsystem import ElevatorSubsystem
+from util.convenientmath import clamp
+import constants
 
 
 class SetElevatorState(Command):
@@ -76,3 +79,59 @@ class ElevatorIntakePosition(SetElevatorState):
 
     def execute(self) -> None:
         self.elevator.setIntakePosition()
+
+
+class ElevatorManualMode(SetElevatorState):
+    def __init__(self, elevatorSubsystem: ElevatorSubsystem) -> None:
+        SetElevatorState.__init__(self, elevatorSubsystem)
+
+    def execute(self) -> None:
+        self.elevator.setManualMode()
+
+
+class ElevatorManualUp(Command):
+    def __init__(self, elevator: ElevatorSubsystem) -> None:
+        Command.__init__(self)
+        self.setName(__class__.__name__)
+        self.elevator = elevator
+
+        self.elevatorPositionPublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kElevatorPositionKey)
+            .publish()
+        )
+
+    def execute(self):
+        if self.elevator.state == self.elevator.ElevatorState.ManualMode:
+            elevatorPosition = self.elevator.getElevatorPosition()
+            self.elevatorPositionPublisher.set(
+                clamp(
+                    elevatorPosition + constants.kElevatorManualIncrement,
+                    0,
+                    constants.kL4PositionBeltPosition,
+                )
+            )
+
+
+class ElevatorManualDown(Command):
+    def __init__(self, elevator: ElevatorSubsystem) -> None:
+        Command.__init__(self)
+        self.setName(__class__.__name__)
+        self.elevator = elevator
+
+        self.elevatorPositionPublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kElevatorPositionKey)
+            .publish()
+        )
+
+    def execute(self):
+        if self.elevator.state == self.elevator.ElevatorState.ManualMode:
+            elevatorPosition = self.elevator.getElevatorPosition()
+            self.elevatorPositionPublisher.set(
+                clamp(
+                    elevatorPosition - constants.kElevatorManualIncrement,
+                    0,
+                    constants.kL4PositionBeltPosition,
+                )
+            )

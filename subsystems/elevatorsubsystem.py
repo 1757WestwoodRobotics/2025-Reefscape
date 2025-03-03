@@ -17,6 +17,7 @@ class ElevatorSubsystem(Subsystem):
         AlgaeHigh = auto()
         AlgaeLow = auto()
         IntakePosition = auto()
+        ManualMode = auto()
 
     def __init__(self) -> None:
         Subsystem.__init__(self)
@@ -59,6 +60,11 @@ class ElevatorSubsystem(Subsystem):
             .getFloatTopic(constants.kElevatorPositionKey)
             .publish()
         )
+        self.elevatorPositionGetter = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kElevatorPositionKey)
+            .subscribe(constants.kIntakePositionBeltPosition)
+        )
         self.elevatorAtPositionPublisher = (
             NetworkTableInstance.getDefault()
             .getBooleanTopic(constants.kElevatorAtPositionKey)
@@ -74,9 +80,17 @@ class ElevatorSubsystem(Subsystem):
             .getFloatTopic(constants.kElevatorFudgeKey)
             .subscribe(0)
         )
+        self.elevatorManualModePublisher = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kElevatorManualModeKey)
+            .publish()
+        )
+        self.elevatorManualModePublisher.set(False)
 
     def periodic(self) -> None:
         match self.state:
+            case self.ElevatorState.ManualMode:
+                self.setElevatorMotorsAtPosition(self.elevatorPositionGetter.get())
             case self.ElevatorState.L4Position:
                 self.setElevatorMotorsAtPosition(constants.kL4PositionBeltPosition)
             case self.ElevatorState.L3Position:
@@ -93,7 +107,8 @@ class ElevatorSubsystem(Subsystem):
                 self.setElevatorMotorsAtPosition(constants.kIntakePositionBeltPosition)
 
         self.elevatorStatePublisher.set(str(self.state))
-        self.elevatorPositionPublisher.set(self.getElevatorPosition())
+        if self.state is not self.ElevatorState.ManualMode:
+            self.elevatorPositionPublisher.set(self.getElevatorPosition())
         self.elevatorAtPositionPublisher.set(self.atPosition())
 
     def setElevatorMotorsAtPosition(self, beltPosition) -> None:
@@ -126,21 +141,31 @@ class ElevatorSubsystem(Subsystem):
 
     def setL4Position(self) -> None:
         self.state = self.ElevatorState.L4Position
+        self.elevatorManualModePublisher.set(False)
 
     def setL3Position(self) -> None:
         self.state = self.ElevatorState.L3Position
+        self.elevatorManualModePublisher.set(False)
 
     def setL2Position(self) -> None:
         self.state = self.ElevatorState.L2Position
+        self.elevatorManualModePublisher.set(False)
 
     def setL1Position(self) -> None:
         self.state = self.ElevatorState.L1Position
+        self.elevatorManualModePublisher.set(False)
 
     def setAlgaeHigh(self) -> None:
         self.state = self.ElevatorState.AlgaeHigh
+        self.elevatorManualModePublisher.set(False)
 
     def setAlgaeLow(self) -> None:
         self.state = self.ElevatorState.AlgaeLow
+        self.elevatorManualModePublisher.set(False)
 
     def setIntakePosition(self) -> None:
         self.state = self.ElevatorState.IntakePosition
+        self.elevatorManualModePublisher.set(False)
+
+    def setManualMode(self) -> None:
+        self.state = self.ElevatorState.ManualMode

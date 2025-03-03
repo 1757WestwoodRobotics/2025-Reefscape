@@ -18,13 +18,11 @@ class AxisButton(Trigger):
         super().__init__(lambda: self.axis() > self.threshold)
 
 
-class SmartDashboardButton(Trigger):
+class NetworkTableButton(Trigger):
     def __init__(self, key: str) -> None:
-        self.key = NetworkTableInstance.getDefault().getBooleanTopic(key)
-        self.key.publish().set(False)
-
-        self.get = self.key.subscribe(False)
-        super().__init__(self.get.get)
+        super().__init__(
+            NetworkTableInstance.getDefault().getBooleanTopic(key).subscribe(False).get
+        )
 
 
 class ModifiableJoystickButton(Trigger):
