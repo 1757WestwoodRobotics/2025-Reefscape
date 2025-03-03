@@ -981,8 +981,8 @@ kElevatorPoseKey = "elevator/pose"
 
 # taken from cad
 kL4PositionBeltPosition = 52.50 * kMetersPerInch
-kL3PositionBeltPosition = 27.5 * kMetersPerInch
-kL2PositionBeltPosition = 11 * kMetersPerInch
+kL3PositionBeltPosition = 30 * kMetersPerInch
+kL2PositionBeltPosition = 15 * kMetersPerInch
 kL1PositionBeltPosition = 0 * kMetersPerInch
 kIntakePositionBeltPosition = 39.5 * kMetersPerInch
 kAlgaeLowBeltPosition = 18.5 * kMetersPerInch
