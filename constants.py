@@ -980,7 +980,7 @@ kElevatorFudgeKey = "elevator/fudge"
 kElevatorPoseKey = "elevator/pose"
 
 # taken from cad
-kL4PositionBeltPosition = 52.75 * kMetersPerInch
+kL4PositionBeltPosition = 52.50 * kMetersPerInch
 kL3PositionBeltPosition = 27.5 * kMetersPerInch
 kL2PositionBeltPosition = 11 * kMetersPerInch
 kL1PositionBeltPosition = 0 * kMetersPerInch
