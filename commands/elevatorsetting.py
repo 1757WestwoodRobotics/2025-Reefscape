@@ -1,7 +1,7 @@
 from commands2 import Command
 from wpilib import Timer
-from subsystems.elevatorsubsystem import ElevatorSubsystem
 from ntcore import NetworkTableInstance
+from subsystems.elevatorsubsystem import ElevatorSubsystem
 from util.convenientmath import clamp
 import constants
 
