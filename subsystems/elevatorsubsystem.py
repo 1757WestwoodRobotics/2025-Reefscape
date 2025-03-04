@@ -44,6 +44,8 @@ class ElevatorSubsystem(Subsystem):
         )
         self.elevatorMotor1.setNeutralMode(Talon.NeutralMode.Brake)
         self.elevatorMotor2.setNeutralMode(Talon.NeutralMode.Brake)
+        self.elevatorMotor1.setCurrentLimit(constants.kElevatorCurrentLimit)
+        self.elevatorMotor2.setCurrentLimit(constants.kElevatorCurrentLimit)
 
         self.elevatorMotor2.follow(self.elevatorMotor1, True)
         self.targetPosition = 0

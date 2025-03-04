@@ -966,6 +966,14 @@ kElevator2Inverted = False
 
 kElevatorTolerance = 0.05
 
+kElevatorCurrentLimit = (
+    CurrentLimitsConfigs()
+    .with_stator_current_limit(40)
+    .with_stator_current_limit_enable(True)
+    .with_supply_current_limit(40)
+    .with_supply_current_limit_enable(True)
+)
+
 # from CAD
 kMotorPulleyGearRatio = (60 / 18) * (60 / 18)
 
