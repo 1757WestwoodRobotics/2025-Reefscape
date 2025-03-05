@@ -940,6 +940,13 @@ kIntakeCurrentLimit = (
     .with_supply_current_limit(60)
     .with_supply_current_limit_enable(True)
 )
+kPivotCurrentLimit = (
+    CurrentLimitsConfigs()
+    .with_stator_current_limit(40)
+    .with_stator_current_limit_enable(True)
+    .with_supply_current_limit(40)
+    .with_supply_current_limit_enable(True)
+)
 
 kIntakeRealZero = (
     -0.25

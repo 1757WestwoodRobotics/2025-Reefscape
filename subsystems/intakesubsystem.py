@@ -45,6 +45,7 @@ class IntakeSubsystem(Subsystem):
             moMagicAccel=constants.kPivotAccel,
             moMagicVel=constants.kPivotVel,
         )
+        self.pivotMotor.setCurrentLimit(constants.kPivotCurrentLimit)
         self.pivotMotor.setNeutralMode(Talon.NeutralMode.Brake)
         # self.positionDebouncer = Debouncer(0.1, Debouncer.DebounceType.kRising)
 
