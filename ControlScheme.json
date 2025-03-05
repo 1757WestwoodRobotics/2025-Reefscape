@@ -44,14 +44,20 @@
   "elevatorAlgaeHigh": [
     0,
     {
-      "POV": [0, 0]
+      "POV": [
+        0,
+        0
+      ]
     },
     "POV up"
   ],
   "elevatorAlgaeLow": [
     0,
     {
-      "POV": [0, 180]
+      "POV": [
+        0,
+        180
+      ]
     },
     "POV down"
   ],
@@ -156,7 +162,7 @@
   "elevatorManualDown": [
     2,
     {
-      "Button": 2
+      "Button": 6
     },
     "placeholder"
   ]
