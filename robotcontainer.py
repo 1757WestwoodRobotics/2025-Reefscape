@@ -15,6 +15,7 @@ from commands.intakesetting import (
     IntakeCoralProcess,
 )
 from commands.elevatorsetting import (
+    ElevatorIntakePosition,
     ElevatorL1Position,
     ElevatorL2Position,
     ElevatorL3Position,
@@ -121,7 +122,7 @@ class RobotContainer:
                 self.operatorInterface.chassisControls.rotationY,
             )
         )
-        self.elevator.setDefaultCommand(ElevatorL1Position(self.elevator))
+        self.elevator.setDefaultCommand(ElevatorIntakePosition(self.elevator))
 
         self.intake.setDefaultCommand(IntakeIdle(self.intake))
 
