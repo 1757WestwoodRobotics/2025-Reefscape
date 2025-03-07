@@ -1032,11 +1032,13 @@ kClimberStateKey = "climber/state"
 kClimberTargetKey = "climber/target"
 kClimberAtPositionKey = "climber/atPosition"
 kClimberEndClimbKey = "climber/endClimb"
+kClimberManualModeKey = "climber/manualMode"
 
 kClimberGearRatio = 100 / 1
 kClimberWinchDiameter = 1.2 * kMetersPerInch
 kClimberWinchCircumferance = kClimberWinchDiameter * math.pi
 kClimberPositionTolerance = 1
+kClimberManualIncrement = 0.5
 
 kClimberCurrentLimit = (
     CurrentLimitsConfigs()

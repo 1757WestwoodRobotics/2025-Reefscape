@@ -26,7 +26,14 @@ from commands.elevatorsetting import (
     ElevatorManualDown,
     ElevatorManualMode,
 )
-from commands.climbersetting import ClimberAtFrame, ClimberTucked, ClimberNothingPressed
+from commands.climbersetting import (
+    ClimberAtFrame,
+    ClimberTucked,
+    ClimberNothingPressed,
+    ClimberManualUp,
+    ClimberManualDown,
+    ClimberManualMode,
+)
 
 # from commands.drive.drivewaypoint import DriveWaypoint
 from subsystems.drivesubsystem import DriveSubsystem
@@ -216,6 +223,19 @@ class RobotContainer:
 
         ModifiableJoystickButton(self.operatorInterface.elevatorManualDown).whileTrue(
             ElevatorManualDown(self.elevator).repeatedly()
+        )
+
+        # manual climber
+        NetworkTableButton(constants.kClimberManualModeKey).whileTrue(
+            ClimberManualMode(self.climber).repeatedly()
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.climberManualUp).whileTrue(
+            ClimberManualUp(self.climber).repeatedly()
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.climberManualDown).whileTrue(
+            ClimberManualDown(self.climber).repeatedly()
         )
 
     def getAutonomousCommand(self) -> commands2.Command:
