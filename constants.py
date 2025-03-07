@@ -1001,8 +1001,8 @@ kL4PositionBeltPosition = 52.50 * kMetersPerInch
 kL3PositionBeltPosition = 30 * kMetersPerInch
 kL2PositionBeltPosition = 15 * kMetersPerInch
 kL1PositionBeltPosition = 0 * kMetersPerInch
-kIntakePositionBeltPosition = 39.5 * kMetersPerInch
-kAlgaeLowBeltPosition = 18.5 * kMetersPerInch
+kIntakePositionBeltPosition = 42 * kMetersPerInch
+kAlgaeLowBeltPosition = 25 * kMetersPerInch
 kAlgaeHighBeltPosition = 31.5 * kMetersPerInch
 
 kElevatorFudgeAmount = 1 * kMetersPerInch

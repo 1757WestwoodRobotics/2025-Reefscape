@@ -51,12 +51,52 @@
     },
     "POV up"
   ],
+  "elevatorAlgaeHigh2": [
+    0,
+    {
+      "POV": [
+        0,
+        315
+      ]
+    },
+    "POV up"
+  ],
+  "elevatorAlgaeHigh3": [
+    0,
+    {
+      "POV": [
+        0,
+        45
+      ]
+    },
+    "POV up"
+  ],
   "elevatorAlgaeLow": [
     0,
     {
       "POV": [
         0,
         180
+      ]
+    },
+    "POV down"
+  ],
+  "elevatorAlgaeLow2": [
+    0,
+    {
+      "POV": [
+        0,
+        135
+      ]
+    },
+    "POV down"
+  ],
+  "elevatorAlgaeLow3": [
+    0,
+    {
+      "POV": [
+        0,
+        225
       ]
     },
     "POV down"
