@@ -1038,7 +1038,7 @@ kClimberGearRatio = 100 / 1
 kClimberWinchDiameter = 1.2 * kMetersPerInch
 kClimberWinchCircumferance = kClimberWinchDiameter * math.pi
 kClimberPositionTolerance = 1
-kClimberManualIncrement = 0.5
+kClimberManualIncrement = 5
 
 kClimberCurrentLimit = (
     CurrentLimitsConfigs()
