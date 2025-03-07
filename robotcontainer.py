@@ -197,7 +197,19 @@ class RobotContainer:
         POVButton(*self.operatorInterface.elevatorAlgaeLow).whileTrue(
             ElevatorAlgaeLow(self.elevator).repeatedly()
         )
+        POVButton(*self.operatorInterface.elevatorAlgaeLow2).whileTrue(
+            ElevatorAlgaeLow(self.elevator).repeatedly()
+        )
+        POVButton(*self.operatorInterface.elevatorAlgaeLow3).whileTrue(
+            ElevatorAlgaeLow(self.elevator).repeatedly()
+        )
         POVButton(*self.operatorInterface.elevatorAlgaeHigh).whileTrue(
+            ElevatorAlgaeHigh(self.elevator).repeatedly()
+        )
+        POVButton(*self.operatorInterface.elevatorAlgaeHigh2).whileTrue(
+            ElevatorAlgaeHigh(self.elevator).repeatedly()
+        )
+        POVButton(*self.operatorInterface.elevatorAlgaeHigh3).whileTrue(
             ElevatorAlgaeHigh(self.elevator).repeatedly()
         )
         ModifiableJoystickButton(self.operatorInterface.elevatorL1Toggle).toggleOnTrue(
