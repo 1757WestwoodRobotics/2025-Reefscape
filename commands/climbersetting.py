@@ -1,6 +1,8 @@
 from commands2.command import Command
 from wpilib import Timer
 from subsystems.climbersubsystem import ClimberSubsystem
+from ntcore import NetworkTableInstance
+import constants
 
 
 class SetClimberState(Command):
@@ -45,3 +47,51 @@ class ClimberNothingPressed(SetClimberState):
 
     def execute(self) -> None:
         self.climber.setNothingPressedPosition()
+
+
+class ClimberManualMode(SetClimberState):
+    def __init__(self, climberSubsystem: ClimberSubsystem) -> None:
+        SetClimberState.__init__(self, climberSubsystem)
+
+    def execute(self) -> None:
+        self.climber.setManualMode()
+
+
+class ClimberManualUp(Command):
+    def __init__(self, climber: ClimberSubsystem) -> None:
+        Command.__init__(self)
+        self.setName(__class__.__name__)
+        self.climber = climber
+
+        self.elevatorPositionPublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kClimberPositionKey)
+            .publish()
+        )
+
+    def execute(self):
+        if self.climber.state == self.climber.ClimberState.ManualMode:
+            climberPosition = self.climber.getClimberPosition()
+            self.elevatorPositionPublisher.set(
+                climberPosition + constants.kClimberManualIncrement,
+            )
+
+
+class ClimberManualDown(Command):
+    def __init__(self, climber: ClimberSubsystem) -> None:
+        Command.__init__(self)
+        self.setName(__class__.__name__)
+        self.climber = climber
+
+        self.elevatorPositionPublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kClimberPositionKey)
+            .publish()
+        )
+
+    def execute(self):
+        if self.climber.state == self.climber.ClimberState.ManualMode:
+            climberPosition = self.climber.getClimberPosition()
+            self.elevatorPositionPublisher.set(
+                climberPosition - constants.kClimberManualIncrement,
+            )

@@ -165,5 +165,19 @@
       "Button": 6
     },
     "placeholder"
+  ],
+  "climberManualUp": [
+    2,
+    {
+      "Button": 17
+    },
+    "placeholder"
+  ],
+  "climberManualDown": [
+    2,
+    {
+      "Button": 19
+    },
+    "placeholder"
   ]
 }

@@ -166,6 +166,8 @@ class OperatorInterface:
         self.climberUp = getButtonBindingOfName("pullClimberUp")
         self.elevatorManualUp = getButtonBindingOfName("elevatorManualUp")
         self.elevatorManualDown = getButtonBindingOfName("elevatorManualDown")
+        self.climberManualUp = getButtonBindingOfName("climberManualUp")
+        self.climberManualDown = getButtonBindingOfName("climberManualDown")
 
         self.chassisControls = HolonomicInput(
             SignSquare(
