@@ -69,7 +69,7 @@ class ElevatorAlgaeLow(SetElevatorState):
         SetElevatorState.__init__(self, elevatorSubsystem)
 
     def execute(self) -> None:
-        self.elevator.setAlgaeLow()
+        self.elevator.setAlgaeLow() 
 
 
 class ElevatorIntakePosition(SetElevatorState):
@@ -85,7 +85,7 @@ class ElevatorIntakePositionToggle(SetElevatorState):
         SetElevatorState.__init__(self, elevatorSubsystem)
 
     def execute(self) -> None:
-        self.elevator.setIntakePositionToggle()
+        self.elevator.setDefaultCommand(ElevatorIntakePosition(self.elevator))
 
 
 class ElevatorManualMode(SetElevatorState):
