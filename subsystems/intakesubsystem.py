@@ -175,8 +175,9 @@ class IntakeSubsystem(Subsystem):
         self.pivotMotor.setEncoderPosition(pivotMotorPosition)
 
     def setPivotAngle(self, rotation: Rotation2d) -> None:
-        self.targetAngle = rotation + Rotation2d.fromDegrees(
-            self.intakeFudgeGetter.get()
+        # I know it's weird but adding 2 rotation2ds together constrains the angle from -180 to 180
+        self.targetAngle = Rotation2d.fromDegrees(
+            rotation.degrees() + self.intakeFudgeGetter.get()
         )
         self.pivotMotor.set(
             Talon.ControlMode.MotionMagic,
