@@ -95,16 +95,10 @@ class ElevatorManualUp(Command):
         self.setName(__class__.__name__)
         self.elevator = elevator
 
-        self.elevatorPositionPublisher = (
-            NetworkTableInstance.getDefault()
-            .getFloatTopic(constants.kElevatorPositionKey)
-            .publish()
-        )
-
     def execute(self):
         if self.elevator.state == self.elevator.ElevatorState.ManualMode:
             elevatorPosition = self.elevator.getElevatorPosition()
-            self.elevatorPositionPublisher.set(
+            self.elevator.elevatorPositionPublisher.set(
                 clamp(
                     elevatorPosition + constants.kElevatorManualIncrement,
                     0,
@@ -119,16 +113,10 @@ class ElevatorManualDown(Command):
         self.setName(__class__.__name__)
         self.elevator = elevator
 
-        self.elevatorPositionPublisher = (
-            NetworkTableInstance.getDefault()
-            .getFloatTopic(constants.kElevatorPositionKey)
-            .publish()
-        )
-
     def execute(self):
         if self.elevator.state == self.elevator.ElevatorState.ManualMode:
             elevatorPosition = self.elevator.getElevatorPosition()
-            self.elevatorPositionPublisher.set(
+            self.elevator.elevatorPositionPublisher.set(
                 clamp(
                     elevatorPosition - constants.kElevatorManualIncrement,
                     0,

@@ -63,16 +63,10 @@ class ClimberManualUp(Command):
         self.setName(__class__.__name__)
         self.climber = climber
 
-        self.climberPositionPublisher = (
-            NetworkTableInstance.getDefault()
-            .getFloatTopic(constants.kClimberPositionKey)
-            .publish()
-        )
-
     def execute(self):
         if self.climber.state == self.climber.ClimberState.ManualMode:
             climberPosition = self.climber.getClimberPosition()
-            self.climberPositionPublisher.set(
+            self.climber.climberPositionPublisher.set(
                 climberPosition + constants.kClimberManualIncrement,
             )
 
@@ -83,15 +77,9 @@ class ClimberManualDown(Command):
         self.setName(__class__.__name__)
         self.climber = climber
 
-        self.climberPositionPublisher = (
-            NetworkTableInstance.getDefault()
-            .getFloatTopic(constants.kClimberPositionKey)
-            .publish()
-        )
-
     def execute(self):
         if self.climber.state == self.climber.ClimberState.ManualMode:
             climberPosition = self.climber.getClimberPosition()
-            self.climberPositionPublisher.set(
+            self.climber.climberPositionPublisher.set(
                 climberPosition - constants.kClimberManualIncrement,
             )
