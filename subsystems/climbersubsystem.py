@@ -102,7 +102,6 @@ class ClimberSubsystem(Subsystem):
             )
         self.climberAtPositionPublisher.set(self.climberAtPosition())
         self.climberPositionTargetPublisher.set(self.targetPosition)
-        print(self.getClimberPosition())
 
     def getClimberPosition(self) -> float:
         return self.climberMotor.get(Talon.ControlMode.Position)
