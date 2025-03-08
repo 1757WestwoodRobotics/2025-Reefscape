@@ -85,7 +85,7 @@ class ElevatorIntakePositionToggle(SetElevatorState):
         SetElevatorState.__init__(self, elevatorSubsystem)
 
     def execute(self) -> None:
-        self.elevator.setIntakePosition()
+        self.elevator.setIntakePositionToggle()
 
 
 class ElevatorManualMode(SetElevatorState):
