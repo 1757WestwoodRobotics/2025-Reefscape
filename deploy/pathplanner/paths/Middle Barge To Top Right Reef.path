@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 5.401558521412036,
-        "y": 5.440970775462963
+        "x": 5.194776475694443,
+        "y": 5.121975549768519
       },
       "prevControl": {
-        "x": 6.277254275870236,
-        "y": 5.954574079367902
+        "x": 6.070472230152643,
+        "y": 5.635578853673457
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Top Right Reef"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
@@ -50,7 +50,7 @@
     "rotation": -120.721
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Barge Start",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 179.71840862680583
