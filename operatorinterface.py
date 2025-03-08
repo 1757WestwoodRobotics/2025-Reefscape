@@ -179,6 +179,8 @@ class OperatorInterface:
         self.climberManualDown = getButtonBindingOfName("climberManualDown")
         self.elevatorFudgeUp = getButtonBindingOfName("elevatorFudgeUp")
         self.elevatorFudgeDown = getButtonBindingOfName("elevatorFudgeDown")
+        self.intakeFudgeForward = getButtonBindingOfName("intakeFudgeForward")
+        self.intakeFudgeBackward = getButtonBindingOfName("intakeFudgeBackward")
 
         self.chassisControls = HolonomicInput(
             SignSquare(
