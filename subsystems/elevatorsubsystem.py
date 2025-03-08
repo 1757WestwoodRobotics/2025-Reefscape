@@ -2,6 +2,7 @@ from enum import Enum, auto
 from math import pi
 from commands2 import Subsystem
 from ntcore import NetworkTableInstance
+from wpilib import RobotBase
 
 from util.simtalon import Talon
 from util.convenientmath import clamp
@@ -44,8 +45,9 @@ class ElevatorSubsystem(Subsystem):
         )
         self.elevatorMotor1.setNeutralMode(Talon.NeutralMode.Brake)
         self.elevatorMotor2.setNeutralMode(Talon.NeutralMode.Brake)
-        self.elevatorMotor1.setCurrentLimit(constants.kElevatorCurrentLimit)
-        self.elevatorMotor2.setCurrentLimit(constants.kElevatorCurrentLimit)
+        if RobotBase.isReal():
+            self.elevatorMotor1.setCurrentLimit(constants.kElevatorCurrentLimit)
+            self.elevatorMotor2.setCurrentLimit(constants.kElevatorCurrentLimit)
 
         self.elevatorMotor2.follow(self.elevatorMotor1, True)
         self.targetPosition = 0
