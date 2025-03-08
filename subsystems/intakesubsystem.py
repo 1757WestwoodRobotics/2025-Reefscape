@@ -116,6 +116,20 @@ class IntakeSubsystem(Subsystem):
             .subscribe("ElevatorState.L4Position")
         )
 
+        self.intakeFudgePublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kIntakeFudgeKey)
+            .publish()
+        )
+
+        self.intakeFudgePublisher.set(0)
+
+        self.intakeFudgeGetter = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kIntakeFudgeKey)
+            .subscribe(0)
+        )
+
     def periodic(self) -> None:
         # a lot simpler when there isn't a convoluted intake sequence
         L1Speed = self.intakeL1SpeedGetter.get()
@@ -161,10 +175,12 @@ class IntakeSubsystem(Subsystem):
         self.pivotMotor.setEncoderPosition(pivotMotorPosition)
 
     def setPivotAngle(self, rotation: Rotation2d) -> None:
-        self.targetAngle = rotation
+        self.targetAngle = rotation + Rotation2d.fromDegrees(
+            self.intakeFudgeGetter.get()
+        )
         self.pivotMotor.set(
             Talon.ControlMode.MotionMagic,
-            clamp(rotation.radians(), 0, constants.kIntakingAngle.radians())
+            clamp(self.targetAngle.radians(), 0, constants.kIntakingAngle.radians())
             / constants.kRadiansPerRevolution
             * constants.kPivotGearRatio,
         )
