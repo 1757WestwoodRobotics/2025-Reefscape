@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.401558521412036,
-        "y": 5.440970775462963
+        "x": 5.194776475694443,
+        "y": 5.121975549768519
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.853296232876712,
-        "y": 6.331442636986301
+        "x": 4.646514187159119,
+        "y": 6.0124474112918564
       },
       "isLocked": false,
-      "linkedName": "Top Right Reef"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.449492972237723,
-        "y": 7.00519060407366
+        "x": 1.1724551504629617,
+        "y": 6.9978631365740736
       },
       "prevControl": {
-        "x": 2.4191352739726026,
-        "y": 6.872367294520547
+        "x": 2.1420974521978415,
+        "y": 6.8650398270209605
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -53.61186665594834
+    "rotation": 126.14817386171714
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Reef Start",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -120.721
