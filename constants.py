@@ -1038,17 +1038,17 @@ kClimberGearRatio = 100 / 1
 kClimberWinchDiameter = 1.2 * kMetersPerInch
 kClimberWinchCircumferance = kClimberWinchDiameter * math.pi
 kClimberPositionTolerance = 1
-kClimberManualIncrement = 5
+kClimberManualIncrement = 20
 
 kClimberCurrentLimit = (
     CurrentLimitsConfigs()
-    .with_stator_current_limit(40)
+    .with_stator_current_limit(60)
     .with_stator_current_limit_enable(True)
-    .with_supply_current_limit(40)
+    .with_supply_current_limit(60)
     .with_supply_current_limit_enable(True)
 )
 
 # in rotations
 # temporary until we get an actual hardstop (climber roughly 45 degrees)
-kClimberTuckedPosition = 0
-kClimberAtFramePosition = 193
+kClimberTuckedPosition = 30
+kClimberAtFramePosition = 240
