@@ -1,6 +1,5 @@
 from commands2 import Command
 from wpilib import Timer
-from ntcore import NetworkTableInstance
 from subsystems.elevatorsubsystem import ElevatorSubsystem
 from util.convenientmath import clamp
 import constants
@@ -74,6 +73,14 @@ class ElevatorAlgaeLow(SetElevatorState):
 
 
 class ElevatorIntakePosition(SetElevatorState):
+    def __init__(self, elevatorSubsystem: ElevatorSubsystem) -> None:
+        SetElevatorState.__init__(self, elevatorSubsystem)
+
+    def execute(self) -> None:
+        self.elevator.setIntakePosition()
+
+
+class ElevatorIntakePositionToggle(SetElevatorState):
     def __init__(self, elevatorSubsystem: ElevatorSubsystem) -> None:
         SetElevatorState.__init__(self, elevatorSubsystem)
 

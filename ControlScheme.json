@@ -111,7 +111,7 @@
     },
     "trigger (ThrustmasterT16000M"
   ],
-  "elevatorL1Toggle": [
+  "elevatorIntakePositionToggle": [
     2,
     {
       "Button": 5

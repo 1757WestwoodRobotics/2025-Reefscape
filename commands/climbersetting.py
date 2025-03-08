@@ -1,7 +1,6 @@
 from commands2.command import Command
 from wpilib import Timer
 from subsystems.climbersubsystem import ClimberSubsystem
-from ntcore import NetworkTableInstance
 import constants
 
 
