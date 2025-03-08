@@ -111,10 +111,17 @@
     },
     "trigger (ThrustmasterT16000M"
   ],
-  "elevatorIntakePositionToggle": [
+  "elevatorIntakePositionToggleOn": [
     2,
     {
       "Button": 5
+    },
+    "button box"
+  ],
+  "elevatorIntakePositionToggleOff": [
+    2,
+    {
+      "Button": 10
     },
     "button box"
   ],

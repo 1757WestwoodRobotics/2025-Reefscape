@@ -15,7 +15,8 @@ from commands.intakesetting import (
     IntakeCoralProcess,
 )
 from commands.elevatorsetting import (
-    ElevatorIntakePositionToggle,
+    ElevatorIntakePositionToggleOn,
+    ElevatorIntakePositionToggleOff,
     ElevatorL1Position,
     ElevatorL2Position,
     ElevatorL3Position,
@@ -214,8 +215,12 @@ class RobotContainer:
             ElevatorAlgaeHigh(self.elevator).repeatedly()
         )
         ModifiableJoystickButton(
-            self.operatorInterface.elevatorIntakePositionToggle
-        ).toggleOnTrue(ElevatorIntakePositionToggle(self.elevator).repeatedly())
+            self.operatorInterface.elevatorIntakePositionToggleOn
+        ).onTrue(ElevatorIntakePositionToggleOn(self.elevator))
+
+        ModifiableJoystickButton(
+            self.operatorInterface.elevatorIntakePositionToggleOff
+        ).onTrue(ElevatorIntakePositionToggleOff(self.elevator))
 
         ModifiableJoystickButton(self.operatorInterface.climberUp).onTrue(
             ClimberAtFrame(self.climber)
