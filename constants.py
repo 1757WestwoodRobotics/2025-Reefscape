@@ -1005,7 +1005,7 @@ kIntakePositionBeltPosition = 42 * kMetersPerInch
 kAlgaeLowBeltPosition = 25 * kMetersPerInch
 kAlgaeHighBeltPosition = 31.5 * kMetersPerInch
 
-kElevatorFudgeAmount = 1 * kMetersPerInch
+kElevatorFudgeAmount = 0.5 * kMetersPerInch
 
 kRobotToElevatorTransform = Transform3d(
     0, -5.5 * kMetersPerInch, 11.35 * kMetersPerInch, Rotation3d()

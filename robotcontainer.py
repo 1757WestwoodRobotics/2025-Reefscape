@@ -34,6 +34,7 @@ from commands.climbersetting import (
     ClimberManualDown,
     ClimberManualMode,
 )
+from commands.fudgeelevator import FudgeElevatorUp, FudgeElevatorDown
 
 # from commands.drive.drivewaypoint import DriveWaypoint
 from subsystems.drivesubsystem import DriveSubsystem
@@ -248,6 +249,14 @@ class RobotContainer:
 
         ModifiableJoystickButton(self.operatorInterface.climberManualDown).whileTrue(
             ClimberManualDown(self.climber).repeatedly()
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.elevatorFudgeUp).onTrue(
+            FudgeElevatorUp(self.elevator)
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.elevatorFudgeDown).onTrue(
+            FudgeElevatorDown(self.elevator)
         )
 
     def getAutonomousCommand(self) -> commands2.Command:
