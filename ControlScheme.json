@@ -222,5 +222,19 @@
       "Button": 12
     },
     "placeholder"
+  ],
+  "intakeFudgeForward": [
+    2,
+    {
+      "Button": 13
+    },
+    "placeholder"
+  ],
+  "intakeFudgeBackward": [
+    2,
+    {
+      "Button": 14
+    },
+    "placeholder"
   ]
 }
