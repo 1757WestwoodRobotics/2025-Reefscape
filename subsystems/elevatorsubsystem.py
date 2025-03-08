@@ -79,6 +79,9 @@ class ElevatorSubsystem(Subsystem):
             .getFloatTopic(constants.kElevatorFudgeKey)
             .publish()
         )
+
+        self.elevatorFudgePublisher.set(0)
+
         self.elevatorFudgeGetter = (
             NetworkTableInstance.getDefault()
             .getFloatTopic(constants.kElevatorFudgeKey)
@@ -120,7 +123,7 @@ class ElevatorSubsystem(Subsystem):
         self.elevatorMotor1.set(
             Talon.ControlMode.MotionMagic,
             clamp(
-                beltPosition,
+                self.targetPosition,
                 0,
                 constants.kL4PositionBeltPosition,
             )
