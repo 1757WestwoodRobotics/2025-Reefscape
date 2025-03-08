@@ -174,10 +174,5 @@ class ElevatorSubsystem(Subsystem):
         self.state = self.ElevatorState.IntakePosition
         self.elevatorManualModePublisher.set(False)
 
-    def setIntakePositionToggle(self) -> None:
-        self.state = self.ElevatorState.IntakePosition
-        self.elevatorManualModePublisher.set(False)
-        self.setDefaultCommand(self.setIntakePosition())
-
     def setManualMode(self) -> None:
         self.state = self.ElevatorState.ManualMode
