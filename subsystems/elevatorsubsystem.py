@@ -4,6 +4,7 @@ from commands2 import Subsystem
 from ntcore import NetworkTableInstance
 from wpilib import RobotBase
 
+from util.modifiableconstant import ModifiableConstant
 from util.simtalon import Talon
 from util.convenientmath import clamp
 import constants
@@ -94,24 +95,47 @@ class ElevatorSubsystem(Subsystem):
         )
         self.elevatorManualModePublisher.set(False)
 
+        self.l4Position = ModifiableConstant(
+            "L4PositionBelt", constants.kL4PositionBeltPosition
+        )
+        self.l3Position = ModifiableConstant(
+            "L3PositionBelt", constants.kL3PositionBeltPosition
+        )
+        self.l2Position = ModifiableConstant(
+            "L2PositionBelt", constants.kL2PositionBeltPosition
+        )
+        self.l1Position = ModifiableConstant(
+            "L1PositionBelt", constants.kL1PositionBeltPosition
+        )
+
+        self.algaeHighPosition = ModifiableConstant(
+            "AlgaeHighPositionBelt", constants.kAlgaeHighBeltPosition
+        )
+        self.algaeLowPosition = ModifiableConstant(
+            "AlgaeLowPositionBelt", constants.kAlgaeLowBeltPosition
+        )
+        self.intakePosition = ModifiableConstant(
+            "IntakePositionBelt", constants.kIntakePositionBeltPosition
+        )
+
     def periodic(self) -> None:
         match self.state:
             case self.ElevatorState.ManualMode:
                 self.setElevatorMotorsAtPosition(self.elevatorPositionGetter.get())
             case self.ElevatorState.L4Position:
-                self.setElevatorMotorsAtPosition(constants.kL4PositionBeltPosition)
+                self.setElevatorMotorsAtPosition(self.l4Position.value)
             case self.ElevatorState.L3Position:
-                self.setElevatorMotorsAtPosition(constants.kL3PositionBeltPosition)
+                self.setElevatorMotorsAtPosition(self.l3Position.value)
             case self.ElevatorState.L2Position:
-                self.setElevatorMotorsAtPosition(constants.kL2PositionBeltPosition)
+                self.setElevatorMotorsAtPosition(self.l2Position.value)
             case self.ElevatorState.L1Position:
-                self.setElevatorMotorsAtPosition(constants.kL1PositionBeltPosition)
+                self.setElevatorMotorsAtPosition(self.l1Position.value)
             case self.ElevatorState.AlgaeHigh:
-                self.setElevatorMotorsAtPosition(constants.kAlgaeHighBeltPosition)
+                self.setElevatorMotorsAtPosition(self.algaeHighPosition.value)
             case self.ElevatorState.AlgaeLow:
-                self.setElevatorMotorsAtPosition(constants.kAlgaeLowBeltPosition)
+                self.setElevatorMotorsAtPosition(self.algaeLowPosition.value)
             case self.ElevatorState.IntakePosition:
-                self.setElevatorMotorsAtPosition(constants.kIntakePositionBeltPosition)
+                self.setElevatorMotorsAtPosition(self.intakePosition.value)
 
         self.elevatorStatePublisher.set(str(self.state))
         if self.state is not self.ElevatorState.ManualMode:
