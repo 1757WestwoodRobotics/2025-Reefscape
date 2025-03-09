@@ -114,14 +114,14 @@
   "elevatorIntakePositionToggleOn": [
     2,
     {
-      "Button": 5
+      "Button": 1
     },
     "button box"
   ],
   "elevatorIntakePositionToggleOff": [
     2,
     {
-      "Button": 10
+      "Button": 6
     },
     "button box"
   ],
@@ -184,56 +184,56 @@
   "elevatorManualUp": [
     2,
     {
-      "Button": 1
+      "Button": 2
     },
     "placeholder"
   ],
   "elevatorManualDown": [
     2,
     {
-      "Button": 6
+      "Button": 7
     },
     "placeholder"
   ],
   "climberManualUp": [
     2,
     {
-      "Button": 17
+      "Button": 5
     },
     "placeholder"
   ],
   "climberManualDown": [
     2,
     {
-      "Button": 19
+      "Button": 10
     },
     "placeholder"
   ],
   "elevatorFudgeUp": [
     2,
     {
-      "Button": 11
+      "Button": 3
     },
     "placeholder"
   ],
   "elevatorFudgeDown": [
     2,
     {
-      "Button": 12
+      "Button": 8
     },
     "placeholder"
   ],
   "intakeFudgeForward": [
     2,
     {
-      "Button": 13
+      "Button": 17
     },
     "placeholder"
   ],
   "intakeFudgeBackward": [
     2,
     {
-      "Button": 14
+      "Button": 19
     },
     "placeholder"
   ]
