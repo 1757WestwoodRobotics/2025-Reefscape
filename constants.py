@@ -922,7 +922,7 @@ kIntakeL2ThroughL4MotorSpeed = 0.20
 
 kIntakeToArmOffset = 51.944769
 
-kIntakingAngle = Rotation2d.fromDegrees(255)
+kIntakingAngle = Rotation2d.fromDegrees(251)
 kScoreAngle = Rotation2d.fromDegrees(180 - kIntakeToArmOffset - 45.047053)
 kKnockAngle = Rotation2d(0)
 
@@ -932,6 +932,8 @@ kIntakeStateKey = "intake/state"
 kIntakeCoralKey = "intake/intakingSpeed"
 kIntakeL1SpeedKey = "intake/L1Speed"
 kIntakeL2ThroughL4SpeedKey = "intake/L2-L4Speed"
+kIntakeFudgeKey = "intake/fudge"
+kIntakeFudgeAmount = 1
 
 kIntakeCurrentLimit = (
     CurrentLimitsConfigs()
