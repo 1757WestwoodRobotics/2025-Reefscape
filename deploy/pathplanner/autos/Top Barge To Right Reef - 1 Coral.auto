@@ -11,15 +11,15 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "elevatorL4"
+            "pathName": "Top Barge To Right Reef Right Branch"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Top Barge To Right Reef"
+            "name": "elevatorL4"
           }
         },
         {
@@ -44,6 +44,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "1 Coral",
   "choreoAuto": false
 }
