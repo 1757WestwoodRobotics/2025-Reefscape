@@ -7,19 +7,19 @@
         {
           "type": "named",
           "data": {
-            "name": "elevatorL4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "intakeIdle"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Middle Barge To Right Reef"
+            "pathName": "Middle Barge To Right Reef Right Branch"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevatorL4"
           }
         },
         {
@@ -59,12 +59,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "elevatorL4"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Top Source To Left Reef"
@@ -74,6 +68,12 @@
           "type": "named",
           "data": {
             "name": "intakeIdle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevatorL4"
           }
         },
         {
@@ -110,6 +110,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "2 Coral",
   "choreoAuto": false
 }

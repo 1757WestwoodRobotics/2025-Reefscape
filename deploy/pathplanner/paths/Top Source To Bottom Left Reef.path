@@ -3,45 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.943315342494419,
-        "y": 7.263851928710937
+        "x": 1.1724551504629617,
+        "y": 6.9978631365740736
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.182277397260274,
-        "y": 6.9925727739726025
+        "x": 2.0519433426088005,
+        "y": 6.324115169486714
       },
       "isLocked": false,
-      "linkedName": "TopBarge"
+      "linkedName": "TopSource"
     },
     {
       "anchor": {
-        "x": 5.138784246575342,
-        "y": 6.6770333904109584
+        "x": 2.5702575231481473,
+        "y": 3.6900491898148147
       },
       "prevControl": {
-        "x": 7.701914626493163,
-        "y": 7.003249984218678
+        "x": 2.2337486006895064,
+        "y": 4.480022734567823
       },
       "nextControl": {
-        "x": 4.312371575342466,
-        "y": 6.571853595890412
+        "x": 2.906766445606785,
+        "y": 2.9000756450618077
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.1778508391203695,
-        "y": 4.414980107060185
+        "x": 3.7715266927083326,
+        "y": 2.913291739004629
       },
       "prevControl": {
-        "x": 3.2079022089833837,
-        "y": 7.269860244046486
+        "x": 3.557153461280197,
+        "y": 3.0419156778615113
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "LeftReef"
+      "linkedName": "Bottom Left Reef"
     }
   ],
   "rotationTargets": [],
@@ -58,13 +58,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.6211281842657619
+    "rotation": 59.677082081226345
   },
   "reversed": false,
-  "folder": "Barge Start",
+  "folder": "Source Start",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -179.85689564016246
+    "rotation": 126.14817386171714
   },
   "useDefaultConstraints": true
 }

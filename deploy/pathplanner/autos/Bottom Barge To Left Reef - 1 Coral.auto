@@ -7,12 +7,6 @@
         {
           "type": "named",
           "data": {
-            "name": "elevatorL4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "intakeIdle"
           }
         },
@@ -20,6 +14,12 @@
           "type": "path",
           "data": {
             "pathName": "Bottom Barge To Left Reef"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevatorL4"
           }
         },
         {
@@ -50,6 +50,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "1 Coral",
   "choreoAuto": false
 }

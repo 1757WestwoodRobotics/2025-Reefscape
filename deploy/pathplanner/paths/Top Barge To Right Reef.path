@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.332534246575342,
-        "y": 7.278060787671233
+        "x": 6.9718298824204235,
+        "y": 7.297393595375195
       },
       "isLocked": false,
       "linkedName": "TopBarge"
     },
     {
       "anchor": {
-        "x": 5.821134868421052,
-        "y": 4.005756578947368
+        "x": 5.802253327546295,
+        "y": 3.9636816406249995
       },
       "prevControl": {
-        "x": 7.488985895818303,
-        "y": 7.086021989906271
+        "x": 6.423162567995083,
+        "y": 4.536325640451064
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RightReef"
+      "linkedName": "RightSideReefLeft"
     }
   ],
   "rotationTargets": [],
@@ -45,10 +45,10 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Barge Start",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -179.85689564016243
+    "rotation": -179.85689564016246
   },
   "useDefaultConstraints": true
 }

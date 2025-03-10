@@ -9,6 +9,7 @@ from commands.resetdrive import ResetDrive
 from commands.drivedistance import DriveDistance
 from commands.defensestate import DefenseState
 from commands.intakesetting import (
+    IntakeCoral,
     IntakeKnock,
     IntakeIdle,
     IntakeScoring,
@@ -105,6 +106,12 @@ class RobotContainer:
         NamedCommands.registerCommand(
             "intakeCoral", IntakeCoralProcess(self.elevator, self.intake)
         )
+        NamedCommands.registerCommand("intakeIdle", IntakeIdle(self.intake))
+        NamedCommands.registerCommand("intakeScoring", IntakeScoring(self.intake))
+        # NamedCommands.registerCommand(
+        #     "elevatorIntake", ElevatorIntakePosition(self.elevator)
+        # )
+        NamedCommands.registerCommand("intakeCoral", IntakeCoral(self.intake))
         NamedCommands.registerCommand("intakeIdle", IntakeIdle(self.intake))
         NamedCommands.registerCommand("intakeScoring", IntakeScoring(self.intake))
 

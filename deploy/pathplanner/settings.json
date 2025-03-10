@@ -2,8 +2,16 @@
   "robotWidth": 0.92075,
   "robotLength": 0.92075,
   "holonomicMode": true,
-  "pathFolders": [],
-  "autoFolders": [],
+  "pathFolders": [
+    "Barge → Right Reef",
+    "Barge → Left Reef",
+    "Right Reef → Source"
+  ],
+  "autoFolders": [
+    "1 Coral",
+    "2 Coral",
+    "3+ Coral"
+  ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,
