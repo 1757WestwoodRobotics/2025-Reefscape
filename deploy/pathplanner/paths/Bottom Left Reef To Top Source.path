@@ -12,7 +12,7 @@
         "y": 2.728521412037037
       },
       "isLocked": false,
-      "linkedName": "Bottom Left Reef"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -36,8 +36,8 @@
         "y": 6.9978631365740736
       },
       "prevControl": {
-        "x": 1.2630060040440534,
-        "y": 6.522631293408033
+        "x": 0.9580819190348262,
+        "y": 7.126487075430956
       },
       "nextControl": null,
       "isLocked": false,
@@ -61,7 +61,7 @@
     "rotation": 126.14817386171714
   },
   "reversed": false,
-  "folder": "Source Start",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 59.677082081226345
