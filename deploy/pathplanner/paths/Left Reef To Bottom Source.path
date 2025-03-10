@@ -12,7 +12,7 @@
         "y": 4.427222015542327
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "LeftReef"
     },
     {
       "anchor": {
@@ -20,7 +20,7 @@
         "y": 1.0615131578947363
       },
       "prevControl": {
-        "x": 1.9334242053498014,
+        "x": 1.9334242053498012,
         "y": 2.651941101533125
       },
       "nextControl": null,
@@ -48,7 +48,7 @@
   "folder": "Reef Start",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 0.6211281842657619
   },
   "useDefaultConstraints": true
 }

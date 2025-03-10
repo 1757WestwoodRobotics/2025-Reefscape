@@ -12,7 +12,7 @@
         "y": 5.739060691550927
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "TopLeftReef"
     },
     {
       "anchor": {
@@ -20,7 +20,7 @@
         "y": 6.9978631365740736
       },
       "prevControl": {
-        "x": 1.9670037002159784,
+        "x": 1.9670037002159781,
         "y": 6.324302668495783
       },
       "nextControl": null,
