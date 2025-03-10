@@ -41,7 +41,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Bottom Left Reef"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -61,7 +61,7 @@
     "rotation": 59.677082081226345
   },
   "reversed": false,
-  "folder": "Source Start",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 126.14817386171714
