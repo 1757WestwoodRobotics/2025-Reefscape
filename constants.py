@@ -902,7 +902,7 @@ kPivotPGain = 0.9
 kPivotIGain = 0
 kPivotDGain = 0
 
-kPivotAccel = 400  # rotations / s^2
+kPivotAccel = 200  # rotations / s^2
 kPivotVel = 150  # rotations / s
 
 # from CAD
