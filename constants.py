@@ -1051,6 +1051,5 @@ kClimberCurrentLimit = (
 )
 
 # in rotations
-# temporary until we get an actual hardstop (climber roughly 45 degrees)
-kClimberTuckedPosition = 35  # 30?
+kClimberTuckedPosition = 10
 kClimberAtFramePosition = 240
