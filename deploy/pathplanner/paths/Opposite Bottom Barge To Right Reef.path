@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.04872974537037,
-        "y": 0.7945764612268511
+        "x": 7.110444078950036,
+        "y": 0.503453947364319
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.077244285296374,
-        "y": 0.8281181278911087
+        "x": 6.138958618876041,
+        "y": 0.5369956140285769
       },
       "isLocked": false,
       "linkedName": "BottomBargeOpposite"
@@ -45,7 +45,7 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Barge Start",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 179.55600099172477
