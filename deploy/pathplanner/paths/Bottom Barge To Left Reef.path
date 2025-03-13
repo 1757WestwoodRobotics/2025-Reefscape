@@ -61,7 +61,7 @@
     "rotation": 0.6211281842657619
   },
   "reversed": false,
-  "folder": "Barge Start",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0
