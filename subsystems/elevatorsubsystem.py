@@ -149,7 +149,7 @@ class ElevatorSubsystem(Subsystem):
             clamp(
                 self.targetPosition,
                 0,
-                constants.kL4PositionBeltPosition + 1 * constants.kMetersPerInch,
+                constants.kL4PositionBeltPosition + 3 * constants.kMetersPerInch,
             )
             / (constants.kPulleyGearPitchDiameter * pi)
             * constants.kMotorPulleyGearRatio,
