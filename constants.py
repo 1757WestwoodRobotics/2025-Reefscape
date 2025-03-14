@@ -1003,7 +1003,7 @@ kL4PositionBeltPosition = 52.50 * kMetersPerInch
 kL3PositionBeltPosition = 30 * kMetersPerInch
 kL2PositionBeltPosition = 15 * kMetersPerInch
 kL1PositionBeltPosition = 0.5 * kMetersPerInch
-kIntakePositionBeltPosition = 40.5 * kMetersPerInch
+kIntakePositionBeltPosition = 41.5 * kMetersPerInch
 kAlgaeLowBeltPosition = 25 * kMetersPerInch
 kAlgaeHighBeltPosition = 31.5 * kMetersPerInch
 
