@@ -37,12 +37,6 @@
         {
           "type": "named",
           "data": {
-            "name": "elevatorIntake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "intakeCoral"
           }
         },
@@ -97,12 +91,6 @@
         {
           "type": "named",
           "data": {
-            "name": "elevatorIntake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "intakeCoral"
           }
         },
@@ -161,12 +149,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "elevatorIntake"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Top Left Reef To Top Source"
@@ -218,12 +200,6 @@
           "type": "named",
           "data": {
             "name": "intakeCoral"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevatorIntake"
           }
         }
       ]
