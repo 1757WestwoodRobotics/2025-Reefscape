@@ -923,6 +923,7 @@ kIntakeL2ThroughL4MotorSpeed = 0.20
 kIntakeToArmOffset = 51.944769
 
 kIntakingAngle = Rotation2d.fromDegrees(251)
+kMaxPivotAngle = Rotation2d.fromDegrees(255)
 kScoreAngle = Rotation2d.fromDegrees(180 - kIntakeToArmOffset - 45.047053)
 kKnockAngle = Rotation2d(0)
 
@@ -1003,7 +1004,7 @@ kL4PositionBeltPosition = 52.50 * kMetersPerInch
 kL3PositionBeltPosition = 30 * kMetersPerInch
 kL2PositionBeltPosition = 15 * kMetersPerInch
 kL1PositionBeltPosition = 0.5 * kMetersPerInch
-kIntakePositionBeltPosition = 41.5 * kMetersPerInch
+kIntakePositionBeltPosition = 42 * kMetersPerInch
 kAlgaeLowBeltPosition = 25 * kMetersPerInch
 kAlgaeHighBeltPosition = 31.5 * kMetersPerInch
 

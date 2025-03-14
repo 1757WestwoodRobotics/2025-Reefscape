@@ -181,7 +181,7 @@ class IntakeSubsystem(Subsystem):
         )
         self.pivotMotor.set(
             Talon.ControlMode.MotionMagic,
-            clamp(self.targetAngle.radians(), 0, constants.kIntakingAngle.radians())
+            clamp(self.targetAngle.radians(), 0, constants.kMaxPivotAngle.radians())
             / constants.kRadiansPerRevolution
             * constants.kPivotGearRatio,
         )
