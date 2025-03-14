@@ -35,9 +35,9 @@
     "Joystick Vertical (ThrustmasterT16000M)"
   ],
   "defenseStateControl": [
-    0,
+    2,
     {
-      "Button": 11
+      "Button": 21
     },
     "left button on top of joystick (ThrustmasterT16000M)"
   ],
