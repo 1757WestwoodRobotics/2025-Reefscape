@@ -37,12 +37,6 @@
         {
           "type": "named",
           "data": {
-            "name": "elevatorIntake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "intakeCoral"
           }
         }
