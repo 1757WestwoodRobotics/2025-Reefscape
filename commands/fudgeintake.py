@@ -23,21 +23,41 @@ class FudgeIntake(Command):
         return True
 
 
-class FudgeIntakeForward(FudgeIntake):
+class FudgeIntakeScoreForward(FudgeIntake):
     def __init__(self, intake: IntakeSubsystem) -> None:
         FudgeIntake.__init__(self, intake)
 
     def execute(self) -> None:
-        self.intake.intakeFudgePublisher.set(
-            self.intake.intakeFudgeGetter.get() - constants.kIntakeFudgeAmount
+        self.intake.intakeFudgeScorePublisher.set(
+            self.intake.intakeFudgeScoreGetter.get() - constants.kIntakeFudgeAmount
         )
 
 
-class FudgeIntakeBackward(FudgeIntake):
+class FudgeIntakeScoreBackward(FudgeIntake):
     def __init__(self, intake: IntakeSubsystem) -> None:
         FudgeIntake.__init__(self, intake)
 
     def execute(self) -> None:
-        self.intake.intakeFudgePublisher.set(
-            self.intake.intakeFudgeGetter.get() + constants.kIntakeFudgeAmount
+        self.intake.intakeFudgeScorePublisher.set(
+            self.intake.intakeFudgeScoreGetter.get() + constants.kIntakeFudgeAmount
+        )
+
+
+class FudgeIntakeCoralUp(FudgeIntake):
+    def __init__(self, intake: IntakeSubsystem) -> None:
+        FudgeIntake.__init__(self, intake)
+
+    def execute(self) -> None:
+        self.intake.intakeFudgeCoralPublisher.set(
+            self.intake.intakeFudgeCoralGetter.get() - constants.kIntakeFudgeAmount
+        )
+
+
+class FudgeIntakeCoralDown(FudgeIntake):
+    def __init__(self, intake: IntakeSubsystem) -> None:
+        FudgeIntake.__init__(self, intake)
+
+    def execute(self) -> None:
+        self.intake.intakeFudgeCoralPublisher.set(
+            self.intake.intakeFudgeCoralGetter.get() + constants.kIntakeFudgeAmount
         )

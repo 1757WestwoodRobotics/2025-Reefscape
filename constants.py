@@ -933,7 +933,8 @@ kIntakeStateKey = "intake/state"
 kIntakeCoralKey = "intake/intakingSpeed"
 kIntakeL1SpeedKey = "intake/L1Speed"
 kIntakeL2ThroughL4SpeedKey = "intake/L2-L4Speed"
-kIntakeFudgeKey = "intake/fudge"
+kIntakeFudgeCoralKey = "intake/fudgeCoral"
+kIntakeFudgeScoreKey = "intake/fudgeScore"
 kIntakeFudgeAmount = 1
 
 kIntakeCurrentLimit = (

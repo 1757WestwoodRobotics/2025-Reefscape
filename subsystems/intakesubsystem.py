@@ -116,17 +116,31 @@ class IntakeSubsystem(Subsystem):
             .subscribe("ElevatorState.L4Position")
         )
 
-        self.intakeFudgePublisher = (
+        self.intakeFudgeCoralPublisher = (
             NetworkTableInstance.getDefault()
-            .getFloatTopic(constants.kIntakeFudgeKey)
+            .getFloatTopic(constants.kIntakeFudgeCoralKey)
             .publish()
         )
 
-        self.intakeFudgePublisher.set(0)
+        self.intakeFudgeCoralPublisher.set(0)
 
-        self.intakeFudgeGetter = (
+        self.intakeFudgeCoralGetter = (
             NetworkTableInstance.getDefault()
-            .getFloatTopic(constants.kIntakeFudgeKey)
+            .getFloatTopic(constants.kIntakeFudgeCoralKey)
+            .subscribe(0)
+        )
+
+        self.intakeFudgeScorePublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kIntakeFudgeScoreKey)
+            .publish()
+        )
+
+        self.intakeFudgeScorePublisher.set(0)
+
+        self.intakeFudgeScoreGetter = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kIntakeFudgeScoreKey)
             .subscribe(0)
         )
 
@@ -176,9 +190,18 @@ class IntakeSubsystem(Subsystem):
 
     def setPivotAngle(self, rotation: Rotation2d) -> None:
         # I know it's weird but adding 2 rotation2ds together constrains the angle from -180 to 180
-        self.targetAngle = Rotation2d.fromDegrees(
-            rotation.degrees() + self.intakeFudgeGetter.get()
-        )
+        match self.state:
+            case self.IntakeState.Intaking:
+                self.targetAngle = Rotation2d.fromDegrees(
+                    rotation.degrees() + self.intakeFudgeCoralGetter.get()
+                )
+            case self.IntakeState.Idle | self.IntakeState.Scoring:
+                self.targetAngle = Rotation2d.fromDegrees(
+                    rotation.degrees() + self.intakeFudgeScoreGetter.get()
+                )
+            case self.IntakeState.Knock:
+                self.targetAngle = Rotation2d.fromDegrees(rotation.degrees())
+
         self.pivotMotor.set(
             Talon.ControlMode.MotionMagic,
             clamp(self.targetAngle.radians(), 0, constants.kMaxPivotAngle.radians())
