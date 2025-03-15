@@ -5,6 +5,7 @@ import commands2
 from commands2.button import POVButton
 from pathplannerlib.auto import PathPlannerAuto, NamedCommands
 from commands.drive.absoluterelativedrive import AbsoluteRelativeDrive
+from commands.drive.anglealign import AngleAlignDrive
 from commands.resetdrive import ResetDrive
 from commands.drivedistance import DriveDistance
 from commands.defensestate import DefenseState
@@ -171,9 +172,15 @@ class RobotContainer:
         #     )
         # )
 
-        # ModifiableJoystickButton(self.operatorInterface.alignClosestWaypoint).whileTrue(
-        #     DriveWaypoint(self.drive)
-        # )
+        ModifiableJoystickButton(self.operatorInterface.alignAngle).whileTrue(
+            AngleAlignDrive(
+                self.drive,
+                lambda: self.operatorInterface.chassisControls.forwardsBackwards()
+                * constants.kTurboSpeedMultiplier,
+                lambda: self.operatorInterface.chassisControls.sideToSide()
+                * constants.kTurboSpeedMultiplier,
+            )
+        )
 
         ModifiableJoystickButton(self.operatorInterface.resetGyro).onTrue(
             ResetDrive(self.drive, Pose2d(0, 0, 0))

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.954859664351851,
+        "x": 7.18357927903658,
         "y": 3.9636816406249995
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.9833742042778555,
-        "y": 3.9972233072892576
+        "x": 6.096422850416351,
+        "y": 3.9486556798184442
       },
       "isLocked": false,
       "linkedName": "MiddleOfBarge"
@@ -20,8 +20,8 @@
         "y": 3.9636816406249995
       },
       "prevControl": {
-        "x": 6.6570417390046295,
-        "y": 3.964671585648148
+        "x": 6.777108724310378,
+        "y": 3.938600487061015
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 1.5,
+    "maxAcceleration": 1.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -45,10 +45,10 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Barge Start",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 179.55600099172477
+    "rotation": 180.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

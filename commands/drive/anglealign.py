@@ -33,7 +33,7 @@ class AngleAlignDrive(Command):
     def initialize(self) -> None:
         currentRotation = self.drive.getRotation()
         self.targetRotation = Rotation2d.fromDegrees(
-            round(currentRotation.degrees() / 90) * 90
+            round(currentRotation.degrees() / 60) * 60
         )
 
     def rotation(self) -> float:
