@@ -1,10 +1,10 @@
 {
-  "alignClosestWaypoint": [
+  "alignAngle": [
     1,
     {
-      "Button": 12
+      "Button": 3
     },
-    "placeholder"
+    "left button on top of 2nd T16000M"
   ],
   "chassisForwardsBackwards": [
     0,
