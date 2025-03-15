@@ -176,9 +176,9 @@ class RobotContainer:
             AngleAlignDrive(
                 self.drive,
                 lambda: self.operatorInterface.chassisControls.forwardsBackwards()
-                * constants.kTurboSpeedMultiplier,
+                * constants.kNormalSpeedMultiplier,
                 lambda: self.operatorInterface.chassisControls.sideToSide()
-                * constants.kTurboSpeedMultiplier,
+                * constants.kNormalSpeedMultiplier,
             )
         )
 
