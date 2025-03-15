@@ -145,7 +145,7 @@ class OperatorInterface:
         self.resetGyro = getButtonBindingOfName(constants.kResetGyroButtonName)
         self.defenseStateControl = getButtonBindingOfName("defenseStateControl")
 
-        self.alignClosestWaypoint = getButtonBindingOfName("alignClosestWaypoint")
+        self.alignAngle = getButtonBindingOfName("alignAngle")
 
         self.offVelocity = getButtonBindingOfName("offVelocity")
         self.velocitySetpoint1 = getButtonBindingOfName("setpoint1velocity")
