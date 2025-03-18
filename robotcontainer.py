@@ -39,6 +39,7 @@ from commands.climbersetting import (
 )
 from commands.fudgeelevator import FudgeElevatorUp, FudgeElevatorDown
 from commands.fudgeintake import FudgeIntakeForward, FudgeIntakeBackward
+from commands.algaeknock import AlgaeKnockHigh, AlgaeKnockLow, KnockExitSequence
 
 # from commands.drive.drivewaypoint import DriveWaypoint
 from subsystems.drivesubsystem import DriveSubsystem
@@ -211,24 +212,45 @@ class RobotContainer:
         ModifiableJoystickButton(self.operatorInterface.elevatorL4).whileTrue(
             ElevatorL4Position(self.elevator).repeatedly()
         )
-        POVButton(*self.operatorInterface.elevatorAlgaeLow).whileTrue(
-            ElevatorAlgaeLow(self.elevator).repeatedly()
+
+        # crimes
+        POVButton(*self.operatorInterface.algaeLow).whileTrue(
+            AlgaeKnockLow(self.intake, self.elevator).repeatedly()
         )
-        POVButton(*self.operatorInterface.elevatorAlgaeLow2).whileTrue(
-            ElevatorAlgaeLow(self.elevator).repeatedly()
+        POVButton(*self.operatorInterface.algaeLow).onFalse(
+            KnockExitSequence(self.intake, self.elevator).repeatedly()
         )
-        POVButton(*self.operatorInterface.elevatorAlgaeLow3).whileTrue(
-            ElevatorAlgaeLow(self.elevator).repeatedly()
+        POVButton(*self.operatorInterface.algaeLow2).whileTrue(
+            AlgaeKnockLow(self.intake, self.elevator).repeatedly()
         )
-        POVButton(*self.operatorInterface.elevatorAlgaeHigh).whileTrue(
-            ElevatorAlgaeHigh(self.elevator).repeatedly()
+        POVButton(*self.operatorInterface.algaeLow2).onFalse(
+            KnockExitSequence(self.intake, self.elevator).repeatedly()
         )
-        POVButton(*self.operatorInterface.elevatorAlgaeHigh2).whileTrue(
-            ElevatorAlgaeHigh(self.elevator).repeatedly()
+        POVButton(*self.operatorInterface.algaeLow3).whileTrue(
+            AlgaeKnockLow(self.intake, self.elevator).repeatedly()
         )
-        POVButton(*self.operatorInterface.elevatorAlgaeHigh3).whileTrue(
-            ElevatorAlgaeHigh(self.elevator).repeatedly()
+        POVButton(*self.operatorInterface.algaeLow3).onFalse(
+            KnockExitSequence(self.intake, self.elevator).repeatedly()
         )
+        POVButton(*self.operatorInterface.algaeHigh).whileTrue(
+            AlgaeKnockHigh(self.intake, self.elevator).repeatedly()
+        )
+        POVButton(*self.operatorInterface.algaeHigh).onFalse(
+            KnockExitSequence(self.intake, self.elevator).repeatedly()
+        )
+        POVButton(*self.operatorInterface.algaeHigh2).whileTrue(
+            AlgaeKnockHigh(self.intake, self.elevator).repeatedly()
+        )
+        POVButton(*self.operatorInterface.algaeHigh2).onFalse(
+            KnockExitSequence(self.intake, self.elevator).repeatedly()
+        )
+        POVButton(*self.operatorInterface.algaeHigh3).whileTrue(
+            AlgaeKnockHigh(self.intake, self.elevator).repeatedly()
+        )
+        POVButton(*self.operatorInterface.algaeHigh3).onFalse(
+            KnockExitSequence(self.intake, self.elevator).repeatedly()
+        )
+
         ModifiableJoystickButton(
             self.operatorInterface.elevatorIntakePositionToggleOn
         ).onTrue(ElevatorIntakePositionToggleOn(self.elevator))
