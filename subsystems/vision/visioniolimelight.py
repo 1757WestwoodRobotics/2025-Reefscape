@@ -1,3 +1,4 @@
+from typing import Optional
 from ntcore import NetworkTableInstance
 from wpimath.geometry import Pose3d, Rotation2d, Rotation3d
 from subsystems.vision.visionio import VisionSubsystemIO
@@ -18,7 +19,7 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
             "robot_orientation_set"
         ).publish()
 
-    def getCameraToTagPose(self) -> Pose3d:
+    def getRobotFieldPose(self) -> Optional[Pose3d]:
         (
             poseX,
             poseY,
@@ -34,6 +35,7 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
         ) = self.botpose.get()
 
         return Pose3d(poseX, poseY, poseZ, Rotation3d.fromDegrees(roll, pitch, yaw))
+
 
     def updateCameraPosition(self, pose: Pose3d) -> None:
         self.camPoseSetter.set(

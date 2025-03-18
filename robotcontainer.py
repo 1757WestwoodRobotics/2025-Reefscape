@@ -48,7 +48,7 @@ from commands.algaeknock import AlgaeKnockHigh, AlgaeKnockLow, KnockExitSequence
 # from commands.drive.drivewaypoint import DriveWaypoint
 from subsystems.drivesubsystem import DriveSubsystem
 from subsystems.loggingsubsystem import LoggingSubsystem
-from subsystems.visionsubsystem import VisionSubsystem
+from subsystems.vision.visionsubsystem import VisionSubsystem
 from subsystems.intakesubsystem import IntakeSubsystem
 from subsystems.elevatorsubsystem import ElevatorSubsystem
 from subsystems.climbersubsystem import ClimberSubsystem
@@ -73,7 +73,7 @@ class RobotContainer:
 
         # The robot's subsystems
         self.vision = VisionSubsystem()
-        self.drive = DriveSubsystem(self.vision)
+        self.drive = DriveSubsystem()
         self.log = LoggingSubsystem(self.operatorInterface)
         self.intake = IntakeSubsystem()
         self.elevator = ElevatorSubsystem()

@@ -405,17 +405,18 @@ class DriveSubsystem(Subsystem):
         )
         self.robotPoseValidPublisher.set(True)
 
-        self.visionPosePublisher = (
-            NetworkTableInstance.getDefault()
-            .getStructTopic(constants.kRobotVisionPoseArrayKeys.valueKey, Pose2d)
-            .publish()
-        )
+        # self.visionPosePublisher = (
+        #     NetworkTableInstance.getDefault()
+        #     .getStructTopic(constants.kRobotVisionPoseArrayKeys.valueKey, Pose2d)
+        #     .publish()
+        # )
 
-        self.visionPoseValidPublisher = (
-            NetworkTableInstance.getDefault()
-            .getBooleanTopic(constants.kRobotVisionPoseArrayKeys.validKey)
-            .publish()
-        )
+        # self.visionPoseValidPublisher = (
+        #     NetworkTableInstance.getDefault()
+        #     .getBooleanTopic(constants.kRobotVisionPoseArrayKeys.validKey)
+        #     .publish()
+        # )
+
         self.driveVelocityPublisher = (
             NetworkTableInstance.getDefault()
             .getStructTopic(constants.kDriveVelocityKeys, ChassisSpeeds)
@@ -574,7 +575,7 @@ class DriveSubsystem(Subsystem):
         )
         self.estimator.addOdometryMeasurement(odoMeasure)
         self.visionEstimate = self.estimator.estimatedPose
-        self.visionPosePublisher.set(self.visionEstimate)
+        # self.visionPosePublisher.set(self.visionEstimate)
 
         # curTime = self.printTimer.get()
         # if self.printTimer.hasElapsed(constants.kPrintPeriod):
