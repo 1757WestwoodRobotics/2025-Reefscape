@@ -20,7 +20,7 @@ class VisionSubsystem(Subsystem):
         Subsystem.__init__(self)
         self.setName(__class__.__name__)
 
-        self.poseReciever = (
+        self.poseReceiver = (
             NetworkTableInstance.getDefault()
             .getStructTopic(constants.kRobotPoseArrayKeys.valueKey, Pose2d)
             .subscribe(Pose2d())
