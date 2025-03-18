@@ -1,5 +1,6 @@
 from collections import deque
 from math import hypot, inf, sin
+from typing import Optional
 
 # import numpy as np
 
@@ -15,6 +16,7 @@ from subsystems.vision.visioniolimelight import VisionSubsystemIOLimelight
 
 class VisionSubsystem(Subsystem):
     camera: VisionSubsystemIO
+    visionPose: Optional[Pose2d]
 
     def __init__(self) -> None:
         Subsystem.__init__(self)
@@ -26,9 +28,31 @@ class VisionSubsystem(Subsystem):
             .subscribe(Pose2d())
         )
 
+        self.visionPosePublisher = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic(constants.kRobotVisionPoseArrayKeys.valueKey, Pose2d)
+            .publish()
+        )
+        self.visionPoseValidPublisher = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kRobotVisionPoseArrayKeys.validKey)
+            .publish()
+        )
+        self.visionPose = None
+
         if RobotBase.isReal():
             self.camera = VisionSubsystemIOLimelight()
 
     def periodic(self) -> None:
-        yaw = self.poseReciever.get().rotation()
+        yaw = self.poseReceiver.get().rotation()
         self.camera.updateRobotYaw(yaw)
+
+        visionPose = self.camera.getRobotFieldPose()
+
+        if visionPose is not None:
+            self.visionPose = visionPose.toPose2d()
+            self.visionPosePublisher.set(self.visionPose)
+            self.visionPoseValidPublisher.set(True)
+        else:
+            self.visionPose = None
+            self.visionPoseValidPublisher.set(False)
