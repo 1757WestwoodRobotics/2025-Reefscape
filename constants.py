@@ -739,6 +739,23 @@ kApriltagPositionDictAndyMark = {
     ),
 }
 
+kLeftReefOffsetX = 17.628 * kMetersPerInch
+kLeftReefOffsetY = -15.455 * kMetersPerInch
+kLeftReefOffset = Transform3d(
+    kLeftReefOffsetX,
+    kLeftReefOffsetY,
+    0,
+    Rotation3d(0, 0, math.pi),
+)
+
+kLeftReefToPositionOffset = {}
+for i in range(17, 23):
+    apriltag = kApriltagPositionDictAndyMark[i]
+    kLeftReefToPositionOffset[i] = apriltag + kLeftReefOffset
+for i in range(6, 12):
+    apriltag = kApriltagPositionDictAndyMark[i]
+    kLeftReefToPositionOffset[i] = apriltag + kLeftReefOffset
+
 # Autonomous
 kAutoDriveDistance = -8 * kWheelCircumference
 """meters"""
