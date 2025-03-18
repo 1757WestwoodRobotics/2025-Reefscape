@@ -27,5 +27,6 @@ robotpy_extras = [
 
 # Other pip packages to install
 requires = [
-    "photonlibpy==2025.0.0b6"
+    "photonlibpy==2025.0.0b6",
+    "limelightlib-python==0.9.6"
 ]

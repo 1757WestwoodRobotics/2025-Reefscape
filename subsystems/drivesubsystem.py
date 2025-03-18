@@ -42,7 +42,6 @@ from util import convenientmath
 from util.angleoptimize import optimizeAngle
 from util.simcoder import CTREEncoder
 from util.simtalon import Talon
-from subsystems.visionsubsystem import VisionSubsystem
 
 
 class SwerveModuleConfigParams:
@@ -253,11 +252,10 @@ class DriveSubsystem(Subsystem):
         FieldRelative = auto()
         TargetRelative = auto()
 
-    def __init__(self, vision: VisionSubsystem) -> None:
+    def __init__(self) -> None:
         Subsystem.__init__(self)
         self.setName(__class__.__name__)
 
-        self.vision = vision
         self.rotationOffset = 0
 
         self.frontLeftModule = CTRESwerveModule(
@@ -571,29 +569,11 @@ class DriveSubsystem(Subsystem):
         self.robotPosePublisher.set(robotPose)
         self.robotPoseValidPublisher.set(True)
 
-        estimatedCameraPoses = self.vision.poseList
-        hasTargets = False
-
         odoMeasure = OdometryObservation(
             [*swervePositions], self.getRotation(), self.printTimer.getFPGATimestamp()
         )
         self.estimator.addOdometryMeasurement(odoMeasure)
-
-        for estimatedCameraPose in estimatedCameraPoses:
-            if estimatedCameraPose.hasTargets:
-                visionMeasure = VisionObservation(
-                    estimatedCameraPose.pose.toPose2d(),
-                    estimatedCameraPose.timestamp,
-                    estimatedCameraPose.stdDev,
-                )
-                self.estimator.addVisionMeasurement(visionMeasure)
-                hasTargets = True
-
-        self.vision.poseList.clear()
-
         self.visionEstimate = self.estimator.estimatedPose
-
-        self.visionPoseValidPublisher.set(hasTargets)
         self.visionPosePublisher.set(self.visionEstimate)
 
         # curTime = self.printTimer.get()
