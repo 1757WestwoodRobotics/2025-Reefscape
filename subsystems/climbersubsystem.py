@@ -110,11 +110,9 @@ class ClimberSubsystem(Subsystem):
 
     def setTuckedPosition(self) -> None:
         self.state = self.ClimberState.TuckedPosition
-        self.climberManualModePublisher.set(False)
 
     def setAtFramePosition(self) -> None:
         self.state = self.ClimberState.AtFramePosition
-        self.climberManualModePublisher.set(False)
 
     def setManualMode(self) -> None:
         self.state = self.ClimberState.ManualMode
