@@ -35,7 +35,6 @@ from commands.climbersetting import (
     ClimberNothingPressed,
     ClimberManualUp,
     ClimberManualDown,
-    ClimberManualMode,
 )
 from commands.fudgeelevator import FudgeElevatorUp, FudgeElevatorDown
 from commands.fudgeintake import FudgeIntakeForward, FudgeIntakeBackward
