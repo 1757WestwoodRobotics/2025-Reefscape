@@ -259,10 +259,6 @@ class RobotContainer:
         )
 
         # manual climber
-        NetworkTableButton(constants.kClimberManualModeKey).whileTrue(
-            ClimberManualMode(self.climber).repeatedly()
-        )
-
         ModifiableJoystickButton(self.operatorInterface.climberManualUp).whileTrue(
             ClimberManualUp(self.climber).repeatedly()
         )

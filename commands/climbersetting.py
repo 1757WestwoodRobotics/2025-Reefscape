@@ -63,11 +63,11 @@ class ClimberManualUp(Command):
         self.climber = climber
 
     def execute(self):
-        if self.climber.state == self.climber.ClimberState.ManualMode:
-            climberPosition = self.climber.getClimberPosition()
-            self.climber.climberPositionPublisher.set(
-                climberPosition + constants.kClimberManualIncrement,
-            )
+        self.climber.setManualMode()
+        climberPosition = self.climber.getClimberPosition()
+        self.climber.climberPositionPublisher.set(
+            climberPosition + constants.kClimberManualIncrement,
+        )
 
 
 class ClimberManualDown(Command):
@@ -77,8 +77,8 @@ class ClimberManualDown(Command):
         self.climber = climber
 
     def execute(self):
-        if self.climber.state == self.climber.ClimberState.ManualMode:
-            climberPosition = self.climber.getClimberPosition()
-            self.climber.climberPositionPublisher.set(
-                climberPosition - constants.kClimberManualIncrement,
-            )
+        self.climber.setManualMode()
+        climberPosition = self.climber.getClimberPosition()
+        self.climber.climberPositionPublisher.set(
+            climberPosition - constants.kClimberManualIncrement,
+        )

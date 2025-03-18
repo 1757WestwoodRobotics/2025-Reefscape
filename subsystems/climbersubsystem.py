@@ -71,14 +71,6 @@ class ClimberSubsystem(Subsystem):
             .publish()
         )
 
-        self.climberManualModePublisher = (
-            NetworkTableInstance.getDefault()
-            .getBooleanTopic(constants.kClimberManualModeKey)
-            .publish()
-        )
-
-        self.climberManualModePublisher.set(False)
-
         self.climberEndPositionPublisher.set(constants.kClimberTuckedPosition)
 
         self.heldPosition = self.climberMotor.get(Talon.ControlMode.Position)
