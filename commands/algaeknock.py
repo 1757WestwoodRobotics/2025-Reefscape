@@ -1,5 +1,4 @@
-from commands2 import Command, ParallelCommandGroup, SequentialCommandGroup
-from wpilib import Timer
+from commands2 import ParallelCommandGroup, SequentialCommandGroup
 from subsystems.intakesubsystem import IntakeSubsystem
 from subsystems.elevatorsubsystem import ElevatorSubsystem
 from commands.elevatorsetting import (
