@@ -41,17 +41,17 @@ class DriveWaypoint(Command):
 class DriveLeftReef(DriveWaypoint):
     def __init__(self, drive: DriveSubsystem):
         DriveWaypoint.__init__(self, drive)
+        self.visionPoseGetter = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic(constants.kRobotVisionPoseArrayKeys.valueKey, Pose2d)
+            .subscribe(Pose2d())
+        )
 
     def initialize(self):
         targetPose = self.getClosestPose()
         self.running = True
         # pylint: disable=W0212
-        AutoBuilder._getPose = (
-            NetworkTableInstance.getDefault()
-            .getStructTopic(constants.kRobotVisionPoseArrayKeys.valueKey, Pose2d)
-            .subscribe(Pose2d(0, 0, 0))
-            .get
-        )
+        AutoBuilder._getPose = self.visionPoseGetter.get
         self.command = AutoBuilder.pathfindToPose(
             targetPose, constants.kPathfindingConstraints
         )
