@@ -146,6 +146,7 @@ class OperatorInterface:
         self.defenseStateControl = getButtonBindingOfName("defenseStateControl")
 
         self.alignAngle = getButtonBindingOfName("alignAngle")
+        self.autoWaypoint = getButtonBindingOfName("autoWaypoint")
 
         self.offVelocity = getButtonBindingOfName("offVelocity")
         self.velocitySetpoint1 = getButtonBindingOfName("setpoint1velocity")
