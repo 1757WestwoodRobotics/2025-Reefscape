@@ -6,6 +6,13 @@
     },
     "left button on top of 2nd T16000M"
   ],
+  "autoWaypoint": [
+    1,
+    {
+      "Button": 4
+    },
+    "right button on top of 2nd T16000M"
+  ],
   "chassisForwardsBackwards": [
     0,
     {
