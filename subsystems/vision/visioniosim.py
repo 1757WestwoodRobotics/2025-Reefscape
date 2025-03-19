@@ -60,17 +60,8 @@ class VisionSubsystemIOSim(VisionSubsystemIO):
 
         return botPose if seeTag else None
 
-    def updateCameraPosition(self, pose: Pose3d) -> None:
-        self.camPoseSetter.set(
-            [
-                pose.X(),
-                pose.Y(),
-                pose.Z(),
-                pose.rotation().X(),
-                pose.rotation().Y(),
-                pose.rotation().Z(),
-            ]
-        )
+    def updateCameraPosition(self, transform: Transform3d) -> None:
+        self.camera.location = transform
 
     def updateRobotYaw(self, yaw: Rotation2d) -> None:
         self.robotOrientationSetter.set([yaw.degrees(), 0, 0, 0, 0, 0])
