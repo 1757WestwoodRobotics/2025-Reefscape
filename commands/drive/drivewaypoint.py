@@ -2,6 +2,7 @@ from commands2 import Command
 from pathplannerlib.auto import AutoBuilder
 from wpimath.geometry import Rotation2d, Pose2d
 from wpilib import DriverStation
+from ntcore import NetworkTableInstance
 
 from subsystems.drivesubsystem import DriveSubsystem
 from subsystems.vision.visionsubsystem import VisionSubsystem
@@ -9,17 +10,16 @@ import constants
 
 
 class DriveWaypoint(Command):
-    def __init__(self, drive: DriveSubsystem, vision: VisionSubsystem) -> None:
+    def __init__(self, drive: DriveSubsystem) -> None:
         Command.__init__(self)
         self.setName(__class__.__name__)
 
         self.drive = drive
-        self.vision = vision
 
         self.command = Command()
 
         self.running = False
-        self.addRequirements(self.drive, self.vision)
+        self.addRequirements(self.drive)
 
     def initialize(self) -> None:
         raise NotImplementedError("Must be implemented by subclass")
@@ -39,14 +39,19 @@ class DriveWaypoint(Command):
 
 
 class DriveLeftReef(DriveWaypoint):
-    def __init__(self, drive: DriveSubsystem, vision: VisionSubsystem):
-        DriveWaypoint.__init__(self, drive, vision)
+    def __init__(self, drive: DriveSubsystem):
+        DriveWaypoint.__init__(self, drive)
 
     def initialize(self):
         targetPose = self.getClosestPose()
         self.running = True
         # pylint: disable=W0212
-        AutoBuilder._getPose = self.vision.visionPosePublisher.get
+        AutoBuilder._getPose = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic(constants.kRobotVisionPoseArrayKeys.valueKey, Pose2d)
+            .subscribe(Pose2d(0, 0, 0))
+            .get
+        )
         self.command = AutoBuilder.pathfindToPose(
             targetPose, constants.kPathfindingConstraints
         )
