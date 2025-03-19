@@ -1,9 +1,9 @@
 from typing import Optional
-from wpimath.geometry import Pose3d, Rotation2d
+from wpimath.geometry import Pose3d, Rotation2d, Transform3d
 
 
 class VisionSubsystemIO:
-    def updateCameraPosition(self, pose: Pose3d) -> None:
+    def updateCameraPosition(self, transform: Transform3d) -> None:
         raise NotImplementedError("Must be implemented by subclass")
 
     def getRobotFieldPose(self) -> Optional[Pose3d]:
