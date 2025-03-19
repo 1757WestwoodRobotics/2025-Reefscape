@@ -247,54 +247,16 @@ kCameraFOVVertical = 47.4  # degrees
 kSimulationVariation = 0.001  # meters, as a standard deviation
 
 
-kRobotToFrontLeftCameraTransform = Transform3d(
+kCameraLocationPublisherKey = "camera/location"
+kRobotToCameraTransform = Transform3d(
     Pose3d(),
     Pose3d(
-        11.486 * kMetersPerInch,
-        10.991 * kMetersPerInch,
-        8.475 * kMetersPerInch,
-        Rotation3d(0.0, -28.125 * kRadiansPerDegree, 0.0).rotateBy(
-            Rotation3d(0.0, 0.0, 15.0 * kRadiansPerDegree)
-        ),
+        -9.464 * kMetersPerInch,
+        -12.029 * kMetersPerInch,
+        7.922 * kMetersPerInch,
+        Rotation3d.fromDegrees(0, -15, 0),
     ),
 )
-kRobotToFrontRightCameraTransform = Transform3d(
-    Pose3d(),
-    Pose3d(
-        11.306 * kMetersPerInch,
-        -12.749 * kMetersPerInch,
-        9.238 * kMetersPerInch,
-        Rotation3d(0.0, -28.125 * kRadiansPerDegree, 0.0),
-    ),
-)
-kRobotToBackLeftCameraTransform = Transform3d(
-    Pose3d(),
-    Pose3d(
-        -11.486 * kMetersPerInch,
-        10.990 * kMetersPerInch,
-        8.475 * kMetersPerInch,
-        Rotation3d(0.0, -28.125 * kRadiansPerDegree, 0.0).rotateBy(
-            Rotation3d(0.0, 0.0, (180 - 15.0) * kRadiansPerDegree)
-        ),
-    ),
-)
-kRobotToBackRightCameraTransform = Transform3d(
-    Pose3d(),
-    Pose3d(
-        -11.486 * kMetersPerInch,
-        -10.991 * kMetersPerInch,
-        8.475 * kMetersPerInch,
-        Rotation3d(0.0, -28.125 * kRadiansPerDegree, 0.0).rotateBy(
-            Rotation3d(0.0, 0.0, (180 + 15.0) * kRadiansPerDegree)
-        ),
-    ),
-)
-kCameraTransformsArray = [
-    kRobotToFrontLeftCameraTransform,
-    kRobotToFrontRightCameraTransform,
-    kRobotToBackLeftCameraTransform,
-    kRobotToBackRightCameraTransform,
-]
 
 # CANivore
 kCANivoreName = "canivore"

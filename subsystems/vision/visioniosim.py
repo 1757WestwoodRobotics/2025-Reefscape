@@ -25,7 +25,7 @@ class VisionSubsystemIOSim(VisionSubsystemIO):
         )
         self.camera = SimCamera(
             "limelight",
-            Transform3d(),
+            constants.kRobotToCameraTransform,
             constants.kCameraFOVHorizontal,
             constants.kCameraFOVVertical,
             "ll",
