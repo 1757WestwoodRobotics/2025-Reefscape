@@ -39,7 +39,7 @@ from wpimath.system.plant import DCMotor
 from pathplannerlib.config import (
     PIDConstants,
 )
-
+from pathplannerlib.auto import PathConstraints
 from util.keyorganization import OptionalValueKeys
 
 # Basic units
@@ -748,13 +748,15 @@ kLeftReefOffset = Transform3d(
     Rotation3d(0, 0, math.pi),
 )
 
-kLeftReefToPositionOffset = {}
+kLeftReefToPositionOffsetBlue = {}
+kLeftReefToPositionOffsetRed = {}
+
 for i in range(17, 23):
     apriltag = kApriltagPositionDictAndyMark[i]
-    kLeftReefToPositionOffset[i] = apriltag + kLeftReefOffset
+    kLeftReefToPositionOffsetBlue[i] = apriltag + kLeftReefOffset
 for i in range(6, 12):
     apriltag = kApriltagPositionDictAndyMark[i]
-    kLeftReefToPositionOffset[i] = apriltag + kLeftReefOffset
+    kLeftReefToPositionOffsetRed[i] = apriltag + kLeftReefOffset
 
 # Autonomous
 kAutoDriveDistance = -8 * kWheelCircumference
@@ -825,6 +827,13 @@ kPathFollowingTranslationConstants = PIDConstants(
 )
 kPathFollowingRotationConstants = PIDConstants(
     kTrajectoryAnglePGain, kTrajectoryAngleIGain, kTrajectoryAngleDGain
+)
+
+kPathfindingConstraints = PathConstraints(
+    kMaxWheelLinearVelocity / 2,
+    kMaxWheelLinearAcceleration / 2,
+    kMaxRotationAngularVelocity / 2,
+    kMaxRotationAngularAcceleration / 2,
 )
 
 # Operator Interface
