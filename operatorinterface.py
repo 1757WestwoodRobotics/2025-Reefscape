@@ -159,12 +159,12 @@ class OperatorInterface:
         self.elevatorL2 = getButtonBindingOfName("elevatorL2")
         self.elevatorL3 = getButtonBindingOfName("elevatorL3")
         self.elevatorL4 = getButtonBindingOfName("elevatorL4")
-        self.elevatorAlgaeLow = getPOVBindingOfName("elevatorAlgaeLow")
-        self.elevatorAlgaeLow2 = getPOVBindingOfName("elevatorAlgaeLow2")
-        self.elevatorAlgaeLow3 = getPOVBindingOfName("elevatorAlgaeLow3")
-        self.elevatorAlgaeHigh = getPOVBindingOfName("elevatorAlgaeHigh")
-        self.elevatorAlgaeHigh2 = getPOVBindingOfName("elevatorAlgaeHigh2")
-        self.elevatorAlgaeHigh3 = getPOVBindingOfName("elevatorAlgaeHigh3")
+        self.algaeLow = getPOVBindingOfName("algaeLow")
+        self.algaeLow2 = getPOVBindingOfName("algaeLow2")
+        self.algaeLow3 = getPOVBindingOfName("algaeLow3")
+        self.algaeHigh = getPOVBindingOfName("algaeHigh")
+        self.algaeHigh2 = getPOVBindingOfName("algaeHigh2")
+        self.algaeHigh3 = getPOVBindingOfName("algaeHigh3")
         self.elevatorIntakePositionToggleOn = getButtonBindingOfName(
             "elevatorIntakePositionToggleOn"
         )

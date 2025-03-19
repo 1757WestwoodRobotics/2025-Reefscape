@@ -44,6 +44,7 @@ from commands.fudgeintake import (
     FudgeIntakeCoralUp,
     FudgeIntakeCoralDown,
 )
+from commands.algaeknock import AlgaeKnockHigh, AlgaeKnockLow, KnockExitSequence
 
 # from commands.drive.drivewaypoint import DriveWaypoint
 from subsystems.drivesubsystem import DriveSubsystem
@@ -216,24 +217,22 @@ class RobotContainer:
         ModifiableJoystickButton(self.operatorInterface.elevatorL4).whileTrue(
             ElevatorL4Position(self.elevator).repeatedly()
         )
-        POVButton(*self.operatorInterface.elevatorAlgaeLow).whileTrue(
-            ElevatorAlgaeLow(self.elevator).repeatedly()
+
+        (
+            POVButton(*self.operatorInterface.algaeLow)
+            or POVButton(*self.operatorInterface.algaeLow2)
+            or POVButton(*self.operatorInterface.algaeLow3)
+        ).whileTrue(AlgaeKnockLow(self.intake, self.elevator).repeatedly()).onFalse(
+            KnockExitSequence(self.intake, self.elevator).repeatedly()
         )
-        POVButton(*self.operatorInterface.elevatorAlgaeLow2).whileTrue(
-            ElevatorAlgaeLow(self.elevator).repeatedly()
+        (
+            POVButton(*self.operatorInterface.algaeHigh)
+            or POVButton(*self.operatorInterface.algaeHigh2)
+            or POVButton(*self.operatorInterface.algaeHigh3)
+        ).whileTrue(AlgaeKnockHigh(self.intake, self.elevator).repeatedly()).onFalse(
+            KnockExitSequence(self.intake, self.elevator).repeatedly()
         )
-        POVButton(*self.operatorInterface.elevatorAlgaeLow3).whileTrue(
-            ElevatorAlgaeLow(self.elevator).repeatedly()
-        )
-        POVButton(*self.operatorInterface.elevatorAlgaeHigh).whileTrue(
-            ElevatorAlgaeHigh(self.elevator).repeatedly()
-        )
-        POVButton(*self.operatorInterface.elevatorAlgaeHigh2).whileTrue(
-            ElevatorAlgaeHigh(self.elevator).repeatedly()
-        )
-        POVButton(*self.operatorInterface.elevatorAlgaeHigh3).whileTrue(
-            ElevatorAlgaeHigh(self.elevator).repeatedly()
-        )
+
         ModifiableJoystickButton(
             self.operatorInterface.elevatorIntakePositionToggleOn
         ).onTrue(ElevatorIntakePositionToggleOn(self.elevator))

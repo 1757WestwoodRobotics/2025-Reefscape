@@ -41,7 +41,7 @@
     },
     "left button on top of joystick (ThrustmasterT16000M)"
   ],
-  "elevatorAlgaeHigh": [
+  "algaeHigh": [
     0,
     {
       "POV": [
@@ -51,7 +51,7 @@
     },
     "POV up"
   ],
-  "elevatorAlgaeHigh2": [
+  "algaeHigh2": [
     0,
     {
       "POV": [
@@ -61,7 +61,7 @@
     },
     "POV up"
   ],
-  "elevatorAlgaeHigh3": [
+  "algaeHigh3": [
     0,
     {
       "POV": [
@@ -71,7 +71,7 @@
     },
     "POV up"
   ],
-  "elevatorAlgaeLow": [
+  "algaeLow": [
     0,
     {
       "POV": [
@@ -81,7 +81,7 @@
     },
     "POV down"
   ],
-  "elevatorAlgaeLow2": [
+  "algaeLow2": [
     0,
     {
       "POV": [
@@ -91,7 +91,7 @@
     },
     "POV down"
   ],
-  "elevatorAlgaeLow3": [
+  "algaeLow3": [
     0,
     {
       "POV": [
