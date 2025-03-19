@@ -37,7 +37,12 @@ from commands.climbersetting import (
     ClimberManualDown,
 )
 from commands.fudgeelevator import FudgeElevatorUp, FudgeElevatorDown
-from commands.fudgeintake import FudgeIntakeForward, FudgeIntakeBackward
+from commands.fudgeintake import (
+    FudgeIntakeScoreForward,
+    FudgeIntakeScoreBackward,
+    FudgeIntakeCoralUp,
+    FudgeIntakeCoralDown,
+)
 from commands.algaeknock import AlgaeKnockHigh, AlgaeKnockLow, KnockExitSequence
 
 # from commands.drive.drivewaypoint import DriveWaypoint
@@ -176,9 +181,9 @@ class RobotContainer:
             AngleAlignDrive(
                 self.drive,
                 lambda: self.operatorInterface.chassisControls.forwardsBackwards()
-                * constants.kTurboSpeedMultiplier,
+                * constants.kNormalSpeedMultiplier,
                 lambda: self.operatorInterface.chassisControls.sideToSide()
-                * constants.kTurboSpeedMultiplier,
+                * constants.kNormalSpeedMultiplier,
             )
         )
 
@@ -273,12 +278,20 @@ class RobotContainer:
             FudgeElevatorDown(self.elevator)
         )
 
-        ModifiableJoystickButton(self.operatorInterface.intakeFudgeForward).onTrue(
-            FudgeIntakeForward(self.intake)
+        ModifiableJoystickButton(self.operatorInterface.intakeFudgeScoreForward).onTrue(
+            FudgeIntakeScoreForward(self.intake)
         )
 
-        ModifiableJoystickButton(self.operatorInterface.intakeFudgeBackward).onTrue(
-            FudgeIntakeBackward(self.intake)
+        ModifiableJoystickButton(
+            self.operatorInterface.intakeFudgeScoreBackward
+        ).onTrue(FudgeIntakeScoreBackward(self.intake))
+
+        ModifiableJoystickButton(self.operatorInterface.intakeFudgeCoralUp).onTrue(
+            FudgeIntakeCoralUp(self.intake)
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.intakeFudgeCoralDown).onTrue(
+            FudgeIntakeCoralDown(self.intake)
         )
 
     def getAutonomousCommand(self) -> commands2.Command:

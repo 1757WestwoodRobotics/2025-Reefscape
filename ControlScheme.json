@@ -44,42 +44,60 @@
   "algaeHigh": [
     0,
     {
-      "POV": [0, 0]
+      "POV": [
+        0,
+        0
+      ]
     },
     "POV up"
   ],
   "algaeHigh2": [
     0,
     {
-      "POV": [0, 315]
+      "POV": [
+        0,
+        315
+      ]
     },
     "POV up"
   ],
   "algaeHigh3": [
     0,
     {
-      "POV": [0, 45]
+      "POV": [
+        0,
+        45
+      ]
     },
     "POV up"
   ],
   "algaeLow": [
     0,
     {
-      "POV": [0, 180]
+      "POV": [
+        0,
+        180
+      ]
     },
     "POV down"
   ],
   "algaeLow2": [
     0,
     {
-      "POV": [0, 135]
+      "POV": [
+        0,
+        135
+      ]
     },
     "POV down"
   ],
   "algaeLow3": [
     0,
     {
-      "POV": [0, 225]
+      "POV": [
+        0,
+        225
+      ]
     },
     "POV down"
   ],
@@ -223,17 +241,31 @@
     },
     "placeholder"
   ],
-  "intakeFudgeForward": [
+  "intakeFudgeCoralUp": [
     2,
     {
       "Button": 17
     },
     "placeholder"
   ],
-  "intakeFudgeBackward": [
+  "intakeFudgeCoralDown": [
     2,
     {
       "Button": 19
+    },
+    "placeholder"
+  ],
+  "intakeFudgeScoreForward": [
+    2,
+    {
+      "Button": 18
+    },
+    "placeholder"
+  ],
+  "intakeFudgeScoreBackward": [
+    2,
+    {
+      "Button": 20
     },
     "placeholder"
   ]
