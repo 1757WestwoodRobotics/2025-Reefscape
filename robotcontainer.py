@@ -213,41 +213,18 @@ class RobotContainer:
             ElevatorL4Position(self.elevator).repeatedly()
         )
 
-        # crimes
-        POVButton(*self.operatorInterface.algaeLow).whileTrue(
-            AlgaeKnockLow(self.intake, self.elevator).repeatedly()
-        )
-        POVButton(*self.operatorInterface.algaeLow).onFalse(
+        (
+            POVButton(*self.operatorInterface.algaeLow)
+            or POVButton(*self.operatorInterface.algaeLow2)
+            or POVButton(*self.operatorInterface.algaeLow3)
+        ).whileTrue(AlgaeKnockLow(self.intake, self.elevator).repeatedly()).onFalse(
             KnockExitSequence(self.intake, self.elevator).repeatedly()
         )
-        POVButton(*self.operatorInterface.algaeLow2).whileTrue(
-            AlgaeKnockLow(self.intake, self.elevator).repeatedly()
-        )
-        POVButton(*self.operatorInterface.algaeLow2).onFalse(
-            KnockExitSequence(self.intake, self.elevator).repeatedly()
-        )
-        POVButton(*self.operatorInterface.algaeLow3).whileTrue(
-            AlgaeKnockLow(self.intake, self.elevator).repeatedly()
-        )
-        POVButton(*self.operatorInterface.algaeLow3).onFalse(
-            KnockExitSequence(self.intake, self.elevator).repeatedly()
-        )
-        POVButton(*self.operatorInterface.algaeHigh).whileTrue(
-            AlgaeKnockHigh(self.intake, self.elevator).repeatedly()
-        )
-        POVButton(*self.operatorInterface.algaeHigh).onFalse(
-            KnockExitSequence(self.intake, self.elevator).repeatedly()
-        )
-        POVButton(*self.operatorInterface.algaeHigh2).whileTrue(
-            AlgaeKnockHigh(self.intake, self.elevator).repeatedly()
-        )
-        POVButton(*self.operatorInterface.algaeHigh2).onFalse(
-            KnockExitSequence(self.intake, self.elevator).repeatedly()
-        )
-        POVButton(*self.operatorInterface.algaeHigh3).whileTrue(
-            AlgaeKnockHigh(self.intake, self.elevator).repeatedly()
-        )
-        POVButton(*self.operatorInterface.algaeHigh3).onFalse(
+        (
+            POVButton(*self.operatorInterface.algaeHigh)
+            or POVButton(*self.operatorInterface.algaeHigh2)
+            or POVButton(*self.operatorInterface.algaeHigh3)
+        ).whileTrue(AlgaeKnockHigh(self.intake, self.elevator).repeatedly()).onFalse(
             KnockExitSequence(self.intake, self.elevator).repeatedly()
         )
 
