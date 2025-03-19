@@ -5,7 +5,6 @@ from subsystems.vision.visionsubsystem import VisionSubsystem
 from wpimath.geometry import Rotation2d, Pose2d
 from wpilib import DriverStation
 import constants
-from util.convenientmath
 
 
 class DriveWaypoint(Command):
@@ -23,7 +22,7 @@ class DriveWaypoint(Command):
 
     def initialize(self) -> None:
         raise NotImplementedError("Must be implemented by subclass")
-        
+
     def execute(self) -> None:
         self.command.execute()
         if self.command.isFinished():
@@ -32,14 +31,15 @@ class DriveWaypoint(Command):
 
     def isFinished(self) -> bool:
         return False
-    
+
     def end(self) -> None:
         AutoBuilder._getPose = self.drive.getPose
+
 
 class DriveLeftReef(DriveWaypoint):
     def __init__(self, drive: DriveSubsystem, vision: VisionSubsystem):
         DriveWaypoint.__init__(self, drive, vision)
-    
+
     def initialize(self):
         targetPose = self.getClosestPose()
         self.running = True
@@ -48,7 +48,7 @@ class DriveLeftReef(DriveWaypoint):
             targetPose, constants.kPathfindingConstraints
         )
         self.command.initialize()
-        
+
     def getClosestPose(self) -> Pose2d:
         currentRotation = self.drive.getRotation()
         targetRotation = Rotation2d.fromDegrees(
@@ -57,11 +57,11 @@ class DriveLeftReef(DriveWaypoint):
 
         if DriverStation.getAlliance == DriverStation.Alliance.kBlue:
             for position in constants.kLeftReefToOffsetPositionBlue.values():
-                if abs(targetRotation.radians() - position.rotation().Z()) <= .001:
+                if abs(targetRotation.radians() - position.rotation().Z()) <= 0.001:
                     return position.toPose2d()
             return self.drive.getPose()
         else:
             for position in constants.kLeftReefToOffsetPositionRed.values():
-                if abs(targetRotation.radians() - position.rotation().Z()) <= .001:
+                if abs(targetRotation.radians() - position.rotation().Z()) <= 0.001:
                     return position.toPose2d()
             return self.drive.getPose()
