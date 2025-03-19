@@ -248,14 +248,28 @@ kSimulationVariation = 0.001  # meters, as a standard deviation
 
 
 kCameraLocationPublisherKey = "camera/location"
-kRobotToCameraTransform = Transform3d(
+kRobotToCameraTransformLL2p = Transform3d(
     Pose3d(),
     Pose3d(
-        -9.464 * kMetersPerInch,
-        -12.029 * kMetersPerInch,
-        7.922 * kMetersPerInch,
-        Rotation3d.fromDegrees(0, -15, 0),
+        -11.602 * kMetersPerInch,
+        -10.365 * kMetersPerInch,
+        8.131 * kMetersPerInch,
+        Rotation3d.fromDegrees(0, -14.755, 0),
     ),
+)
+
+kRobotToCameraTransformLL3 = Transform3d(
+    Pose3d(),
+    Pose3d(
+        -11.498 * kMetersPerInch,
+        -10.365 * kMetersPerInch,
+        8.192 * kMetersPerInch,
+        Rotation3d.fromDegrees(0, -14.755, 0),
+    ),
+)
+
+kRobotToCameraTransform = (
+    kRobotToCameraTransformLL2p  # NOTE: if/when we swap cameras this needs to change
 )
 
 # CANivore
