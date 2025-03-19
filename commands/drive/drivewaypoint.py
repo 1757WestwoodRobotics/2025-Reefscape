@@ -5,8 +5,8 @@ from wpilib import DriverStation
 from ntcore import NetworkTableInstance
 
 from subsystems.drivesubsystem import DriveSubsystem
-from subsystems.vision.visionsubsystem import VisionSubsystem
 import constants
+from util.angleoptimize import optimizeAngle
 
 
 class DriveWaypoint(Command):
@@ -65,11 +65,27 @@ class DriveLeftReef(DriveWaypoint):
 
         if DriverStation.getAlliance() == DriverStation.Alliance.kBlue:
             for position in constants.kLeftReefToOffsetPositionBlue.values():
-                if abs(targetRotation.radians() - position.rotation().Z()) <= 0.001:
+                if (
+                    abs(
+                        targetRotation.radians()
+                        - optimizeAngle(
+                            targetRotation, Rotation2d(position.rotation().Z())
+                        ).radians()
+                    )
+                    <= 0.001
+                ):
                     return position.toPose2d()
             return self.drive.getPose()
         else:
             for position in constants.kLeftReefToOffsetPositionRed.values():
-                if abs(targetRotation.radians() - position.rotation().Z()) <= 0.001:
+                if (
+                    abs(
+                        targetRotation.radians()
+                        - optimizeAngle(
+                            targetRotation, Rotation2d(position.rotation().Z())
+                        ).radians()
+                    )
+                    <= 0.001
+                ):
                     return position.toPose2d()
             return self.drive.getPose()
