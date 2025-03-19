@@ -1,9 +1,10 @@
 from commands2 import Command
 from pathplannerlib.auto import AutoBuilder
-from subsystems.drivesubsystem import DriveSubsystem
-from subsystems.vision.visionsubsystem import VisionSubsystem
 from wpimath.geometry import Rotation2d, Pose2d
 from wpilib import DriverStation
+
+from subsystems.drivesubsystem import DriveSubsystem
+from subsystems.vision.visionsubsystem import VisionSubsystem
 import constants
 
 
@@ -32,7 +33,8 @@ class DriveWaypoint(Command):
     def isFinished(self) -> bool:
         return False
 
-    def end(self) -> None:
+    def end(self, _interrupted: bool) -> None:
+        # pylint: disable=W0212
         AutoBuilder._getPose = self.drive.getPose
 
 
@@ -43,6 +45,7 @@ class DriveLeftReef(DriveWaypoint):
     def initialize(self):
         targetPose = self.getClosestPose()
         self.running = True
+        # pylint: disable=W0212
         AutoBuilder._getPose = self.vision.visionPosePublisher.get
         self.command = AutoBuilder.pathfindToPose(
             targetPose, constants.kPathfindingConstraints
@@ -55,7 +58,7 @@ class DriveLeftReef(DriveWaypoint):
             round(currentRotation.degrees() / 60) * 60
         )
 
-        if DriverStation.getAlliance == DriverStation.Alliance.kBlue:
+        if DriverStation.getAlliance() == DriverStation.Alliance.kBlue:
             for position in constants.kLeftReefToOffsetPositionBlue.values():
                 if abs(targetRotation.radians() - position.rotation().Z()) <= 0.001:
                     return position.toPose2d()
