@@ -342,6 +342,5 @@ class PhysicsEngine:
         simRobotPose = self.driveSim.getPose()
         self.physics_controller.field.setRobotPose(simRobotPose)
 
-
         # publish the simulated robot pose to nt
         self.simRobotPosePublisher.set(simRobotPose)
