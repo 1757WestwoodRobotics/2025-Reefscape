@@ -20,8 +20,8 @@ class VisionSubsystemIOSim(VisionSubsystemIO):
         VisionSubsystemIO.__init__(self)
         self.simBotPoseGetter = (
             NetworkTableInstance.getDefault()
-            .getDoubleArrayTopic(constants.kSimRobotPoseArrayKey)
-            .subscribe([0, 0, 0])
+            .getStructTopic(constants.kSimRobotPoseArrayKey, Pose2d)
+            .subscribe(Pose2d())
         )
         self.camera = SimCamera(
             "limelight",
@@ -33,7 +33,7 @@ class VisionSubsystemIOSim(VisionSubsystemIO):
         self.rng = RNG(constants.kSimulationVariation)
 
     def getRobotFieldPose(self) -> Optional[Pose3d]:
-        simPose = Pose2d(*self.simBotPoseGetter.get())
+        simPose = self.simBotPoseGetter.get()
         simPose3d = pose3dFrom2d(simPose)
 
         seeTag = False
