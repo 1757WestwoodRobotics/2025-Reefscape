@@ -36,7 +36,6 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
 
         return Pose3d(poseX, poseY, poseZ, Rotation3d.fromDegrees(roll, pitch, yaw))
 
-
     def updateCameraPosition(self, transform: Transform3d) -> None:
         self.camPoseSetter.set(
             [

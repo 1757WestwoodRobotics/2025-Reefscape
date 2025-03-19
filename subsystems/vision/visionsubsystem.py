@@ -12,6 +12,7 @@ from wpimath.geometry import Pose2d, Pose3d
 import constants
 from subsystems.vision.visionio import VisionSubsystemIO
 from subsystems.vision.visioniolimelight import VisionSubsystemIOLimelight
+from subsystems.vision.visioniosim import VisionSubsystemIOSim
 
 
 class VisionSubsystem(Subsystem):
@@ -42,6 +43,8 @@ class VisionSubsystem(Subsystem):
 
         if RobotBase.isReal():
             self.camera = VisionSubsystemIOLimelight()
+        else:
+            self.camera = VisionSubsystemIOSim()
 
     def periodic(self) -> None:
         yaw = self.poseReceiver.get().rotation()

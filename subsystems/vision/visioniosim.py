@@ -1,7 +1,15 @@
 from math import hypot
 from typing import Optional
 from ntcore import NetworkTableInstance
-from wpimath.geometry import Pose2d, Pose3d, Rotation2d, Rotation3d, Transform2d, Transform3d, Translation3d
+from wpimath.geometry import (
+    Pose2d,
+    Pose3d,
+    Rotation2d,
+    Rotation3d,
+    Transform2d,
+    Transform3d,
+    Translation3d,
+)
 import constants
 from subsystems.vision.visionio import VisionSubsystemIO
 from util.convenientmath import pose3dFrom2d
@@ -63,8 +71,8 @@ class VisionSubsystemIOSim(VisionSubsystemIO):
     def updateCameraPosition(self, transform: Transform3d) -> None:
         self.camera.location = transform
 
-    def updateRobotYaw(self, yaw: Rotation2d) -> None:
-        self.robotOrientationSetter.set([yaw.degrees(), 0, 0, 0, 0, 0])
+    def updateRobotYaw(self, _yaw: Rotation2d) -> None:
+        pass  # doesn't matter
 
 
 class SimCamera:
@@ -113,114 +121,6 @@ class CameraTargetRelation:
         self.targToCamAngle = Rotation2d(
             hypot(self.targToCamYaw.radians(), self.targToCamPitch.radians())
         )
-
-
-class VisionSubsystemSim(Subsystem):
-    def __init__(self) -> None:
-        Subsystem.__init__(self)
-        self.setName(__class__.__name__)
-
-        self.cameras = [
-            SimCamera(
-                name,
-                location,
-                constants.kCameraFOVHorizontal,
-                constants.kCameraFOVVertical,
-                key,
-            )
-            for name, location, key in zip(
-                constants.kPhotonvisionCameraArray,
-                constants.kCameraTransformsArray,
-                constants.kPhotonvisionKeyArray,
-            )
-        ]
-        self.poseList = []
-        self.robotToTags = []
-
-        self.rng = RNG(constants.kSimulationVariation)
-
-    def periodic(self) -> None:
-        simPose = Pose2d(*getSDArray(constants.kSimRobotPoseArrayKey, [0, 0, 0]))
-        simPose3d = pose3dFrom2d(simPose)
-
-        self.robotToTags = []
-        for camera in self.cameras:
-            seeTag = False
-            botPose = Pose3d()
-            tagPoses: list[Transform3d] = []
-
-            for tagId, apriltag in constants.kApriltagPositionDict.items():
-                if camera.canSeeTarget(simPose3d, apriltag):
-                    rngOffset = Transform3d(
-                        Translation3d(
-                            self.rng.getNormalRandom(),
-                            self.rng.getNormalRandom(),
-                            self.rng.getNormalRandom(),
-                        ),
-                        Rotation3d(),
-                    )
-                    botToTagPose = Pose3d() + Transform3d(simPose3d, apriltag)
-                    botToTagPose = (
-                        botToTagPose + rngOffset * botToTagPose.translation().norm()
-                    )
-                    tagPoses.append(Transform3d(simPose3d + camera.location, apriltag))
-                    self.robotToTags.append(
-                        (
-                            botToTagPose,
-                            tagId,
-                            botToTagPose.translation().norm()
-                            * self.rng.getNormalRandom(),
-                        ),
-                    )
-                    seeTag = True
-                    botPose = (
-                        Pose3d(
-                            simPose3d.X(),
-                            simPose3d.Y(),
-                            simPose3d.Z(),
-                            simPose3d.rotation(),
-                        )
-                        + rngOffset
-                    )
-
-            rel = CameraTargetRelation(simPose3d + camera.location, botPose)
-            VisionSubsystemReal.updateAdvantagescopePose(
-                botPose + camera.location, camera.key, simPose3d, rel.camToTarg
-            )
-
-            if len(tagPoses) == 0:
-                continue
-            totalDistance = 0
-            for transform in tagPoses:
-                totalDistance += transform.translation().norm()
-
-            avgDistance = totalDistance / len(tagPoses)
-
-            xyStdDev = (
-                constants.kXyStdDevCoeff * (avgDistance * avgDistance) / len(tagPoses)
-            )
-            thetaStdDev = (
-                constants.kThetaStdDevCoeff
-                * (avgDistance * avgDistance)
-                / len(tagPoses)
-            )
-
-            self.poseList.append(
-                EstimatedPose(
-                    botPose,
-                    seeTag,
-                    Timer.getFPGATimestamp(),
-                    [xyStdDev, xyStdDev, thetaStdDev],
-                )
-            )
-
-        if len(self.robotToTags) > 0:
-            poses, ids, ambiguitys = list(zip(*self.robotToTags))
-
-            poses3d = advantagescopeconvert.convertToSendablePoses(poses)
-            putSDArray(constants.kRobotToTagPoseKey, poses3d)
-            putSDArray(constants.kRobotToTagIdKey, ids)
-            putSDArray(constants.kRobotToTagAmbiguityKey, ambiguitys)
 
 
 class RNG:
