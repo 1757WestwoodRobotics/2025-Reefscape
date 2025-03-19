@@ -748,15 +748,15 @@ kLeftReefOffset = Transform3d(
     Rotation3d(0, 0, math.pi),
 )
 
-kLeftReefToPositionOffsetBlue = {}
-kLeftReefToPositionOffsetRed = {}
+kLeftReefToOffsetPositionBlue = {}
+kLeftReefToOffsetPositionRed = {}
 
 for i in range(17, 23):
     apriltag = kApriltagPositionDictAndyMark[i]
-    kLeftReefToPositionOffsetBlue[i] = apriltag + kLeftReefOffset
+    kLeftReefToOffsetPositionBlue[i] = apriltag + kLeftReefOffset
 for i in range(6, 12):
     apriltag = kApriltagPositionDictAndyMark[i]
-    kLeftReefToPositionOffsetRed[i] = apriltag + kLeftReefOffset
+    kLeftReefToOffsetPositionRed[i] = apriltag + kLeftReefOffset
 
 # Autonomous
 kAutoDriveDistance = -8 * kWheelCircumference
