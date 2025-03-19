@@ -57,9 +57,10 @@ class DriveLeftReef(DriveWaypoint):
 
         if DriverStation.getAlliance == DriverStation.Alliance.kBlue:
             for position in constants.kLeftReefToOffsetPositionBlue.values():
-                if targetRotation.radians() == position.rotation().Z():
+                if abs(targetRotation.radians() - position.rotation().Z()) <= .001:
                     return position.toPose2d()
         else:
             for position in constants.kLeftReefToOffsetPositionRed.values():
-                if targetRotation.radians() == position.rotation().Z():
+                if abs(targetRotation.radians() - position.rotation().Z()) <= .001:
                     return position.toPose2d()
+            return self.drive.getPose()
