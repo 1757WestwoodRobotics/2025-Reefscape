@@ -1,12 +1,12 @@
-from math import hypot
+from math import hypot, sin
 from typing import Optional
 from ntcore import NetworkTableInstance
+from wpilib import Timer
 from wpimath.geometry import (
     Pose2d,
     Pose3d,
     Rotation2d,
     Rotation3d,
-    Transform2d,
     Transform3d,
     Translation3d,
 )
@@ -40,7 +40,7 @@ class VisionSubsystemIOSim(VisionSubsystemIO):
         botPose = Pose3d()
         tagPoses: list[Transform3d] = []
 
-        for tagId, apriltag in constants.kApriltagPositionDict.items():
+        for _tagId, apriltag in constants.kApriltagPositionDict.items():
             if self.camera.canSeeTarget(simPose3d, apriltag):
                 rngOffset = Transform3d(
                     Translation3d(

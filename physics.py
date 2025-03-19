@@ -14,9 +14,6 @@ from ntcore import NetworkTableInstance
 from phoenix6.sim.cancoder_sim_state import CANcoderSimState
 from phoenix6.sim.talon_fx_sim_state import TalonFXSimState
 from phoenix6.unmanaged import feed_enable
-from photonlibpy.simulation.photonCameraSim import PhotonCameraSim
-from photonlibpy.simulation.visionSystemSim import VisionSystemSim
-from photonlibpy.simulation.simCameraProperties import SimCameraProperties
 from wpilib import RobotController
 from wpilib.simulation import DCMotorSim
 from wpimath.geometry import Pose2d, Rotation2d, Transform2d, Translation2d, Pose3d
@@ -26,7 +23,6 @@ from pyfrc.physics.core import PhysicsInterface
 import constants
 from robot import MentorBot
 from subsystems.drivesubsystem import DriveSubsystem
-from subsystems.visionsubsystem import VisionSubsystem
 from util.convenientmath import clamp
 from util.motorsimulator import MotorSimulator
 
@@ -199,29 +195,6 @@ class SwerveDriveSim:
         self.pose = newPose
 
 
-class VisionSim:
-    def __init__(self, visionSubsystem: VisionSubsystem) -> None:
-        self.sim = VisionSystemSim("main")
-        self.sim.addAprilTags(constants.kApriltagFieldLayout)
-
-        cameraProps = SimCameraProperties()
-        cameraProps.setCalibrationFromFOV(
-            1280, 800, Rotation2d.fromDegrees(constants.kCameraFOVVertical)
-        )
-        cameraProps.setCalibError(0.35, 0.1)
-        cameraProps.setFPS(30)
-        cameraProps.setAvgLatency(50)
-        cameraProps.setLatencyStdDev(15)
-
-        self.cameras = [PhotonCameraSim(cam.camera) for cam in visionSubsystem.cameras]
-        for cam, transform in zip(self.cameras, visionSubsystem.cameras):
-            self.sim.addCamera(cam, transform.robotToCameraTransform)
-            # cam.enableDrawWireframe(True) not implemented in current version
-
-    def update(self, robotPose: Pose2d):
-        self.sim.update(robotPose)
-
-
 class PhysicsEngine:
     """
     Simulates a drivetrain
@@ -296,7 +269,6 @@ class PhysicsEngine:
         ]
 
         self.driveSim = SwerveDriveSim(tuple(self.swerveModuleSims))
-        self.visionSim = VisionSim(robot.container.vision)
 
         driveSubsystem.resetSimPosition = self.driveSim.resetPose
 
@@ -370,7 +342,6 @@ class PhysicsEngine:
         simRobotPose = self.driveSim.getPose()
         self.physics_controller.field.setRobotPose(simRobotPose)
 
-        self.visionSim.update(simRobotPose)
 
         # publish the simulated robot pose to nt
         self.simRobotPosePublisher.set(simRobotPose)

@@ -27,11 +27,11 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
             roll,
             pitch,
             yaw,
-            latency,
-            tagCount,
-            tagSpan,
-            tagDistAvg,
-            tagAreaAvg,
+            _latency,
+            _tagCount,
+            _tagSpan,
+            _tagDistAvg,
+            _tagAreaAvg,
         ) = self.botpose.get()
 
         return Pose3d(poseX, poseY, poseZ, Rotation3d.fromDegrees(roll, pitch, yaw))

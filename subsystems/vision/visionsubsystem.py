@@ -1,5 +1,3 @@
-from collections import deque
-from math import hypot, inf, sin
 from typing import Optional
 
 # import numpy as np
@@ -7,7 +5,7 @@ from typing import Optional
 from commands2 import Subsystem
 from ntcore import NetworkTableInstance
 from wpilib import RobotBase
-from wpimath.geometry import Pose2d, Pose3d
+from wpimath.geometry import Pose2d
 
 import constants
 from subsystems.vision.visionio import VisionSubsystemIO
