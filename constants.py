@@ -464,7 +464,7 @@ kApriltagPositionDict = {
     ),
     6: Pose3d(
         (kMetersPerInch * 530.49),
-        (kMetersPerInch * 120.17),
+        (kMetersPerInch * 130.17),
         (kMetersPerInch * 12.13),
         Rotation3d(0.0, 0.0, 300 * kRadiansPerDegree),
     ),
@@ -599,7 +599,7 @@ kApriltagPositionDictAndyMark = {
     ),
     6: Pose3d(
         (kMetersPerInch * 530.49),
-        (kMetersPerInch * 120.97),
+        (kMetersPerInch * 129.97),
         (kMetersPerInch * 12.13),
         Rotation3d(0.0, 0.0, 300 * kRadiansPerDegree),
     ),
@@ -629,7 +629,7 @@ kApriltagPositionDictAndyMark = {
     ),
     11: Pose3d(
         (kMetersPerInch * 497.77),
-        (kMetersPerInch * 120.97),
+        (kMetersPerInch * 129.97),
         (kMetersPerInch * 12.13),
         Rotation3d(0.0, 0.0, 240 * kRadiansPerDegree),
     ),
