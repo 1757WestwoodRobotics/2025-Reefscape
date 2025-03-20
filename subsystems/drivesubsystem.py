@@ -405,6 +405,24 @@ class DriveSubsystem(Subsystem):
         )
         self.robotPoseValidPublisher.set(True)
 
+        self.leftReefPublisher = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kWaypointLeftReefKey)
+            .publish()
+        )
+        self.leftReefPublisher.set(True)
+        self.leftReefGetter = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kWaypointLeftReefKey)
+            .subscribe(True)
+        )
+
+        self.rightReefPublisher = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kWaypointRightReefKey)
+            .publish()
+        )
+        self.rightReefPublisher.set(False)
         # self.visionPosePublisher = (
         #     NetworkTableInstance.getDefault()
         #     .getStructTopic(constants.kRobotVisionPoseArrayKeys.valueKey, Pose2d)

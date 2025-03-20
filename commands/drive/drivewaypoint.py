@@ -38,7 +38,7 @@ class DriveWaypoint(Command):
         AutoBuilder._getPose = self.drive.getPose
 
 
-class DriveLeftReef(DriveWaypoint):
+class DriveToReefPosition(DriveWaypoint):
     def __init__(self, drive: DriveSubsystem):
         DriveWaypoint.__init__(self, drive)
         self.visionPoseGetter = (
@@ -64,7 +64,11 @@ class DriveLeftReef(DriveWaypoint):
         )
 
         if DriverStation.getAlliance() == DriverStation.Alliance.kBlue:
-            for position in constants.kLeftReefToOffsetPositionBlue.values():
+            for position in (
+                constants.kLeftReefToOffsetPositionBlue.values()
+                if self.drive.leftReefGetter.get()
+                else constants.kRightReefToOffsetPositionBlue.values()
+            ):
                 if (
                     abs(
                         targetRotation.radians()
@@ -77,7 +81,11 @@ class DriveLeftReef(DriveWaypoint):
                     return position.toPose2d()
             return self.drive.getPose()
         else:
-            for position in constants.kLeftReefToOffsetPositionRed.values():
+            for position in (
+                constants.kLeftReefToOffsetPositionRed.values()
+                if self.drive.leftReefGetter.get()
+                else constants.kRightReefToOffsetPositionRed.values()
+            ):
                 if (
                     abs(
                         targetRotation.radians()
@@ -89,3 +97,29 @@ class DriveLeftReef(DriveWaypoint):
                 ):
                     return position.toPose2d()
             return self.drive.getPose()
+
+
+class SetLeftReef(Command):
+    def __init__(self, drive: DriveSubsystem) -> None:
+        self.setName(__class__.__name__)
+        self.drive = drive
+
+    def initialize(self):
+        self.drive.leftReefPublisher.set(True)
+        self.drive.rightReefPublisher.set(False)
+
+    def isFinished(self):
+        return True
+
+
+class SetRightReef(Command):
+    def __init__(self, drive: DriveSubsystem) -> None:
+        self.setName(__class__.__name__)
+        self.drive = drive
+
+    def initialize(self):
+        self.drive.leftReefPublisher.set(False)
+        self.drive.rightReefPublisher.set(True)
+
+    def isFinished(self):
+        return True
