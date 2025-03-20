@@ -186,6 +186,8 @@ class OperatorInterface:
         )
         self.intakeFudgeCoralUp = getButtonBindingOfName("intakeFudgeCoralUp")
         self.intakeFudgeCoralDown = getButtonBindingOfName("intakeFudgeCoralDown")
+        self.setLeftReef = getButtonBindingOfName("setLeftReef")
+        self.setRightReef = getButtonBindingOfName("setRightReef")
 
         self.chassisControls = HolonomicInput(
             SignSquare(

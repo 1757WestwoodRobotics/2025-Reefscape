@@ -6,7 +6,7 @@ from commands2.button import POVButton
 from pathplannerlib.auto import PathPlannerAuto, NamedCommands
 from commands.drive.absoluterelativedrive import AbsoluteRelativeDrive
 from commands.drive.anglealign import AngleAlignDrive
-from commands.drive.drivewaypoint import DriveLeftReef
+from commands.drive.drivewaypoint import DriveToReefPosition, SetLeftReef, SetRightReef
 from commands.resetdrive import ResetDrive
 from commands.drivedistance import DriveDistance
 from commands.defensestate import DefenseState
@@ -188,7 +188,7 @@ class RobotContainer:
             )
         )
         ModifiableJoystickButton(self.operatorInterface.autoWaypoint).whileTrue(
-            DriveLeftReef(self.drive)
+            DriveToReefPosition(self.drive)
         )
 
         ModifiableJoystickButton(self.operatorInterface.resetGyro).onTrue(
@@ -296,6 +296,14 @@ class RobotContainer:
 
         ModifiableJoystickButton(self.operatorInterface.intakeFudgeCoralDown).onTrue(
             FudgeIntakeCoralDown(self.intake)
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.setLeftReef).onTrue(
+            SetLeftReef(self.drive)
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.setRightReef).onTrue(
+            SetRightReef(self.drive)
         )
 
     def getAutonomousCommand(self) -> commands2.Command:

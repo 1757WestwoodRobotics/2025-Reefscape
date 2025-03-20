@@ -720,6 +720,25 @@ for i in range(6, 12):
     apriltag = kApriltagPositionDictAndyMark[i]
     kLeftReefToOffsetPositionRed[i] = apriltag + kLeftReefOffset
 
+kRightReefOffsetX = 17.628 * kMetersPerInch
+kRightReefOffsetY = -15.455 * kMetersPerInch
+kRightReefOffset = Transform3d(
+    kRightReefOffsetX,
+    kRightReefOffsetY,
+    0,
+    Rotation3d(0, 0, math.pi),
+)
+
+kRightReefToOffsetPositionBlue = {}
+kRightReefToOffsetPositionRed = {}
+
+for i in range(17, 23):
+    apriltag = kApriltagPositionDictAndyMark[i]
+    kRightReefToOffsetPositionBlue[i] = apriltag + kRightReefOffset
+for i in range(6, 12):
+    apriltag = kApriltagPositionDictAndyMark[i]
+    kRightReefToOffsetPositionRed[i] = apriltag + kRightReefOffset
+
 # Autonomous
 kAutoDriveDistance = -8 * kWheelCircumference
 """meters"""
@@ -850,6 +869,8 @@ kTargetWaypointPoseKey = "waypoint/target"
 kTargetWaypointXControllerKey = "waypoint/x"
 kTargetWaypointYControllerKey = "waypoint/y"
 kTargetWaypointThetaControllerKey = "waypoint/theta"
+kWaypointLeftReefKey = "waypoint/leftReef"
+kWaypointRightReefKey = "waypoint/rightReef"
 
 # Logging
 kSwerveActualStatesKey = "swerve/actual"
