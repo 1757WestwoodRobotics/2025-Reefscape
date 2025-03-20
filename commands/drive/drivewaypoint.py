@@ -1,7 +1,7 @@
 from commands2 import Command
 from pathplannerlib.auto import AutoBuilder
 from wpimath.geometry import Rotation2d, Pose2d
-from wpilib import DriverStation
+from wpilib import DriverStation, DataLogManager
 from ntcore import NetworkTableInstance
 
 from subsystems.drivesubsystem import DriveSubsystem
@@ -36,6 +36,7 @@ class DriveWaypoint(Command):
     def end(self, _interrupted: bool) -> None:
         # pylint: disable=W0212
         AutoBuilder._getPose = self.drive.getPose
+        DataLogManager.log("... DONE")
 
 
 class DriveToReefPosition(DriveWaypoint):
@@ -48,12 +49,12 @@ class DriveToReefPosition(DriveWaypoint):
         )
 
     def initialize(self):
-        targetPose = self.getClosestPose()
+        self.targetPose = self.getClosestPose()
         self.running = True
         # pylint: disable=W0212
         AutoBuilder._getPose = self.visionPoseGetter.get
         self.command = AutoBuilder.pathfindToPose(
-            targetPose, constants.kPathfindingConstraints
+            self.targetPose, constants.kPathfindingConstraints
         )
         self.command.initialize()
 
@@ -97,6 +98,14 @@ class DriveToReefPosition(DriveWaypoint):
                 ):
                     return position.toPose2d()
             return self.drive.getPose()
+
+    def isFinished(self) -> bool:
+        return (
+            self.targetPose.translation().distance(
+                self.visionPoseGetter.get().translation()
+            )
+            < 1 * constants.kMetersPerInch
+        )
 
 
 class SetLeftReef(Command):
