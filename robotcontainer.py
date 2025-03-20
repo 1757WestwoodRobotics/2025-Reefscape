@@ -12,7 +12,6 @@ from commands.drivedistance import DriveDistance
 from commands.defensestate import DefenseState
 from commands.intakesetting import (
     IntakeCoral,
-    IntakeKnock,
     IntakeIdle,
     IntakeScoring,
     IntakeCoralProcess,
@@ -201,9 +200,6 @@ class RobotContainer:
 
         ModifiableJoystickButton(self.operatorInterface.intakeCoral).whileTrue(
             IntakeCoralProcess(self.intake, self.elevator).repeatedly()
-        )
-        ModifiableJoystickButton(self.operatorInterface.intakeKnock).whileTrue(
-            IntakeKnock(self.intake).repeatedly()
         )
         ModifiableJoystickButton(self.operatorInterface.intakeScoring).whileTrue(
             IntakeScoring(self.intake).repeatedly()
