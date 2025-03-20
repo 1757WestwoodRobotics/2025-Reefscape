@@ -146,13 +146,6 @@
     },
     "bottom button on top of joystick (ThrustmasterT16000M)"
   ],
-  "intakeKnock": [
-    1,
-    {
-      "Button": 4
-    },
-    "right button on top of joystick (ThrustmasterT16000M)"
-  ],
   "intakeScoring": [
     1,
     {
