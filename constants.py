@@ -735,7 +735,7 @@ for i in range(6, 12):
     kLeftReefToOffsetPositionRed[i] = apriltag + kLeftReefOffset
 
 kRightReefOffsetX = 17.628 * kMetersPerInch
-kRightReefOffsetY = -15.455 * kMetersPerInch
+kRightReefOffsetY = -2.688 * kMetersPerInch
 kRightReefOffset = Transform3d(
     kRightReefOffsetX,
     kRightReefOffsetY,
