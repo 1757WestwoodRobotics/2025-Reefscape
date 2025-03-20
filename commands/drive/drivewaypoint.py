@@ -49,8 +49,9 @@ class DriveToReefPosition(DriveWaypoint):
         )
 
     def initialize(self):
-        self.targetPose = self.getClosestPose()
         self.running = True
+        # pylint: disable=W0201
+        self.targetPose = self.getClosestPose()
         # pylint: disable=W0212
         AutoBuilder._getPose = self.visionPoseGetter.get
         self.command = AutoBuilder.pathfindToPose(
