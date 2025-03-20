@@ -1,7 +1,8 @@
 from typing import Optional
 from ntcore import NetworkTableInstance
-from wpimath.geometry import Pose3d, Rotation2d, Rotation3d, Transform3d
+from wpimath.geometry import Pose3d, Rotation2d, Rotation3d, Transform3d, Pose2d
 from subsystems.vision.visionio import VisionSubsystemIO
+import constants
 
 
 class VisionSubsystemIOLimelight(VisionSubsystemIO):
@@ -18,23 +19,22 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
         self.robotOrientationSetter = self.cameraTable.getDoubleArrayTopic(
             "robot_orientation_set"
         ).publish()
+        self.robotRotationGetter = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic(constants.kRobotPoseArrayKeys.valueKey, Pose2d)
+            .subscribe(Pose2d())
+        )
 
     def getRobotFieldPose(self) -> Optional[Pose3d]:
-        (
+        botPose = self.botpose.get()
+        poseX, poseY, poseZ = botPose[0:3]
+        rotation = self.robotRotationGetter.get().rotation().radians()
+        return Pose3d(
             poseX,
             poseY,
             poseZ,
-            roll,
-            pitch,
-            yaw,
-            _latency,
-            _tagCount,
-            _tagSpan,
-            _tagDistAvg,
-            _tagAreaAvg,
-        ) = self.botpose.get()
-
-        return Pose3d(poseX, poseY, poseZ, Rotation3d.fromDegrees(roll, pitch, yaw))
+            Rotation3d.fromDegrees(0, 0, rotation),
+        )
 
     def updateCameraPosition(self, transform: Transform3d) -> None:
         self.camPoseSetter.set(
@@ -42,9 +42,9 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
                 transform.X(),
                 transform.Y(),
                 transform.Z(),
-                transform.rotation().X(),
-                transform.rotation().Y(),
-                transform.rotation().Z(),
+                transform.rotation().X() / constants.kRadiansPerDegree,
+                transform.rotation().Y() / constants.kRadiansPerDegree,
+                transform.rotation().Z() / constants.kRadiansPerDegree,
             ]
         )
 

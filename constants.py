@@ -252,21 +252,21 @@ kRobotToCameraTransformLL2p = Transform3d(
     Pose3d(),
     Pose3d(
         -11.602 * kMetersPerInch,
-        -10.365 * kMetersPerInch,
+        10.365 * kMetersPerInch,
         8.131 * kMetersPerInch,
-        Rotation3d.fromDegrees(0, -14.755, 0),
+        Rotation3d.fromDegrees(180, 14.755, 0),
     ),
 )
 
-kRobotToCameraTransformLL3 = Transform3d(
-    Pose3d(),
-    Pose3d(
-        -11.498 * kMetersPerInch,
-        -10.365 * kMetersPerInch,
-        8.192 * kMetersPerInch,
-        Rotation3d.fromDegrees(0, -14.755, 0),
-    ),
-)
+# kRobotToCameraTransformLL3 = Transform3d(
+#     Pose3d(),
+#     Pose3d(
+#         -11.498 * kMetersPerInch,
+#         -10.365 * kMetersPerInch,
+#         8.192 * kMetersPerInch,
+#         Rotation3d.fromDegrees(0, -14.755, 0),
+#     ),
+# )
 
 kRobotToCameraTransform = (
     kRobotToCameraTransformLL2p  # NOTE: if/when we swap cameras this needs to change
