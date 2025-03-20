@@ -10,7 +10,7 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
         self.cameraTable = NetworkTableInstance.getDefault().getTable("limelight")
         self.botpose = self.cameraTable.getDoubleArrayTopic(
             "botpose_orb_wpiblue"
-        ).subscribe([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        ).subscribe([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 
         self.camPoseSetter = self.cameraTable.getDoubleArrayTopic(
             "camerapose_robotspace_set"
