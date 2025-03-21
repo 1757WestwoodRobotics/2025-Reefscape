@@ -2,6 +2,8 @@ from typing import Optional
 from ntcore import NetworkTableInstance
 from wpimath.geometry import Pose3d, Rotation2d, Rotation3d, Transform3d, Pose2d
 from subsystems.vision.visionio import VisionSubsystemIO
+
+from util.convenientmath import clamp
 import constants
 
 
@@ -30,8 +32,8 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
         poseX, poseY, poseZ = botPose[0:3]
         rotation = self.robotRotationGetter.get().rotation().radians()
         return Pose3d(
-            poseX,
-            poseY,
+            clamp(poseX, 0, constants.kFieldLength),
+            clamp(poseY, 0, constants.kFieldWidth),
             poseZ,
             Rotation3d.fromDegrees(0, 0, rotation),
         )

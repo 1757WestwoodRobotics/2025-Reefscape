@@ -460,6 +460,13 @@ class DriveSubsystem(Subsystem):
                 .subscribe(ChassisSpeeds())
             )
 
+        self.useVisionPose = False
+        self.visionPoseGetter = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic(constants.kRobotVisionPoseArrayKeys.valueKey, Pose2d)
+            .subscribe(Pose2d())
+        )
+
     def resetDriveAtPosition(self, pose: Pose2d):
         self.resetSwerveModules()
         self.resetGyro(pose)
@@ -495,6 +502,8 @@ class DriveSubsystem(Subsystem):
         #     self.resetSimPosition(pose)
 
     def getPose(self) -> Pose2d:
+        if self.useVisionPose:
+            return self.visionPoseGetter.get()
         translation = self.estimator.estimatedPose.translation()
         rotation = self.getRotation()
         return Pose2d(translation, rotation)

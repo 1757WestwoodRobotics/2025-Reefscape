@@ -12,7 +12,7 @@ from wpimath.geometry import (
 )
 import constants
 from subsystems.vision.visionio import VisionSubsystemIO
-from util.convenientmath import pose3dFrom2d
+from util.convenientmath import pose3dFrom2d, clamp
 
 
 class VisionSubsystemIOSim(VisionSubsystemIO):
@@ -66,7 +66,16 @@ class VisionSubsystemIOSim(VisionSubsystemIO):
                     + rngOffset
                 )
 
-        return botPose if seeTag else None
+        return (
+            Pose3d(
+                clamp(botPose.X(), 0, constants.kFieldLength),
+                clamp(botPose.Y(), 0, constants.kFieldWidth),
+                botPose.Z(),
+                botPose.rotation(),
+            )
+            if seeTag
+            else None
+        )
 
     def updateCameraPosition(self, transform: Transform3d) -> None:
         self.camera.location = transform

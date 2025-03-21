@@ -49,6 +49,7 @@ class DriveToReefPosition(DriveWaypoint):
         )
 
     def initialize(self):
+        self.drive.useVisionPose = True
         self.running = True
         # pylint: disable=W0201
         self.targetPose = self.getClosestPose()
@@ -107,6 +108,12 @@ class DriveToReefPosition(DriveWaypoint):
             )
             < 1 * constants.kMetersPerInch
         )
+
+    def end(self, _interrupted: bool) -> None:
+        # pylint: disable=W0212
+        AutoBuilder._getPose = self.drive.getPose
+        self.drive.useVisionPose = False
+        DataLogManager.log("... DONE")
 
 
 class SetLeftReef(Command):
