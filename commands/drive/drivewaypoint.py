@@ -53,8 +53,6 @@ class DriveToReefPosition(DriveWaypoint):
         self.running = True
         # pylint: disable=W0201
         self.targetPose = self.getClosestPose()
-        # pylint: disable=W0212
-        AutoBuilder._getPose = self.visionPoseGetter.get
         self.command = AutoBuilder.pathfindToPose(
             self.targetPose, constants.kPathfindingConstraints
         )
@@ -111,7 +109,6 @@ class DriveToReefPosition(DriveWaypoint):
 
     def end(self, _interrupted: bool) -> None:
         # pylint: disable=W0212
-        AutoBuilder._getPose = self.drive.getPose
         self.drive.useVisionPose = False
         DataLogManager.log("... DONE")
 
