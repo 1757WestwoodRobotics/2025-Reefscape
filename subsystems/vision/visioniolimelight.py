@@ -11,6 +11,7 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
     def __init__(self) -> None:
         VisionSubsystemIO.__init__(self)
         self.cameraTable = NetworkTableInstance.getDefault().getTable("limelight")
+        self.validTarget = self.cameraTable.getIntegerTopic("tv").subscribe(0)
         self.botpose = self.cameraTable.getDoubleArrayTopic(
             "botpose_orb_wpiblue"
         ).subscribe([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
@@ -28,6 +29,8 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
         )
 
     def getRobotFieldPose(self) -> Optional[Pose3d]:
+        if self.validTarget.get() == 0:
+            return None
         botPose = self.botpose.get()
         poseX, poseY, poseZ = botPose[0:3]
         rotation = self.robotPoseGetter.get().rotation().radians()
