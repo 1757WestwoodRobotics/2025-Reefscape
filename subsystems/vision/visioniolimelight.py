@@ -21,7 +21,7 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
         self.robotOrientationSetter = self.cameraTable.getDoubleArrayTopic(
             "robot_orientation_set"
         ).publish()
-        self.robotRotationGetter = (
+        self.robotPoseGetter = (
             NetworkTableInstance.getDefault()
             .getStructTopic(constants.kRobotPoseArrayKeys.valueKey, Pose2d)
             .subscribe(Pose2d())
@@ -30,12 +30,12 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
     def getRobotFieldPose(self) -> Optional[Pose3d]:
         botPose = self.botpose.get()
         poseX, poseY, poseZ = botPose[0:3]
-        rotation = self.robotRotationGetter.get().rotation().radians()
+        rotation = self.robotPoseGetter.get().rotation().radians()
         return Pose3d(
             clamp(poseX, 0, constants.kFieldLength),
             clamp(poseY, 0, constants.kFieldWidth),
             poseZ,
-            Rotation3d.fromDegrees(0, 0, rotation),
+            Rotation3d(0, 0, rotation),
         )
 
     def updateCameraPosition(self, transform: Transform3d) -> None:
