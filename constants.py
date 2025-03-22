@@ -825,8 +825,8 @@ kPathFollowingRotationConstants = PIDConstants(
 )
 
 kPathfindingConstraints = PathConstraints(
-    kMaxWheelLinearVelocity / 2,
-    kMaxWheelLinearAcceleration / 2,
+    kMaxWheelLinearVelocity / 4,
+    kMaxWheelLinearAcceleration / 4,
     kMaxRotationAngularVelocity / 2,
     kMaxRotationAngularAcceleration / 2,
 )
