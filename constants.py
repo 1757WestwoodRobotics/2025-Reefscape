@@ -945,8 +945,8 @@ kIntakeL2ThroughL4MotorSpeed = 0.20
 
 kIntakeToArmOffset = 51.944769
 
-kIntakingAngle = Rotation2d.fromDegrees(254)
-kMaxPivotAngle = Rotation2d.fromDegrees(257)
+kIntakingAngle = Rotation2d.fromDegrees(257)
+kMaxPivotAngle = Rotation2d.fromDegrees(260)
 kScoreAngle = Rotation2d.fromDegrees(180 - kIntakeToArmOffset - 45.047053)
 kKnockAngle = Rotation2d(0)
 
@@ -1028,7 +1028,7 @@ kL4PositionBeltPosition = 52 * kMetersPerInch
 kL3PositionBeltPosition = 30 * kMetersPerInch
 kL2PositionBeltPosition = 15 * kMetersPerInch
 kL1PositionBeltPosition = 0.5 * kMetersPerInch
-kIntakePositionBeltPosition = 42 * kMetersPerInch
+kIntakePositionBeltPosition = 40 * kMetersPerInch
 kAlgaeLowBeltPosition = 25 * kMetersPerInch
 kAlgaeHighBeltPosition = 31.5 * kMetersPerInch
 
@@ -1050,7 +1050,7 @@ kArmRootToArmEndTransform = Transform3d(
 # Climber constants
 kClimberCANID = 57
 kClimberName = "ClimberMotor"
-kClimberPGain = 0.12
+kClimberPGain = 0.2
 kClimberIGain = 0
 kClimberDGain = 0
 
