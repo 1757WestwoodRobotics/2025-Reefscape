@@ -501,6 +501,9 @@ class DriveSubsystem(Subsystem):
         # if RobotBase.isSimulation():
         #     self.resetSimPosition(pose)
 
+    def getVisionPose(self) -> Pose2d:
+        return self.visionPoseGetter.get()
+
     def getPose(self) -> Pose2d:
         if self.useVisionPose:
             return self.visionPoseGetter.get()
