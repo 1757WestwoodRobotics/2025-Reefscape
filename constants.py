@@ -1024,7 +1024,7 @@ kElevatorManualModeKey = "elevator/manualMode"
 kElevatorManualIncrement = 0.01
 
 # taken from cad
-kL4PositionBeltPosition = 52.50 * kMetersPerInch
+kL4PositionBeltPosition = 52 * kMetersPerInch
 kL3PositionBeltPosition = 30 * kMetersPerInch
 kL2PositionBeltPosition = 15 * kMetersPerInch
 kL1PositionBeltPosition = 0.5 * kMetersPerInch
