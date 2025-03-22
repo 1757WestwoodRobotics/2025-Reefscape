@@ -6,7 +6,7 @@
 [tool.robotpy]
 
 # Version of robotpy this project depends on
-robotpy_version = "2025.3.1.1"
+robotpy_version = "2025.3.2.0"
 
 # Which extra RobotPy components should be installed
 # -> equivalent to `pip install robotpy[extra1, ...]
@@ -27,5 +27,6 @@ robotpy_extras = [
 
 # Other pip packages to install
 requires = [
-    "photonlibpy==2025.0.0b6"
+    "photonlibpy==2025.0.0b6",
+    "limelightlib-python==0.9.6"
 ]

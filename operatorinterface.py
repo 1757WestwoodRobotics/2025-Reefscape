@@ -146,13 +146,13 @@ class OperatorInterface:
         self.defenseStateControl = getButtonBindingOfName("defenseStateControl")
 
         self.alignAngle = getButtonBindingOfName("alignAngle")
+        self.autoWaypoint = getButtonBindingOfName("autoWaypoint")
 
         self.offVelocity = getButtonBindingOfName("offVelocity")
         self.velocitySetpoint1 = getButtonBindingOfName("setpoint1velocity")
         self.velocitySetpoint2 = getButtonBindingOfName("setpoint2velocity")
 
         self.intakeCoral = getButtonBindingOfName("intakeCoral")
-        self.intakeKnock = getButtonBindingOfName("intakeKnock")
         self.intakeScoring = getButtonBindingOfName("intakeScoring")
 
         self.elevatorL1 = getButtonBindingOfName("elevatorL1")
@@ -185,6 +185,8 @@ class OperatorInterface:
         )
         self.intakeFudgeCoralUp = getButtonBindingOfName("intakeFudgeCoralUp")
         self.intakeFudgeCoralDown = getButtonBindingOfName("intakeFudgeCoralDown")
+        self.setLeftReef = getButtonBindingOfName("setLeftReef")
+        self.setRightReef = getButtonBindingOfName("setRightReef")
 
         self.chassisControls = HolonomicInput(
             SignSquare(

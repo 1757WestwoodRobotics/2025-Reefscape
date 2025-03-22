@@ -42,7 +42,6 @@ from util import convenientmath
 from util.angleoptimize import optimizeAngle
 from util.simcoder import CTREEncoder
 from util.simtalon import Talon
-from subsystems.visionsubsystem import VisionSubsystem
 
 
 class SwerveModuleConfigParams:
@@ -253,11 +252,10 @@ class DriveSubsystem(Subsystem):
         FieldRelative = auto()
         TargetRelative = auto()
 
-    def __init__(self, vision: VisionSubsystem) -> None:
+    def __init__(self) -> None:
         Subsystem.__init__(self)
         self.setName(__class__.__name__)
 
-        self.vision = vision
         self.rotationOffset = 0
 
         self.frontLeftModule = CTRESwerveModule(
@@ -407,17 +405,36 @@ class DriveSubsystem(Subsystem):
         )
         self.robotPoseValidPublisher.set(True)
 
-        self.visionPosePublisher = (
+        self.leftReefPublisher = (
             NetworkTableInstance.getDefault()
-            .getStructTopic(constants.kRobotVisionPoseArrayKeys.valueKey, Pose2d)
+            .getBooleanTopic(constants.kWaypointLeftReefKey)
             .publish()
+        )
+        self.leftReefPublisher.set(True)
+        self.leftReefGetter = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kWaypointLeftReefKey)
+            .subscribe(True)
         )
 
-        self.visionPoseValidPublisher = (
+        self.rightReefPublisher = (
             NetworkTableInstance.getDefault()
-            .getBooleanTopic(constants.kRobotVisionPoseArrayKeys.validKey)
+            .getBooleanTopic(constants.kWaypointRightReefKey)
             .publish()
         )
+        self.rightReefPublisher.set(False)
+        # self.visionPosePublisher = (
+        #     NetworkTableInstance.getDefault()
+        #     .getStructTopic(constants.kRobotVisionPoseArrayKeys.valueKey, Pose2d)
+        #     .publish()
+        # )
+
+        # self.visionPoseValidPublisher = (
+        #     NetworkTableInstance.getDefault()
+        #     .getBooleanTopic(constants.kRobotVisionPoseArrayKeys.validKey)
+        #     .publish()
+        # )
+
         self.driveVelocityPublisher = (
             NetworkTableInstance.getDefault()
             .getStructTopic(constants.kDriveVelocityKeys, ChassisSpeeds)
@@ -442,6 +459,13 @@ class DriveSubsystem(Subsystem):
                 .getStructTopic(constants.kSimRobotVelocityArrayKey, ChassisSpeeds)
                 .subscribe(ChassisSpeeds())
             )
+
+        self.useVisionPose = False
+        self.visionPoseGetter = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic(constants.kRobotVisionPoseArrayKeys.valueKey, Pose2d)
+            .subscribe(Pose2d())
+        )
 
     def resetDriveAtPosition(self, pose: Pose2d):
         self.resetSwerveModules()
@@ -478,6 +502,8 @@ class DriveSubsystem(Subsystem):
         #     self.resetSimPosition(pose)
 
     def getPose(self) -> Pose2d:
+        if self.useVisionPose:
+            return self.visionPoseGetter.get()
         translation = self.estimator.estimatedPose.translation()
         rotation = self.getRotation()
         return Pose2d(translation, rotation)
@@ -571,30 +597,12 @@ class DriveSubsystem(Subsystem):
         self.robotPosePublisher.set(robotPose)
         self.robotPoseValidPublisher.set(True)
 
-        estimatedCameraPoses = self.vision.poseList
-        hasTargets = False
-
         odoMeasure = OdometryObservation(
             [*swervePositions], self.getRotation(), self.printTimer.getFPGATimestamp()
         )
         self.estimator.addOdometryMeasurement(odoMeasure)
-
-        for estimatedCameraPose in estimatedCameraPoses:
-            if estimatedCameraPose.hasTargets:
-                visionMeasure = VisionObservation(
-                    estimatedCameraPose.pose.toPose2d(),
-                    estimatedCameraPose.timestamp,
-                    estimatedCameraPose.stdDev,
-                )
-                self.estimator.addVisionMeasurement(visionMeasure)
-                hasTargets = True
-
-        self.vision.poseList.clear()
-
         self.visionEstimate = self.estimator.estimatedPose
-
-        self.visionPoseValidPublisher.set(hasTargets)
-        self.visionPosePublisher.set(self.visionEstimate)
+        # self.visionPosePublisher.set(self.visionEstimate)
 
         # curTime = self.printTimer.get()
         # if self.printTimer.hasElapsed(constants.kPrintPeriod):

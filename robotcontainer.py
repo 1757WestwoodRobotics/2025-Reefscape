@@ -6,12 +6,12 @@ from commands2.button import POVButton
 from pathplannerlib.auto import PathPlannerAuto, NamedCommands
 from commands.drive.absoluterelativedrive import AbsoluteRelativeDrive
 from commands.drive.anglealign import AngleAlignDrive
+from commands.drive.drivewaypoint import DriveToReefPosition, SetLeftReef, SetRightReef
 from commands.resetdrive import ResetDrive
 from commands.drivedistance import DriveDistance
 from commands.defensestate import DefenseState
 from commands.intakesetting import (
     IntakeCoral,
-    IntakeKnock,
     IntakeIdle,
     IntakeScoring,
     IntakeCoralProcess,
@@ -48,7 +48,7 @@ from commands.algaeknock import AlgaeKnockHigh, AlgaeKnockLow, KnockExitSequence
 # from commands.drive.drivewaypoint import DriveWaypoint
 from subsystems.drivesubsystem import DriveSubsystem
 from subsystems.loggingsubsystem import LoggingSubsystem
-from subsystems.visionsubsystem import VisionSubsystem
+from subsystems.vision.visionsubsystem import VisionSubsystem
 from subsystems.intakesubsystem import IntakeSubsystem
 from subsystems.elevatorsubsystem import ElevatorSubsystem
 from subsystems.climbersubsystem import ClimberSubsystem
@@ -73,7 +73,7 @@ class RobotContainer:
 
         # The robot's subsystems
         self.vision = VisionSubsystem()
-        self.drive = DriveSubsystem(self.vision)
+        self.drive = DriveSubsystem()
         self.log = LoggingSubsystem(self.operatorInterface)
         self.intake = IntakeSubsystem()
         self.elevator = ElevatorSubsystem()
@@ -186,6 +186,9 @@ class RobotContainer:
                 * constants.kNormalSpeedMultiplier,
             )
         )
+        ModifiableJoystickButton(self.operatorInterface.autoWaypoint).whileTrue(
+            DriveToReefPosition(self.drive)
+        )
 
         ModifiableJoystickButton(self.operatorInterface.resetGyro).onTrue(
             ResetDrive(self.drive, Pose2d(0, 0, 0))
@@ -197,9 +200,6 @@ class RobotContainer:
 
         ModifiableJoystickButton(self.operatorInterface.intakeCoral).whileTrue(
             IntakeCoralProcess(self.intake, self.elevator).repeatedly()
-        )
-        ModifiableJoystickButton(self.operatorInterface.intakeKnock).whileTrue(
-            IntakeKnock(self.intake).repeatedly()
         )
         ModifiableJoystickButton(self.operatorInterface.intakeScoring).whileTrue(
             IntakeScoring(self.intake).repeatedly()
@@ -217,20 +217,25 @@ class RobotContainer:
             ElevatorL4Position(self.elevator).repeatedly()
         )
 
-        (
-            POVButton(*self.operatorInterface.algaeLow)
-            or POVButton(*self.operatorInterface.algaeLow2)
-            or POVButton(*self.operatorInterface.algaeLow3)
-        ).whileTrue(AlgaeKnockLow(self.intake, self.elevator).repeatedly()).onFalse(
-            KnockExitSequence(self.intake, self.elevator).repeatedly()
-        )
-        (
-            POVButton(*self.operatorInterface.algaeHigh)
-            or POVButton(*self.operatorInterface.algaeHigh2)
-            or POVButton(*self.operatorInterface.algaeHigh3)
-        ).whileTrue(AlgaeKnockHigh(self.intake, self.elevator).repeatedly()).onFalse(
-            KnockExitSequence(self.intake, self.elevator).repeatedly()
-        )
+        POVButton(*self.operatorInterface.algaeLow).whileTrue(
+            AlgaeKnockLow(self.intake, self.elevator).repeatedly()
+        ).onFalse(KnockExitSequence(self.intake, self.elevator).repeatedly())
+        POVButton(*self.operatorInterface.algaeLow2).whileTrue(
+            AlgaeKnockLow(self.intake, self.elevator).repeatedly()
+        ).onFalse(KnockExitSequence(self.intake, self.elevator).repeatedly())
+        POVButton(*self.operatorInterface.algaeLow3).whileTrue(
+            AlgaeKnockLow(self.intake, self.elevator).repeatedly()
+        ).onFalse(KnockExitSequence(self.intake, self.elevator).repeatedly())
+
+        POVButton(*self.operatorInterface.algaeHigh).whileTrue(
+            AlgaeKnockHigh(self.intake, self.elevator).repeatedly()
+        ).onFalse(KnockExitSequence(self.intake, self.elevator).repeatedly())
+        POVButton(*self.operatorInterface.algaeHigh2).whileTrue(
+            AlgaeKnockHigh(self.intake, self.elevator).repeatedly()
+        ).onFalse(KnockExitSequence(self.intake, self.elevator).repeatedly())
+        POVButton(*self.operatorInterface.algaeHigh3).whileTrue(
+            AlgaeKnockHigh(self.intake, self.elevator).repeatedly()
+        ).onFalse(KnockExitSequence(self.intake, self.elevator).repeatedly())
 
         ModifiableJoystickButton(
             self.operatorInterface.elevatorIntakePositionToggleOn
@@ -292,6 +297,14 @@ class RobotContainer:
 
         ModifiableJoystickButton(self.operatorInterface.intakeFudgeCoralDown).onTrue(
             FudgeIntakeCoralDown(self.intake)
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.setLeftReef).onTrue(
+            SetLeftReef(self.drive)
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.setRightReef).onTrue(
+            SetRightReef(self.drive)
         )
 
     def getAutonomousCommand(self) -> commands2.Command:

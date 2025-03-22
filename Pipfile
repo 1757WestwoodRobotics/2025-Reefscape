@@ -15,6 +15,7 @@ tomli = "*"
 wpilib = "==2025.0.b2"
 phoenix6 = "*"
 robotpy = {extras = ["rev"], version = "==2025.0.0b2"}
+limelightlib-python = "*"
 
 [dev-packages]
 

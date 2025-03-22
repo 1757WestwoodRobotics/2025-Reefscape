@@ -39,7 +39,7 @@ from wpimath.system.plant import DCMotor
 from pathplannerlib.config import (
     PIDConstants,
 )
-
+from pathplannerlib.auto import PathConstraints
 from util.keyorganization import OptionalValueKeys
 
 # Basic units
@@ -247,54 +247,30 @@ kCameraFOVVertical = 47.4  # degrees
 kSimulationVariation = 0.001  # meters, as a standard deviation
 
 
-kRobotToFrontLeftCameraTransform = Transform3d(
+kCameraLocationPublisherKey = "camera/location"
+kRobotToCameraTransformLL2p = Transform3d(
     Pose3d(),
     Pose3d(
-        11.486 * kMetersPerInch,
-        10.991 * kMetersPerInch,
-        8.475 * kMetersPerInch,
-        Rotation3d(0.0, -28.125 * kRadiansPerDegree, 0.0).rotateBy(
-            Rotation3d(0.0, 0.0, 15.0 * kRadiansPerDegree)
-        ),
+        -11.602 * kMetersPerInch,
+        10.365 * kMetersPerInch,
+        8.131 * kMetersPerInch,
+        Rotation3d.fromDegrees(180, 14.755, 0),
     ),
 )
-kRobotToFrontRightCameraTransform = Transform3d(
-    Pose3d(),
-    Pose3d(
-        11.306 * kMetersPerInch,
-        -12.749 * kMetersPerInch,
-        9.238 * kMetersPerInch,
-        Rotation3d(0.0, -28.125 * kRadiansPerDegree, 0.0),
-    ),
+
+# kRobotToCameraTransformLL3 = Transform3d(
+#     Pose3d(),
+#     Pose3d(
+#         -11.498 * kMetersPerInch,
+#         -10.365 * kMetersPerInch,
+#         8.192 * kMetersPerInch,
+#         Rotation3d.fromDegrees(0, -14.755, 0),
+#     ),
+# )
+
+kRobotToCameraTransform = (
+    kRobotToCameraTransformLL2p  # NOTE: if/when we swap cameras this needs to change
 )
-kRobotToBackLeftCameraTransform = Transform3d(
-    Pose3d(),
-    Pose3d(
-        -11.486 * kMetersPerInch,
-        10.990 * kMetersPerInch,
-        8.475 * kMetersPerInch,
-        Rotation3d(0.0, -28.125 * kRadiansPerDegree, 0.0).rotateBy(
-            Rotation3d(0.0, 0.0, (180 - 15.0) * kRadiansPerDegree)
-        ),
-    ),
-)
-kRobotToBackRightCameraTransform = Transform3d(
-    Pose3d(),
-    Pose3d(
-        -11.486 * kMetersPerInch,
-        -10.991 * kMetersPerInch,
-        8.475 * kMetersPerInch,
-        Rotation3d(0.0, -28.125 * kRadiansPerDegree, 0.0).rotateBy(
-            Rotation3d(0.0, 0.0, (180 + 15.0) * kRadiansPerDegree)
-        ),
-    ),
-)
-kCameraTransformsArray = [
-    kRobotToFrontLeftCameraTransform,
-    kRobotToFrontRightCameraTransform,
-    kRobotToBackLeftCameraTransform,
-    kRobotToBackRightCameraTransform,
-]
 
 # CANivore
 kCANivoreName = "canivore"
@@ -502,7 +478,7 @@ kApriltagPositionDict = {
     ),
     6: Pose3d(
         (kMetersPerInch * 530.49),
-        (kMetersPerInch * 120.17),
+        (kMetersPerInch * 130.17),
         (kMetersPerInch * 12.13),
         Rotation3d(0.0, 0.0, 300 * kRadiansPerDegree),
     ),
@@ -637,7 +613,7 @@ kApriltagPositionDictAndyMark = {
     ),
     6: Pose3d(
         (kMetersPerInch * 530.49),
-        (kMetersPerInch * 120.97),
+        (kMetersPerInch * 129.97),
         (kMetersPerInch * 12.13),
         Rotation3d(0.0, 0.0, 300 * kRadiansPerDegree),
     ),
@@ -667,7 +643,7 @@ kApriltagPositionDictAndyMark = {
     ),
     11: Pose3d(
         (kMetersPerInch * 497.77),
-        (kMetersPerInch * 120.97),
+        (kMetersPerInch * 129.97),
         (kMetersPerInch * 12.13),
         Rotation3d(0.0, 0.0, 240 * kRadiansPerDegree),
     ),
@@ -738,6 +714,44 @@ kApriltagPositionDictAndyMark = {
         Rotation3d(0.0, 0.0, 300 * kRadiansPerDegree),
     ),
 }
+
+kLeftReefOffsetX = 17.628 * kMetersPerInch
+kLeftReefOffsetY = -15.455 * kMetersPerInch
+kLeftReefOffset = Transform3d(
+    kLeftReefOffsetX,
+    kLeftReefOffsetY,
+    0,
+    Rotation3d(0, 0, math.pi),
+)
+
+kLeftReefToOffsetPositionBlue = {}
+kLeftReefToOffsetPositionRed = {}
+
+for i in range(17, 23):
+    apriltag = kApriltagPositionDictAndyMark[i]
+    kLeftReefToOffsetPositionBlue[i] = apriltag + kLeftReefOffset
+for i in range(6, 12):
+    apriltag = kApriltagPositionDictAndyMark[i]
+    kLeftReefToOffsetPositionRed[i] = apriltag + kLeftReefOffset
+
+kRightReefOffsetX = 17.628 * kMetersPerInch
+kRightReefOffsetY = -2.688 * kMetersPerInch
+kRightReefOffset = Transform3d(
+    kRightReefOffsetX,
+    kRightReefOffsetY,
+    0,
+    Rotation3d(0, 0, math.pi),
+)
+
+kRightReefToOffsetPositionBlue = {}
+kRightReefToOffsetPositionRed = {}
+
+for i in range(17, 23):
+    apriltag = kApriltagPositionDictAndyMark[i]
+    kRightReefToOffsetPositionBlue[i] = apriltag + kRightReefOffset
+for i in range(6, 12):
+    apriltag = kApriltagPositionDictAndyMark[i]
+    kRightReefToOffsetPositionRed[i] = apriltag + kRightReefOffset
 
 # Autonomous
 kAutoDriveDistance = -8 * kWheelCircumference
@@ -810,6 +824,13 @@ kPathFollowingRotationConstants = PIDConstants(
     kTrajectoryAnglePGain, kTrajectoryAngleIGain, kTrajectoryAngleDGain
 )
 
+kPathfindingConstraints = PathConstraints(
+    kMaxWheelLinearVelocity / 4,
+    kMaxWheelLinearAcceleration / 4,
+    kMaxRotationAngularVelocity / 2,
+    kMaxRotationAngularAcceleration / 2,
+)
+
 # Operator Interface
 kXboxJoystickDeadband = 0.1
 """dimensionless"""
@@ -862,6 +883,8 @@ kTargetWaypointPoseKey = "waypoint/target"
 kTargetWaypointXControllerKey = "waypoint/x"
 kTargetWaypointYControllerKey = "waypoint/y"
 kTargetWaypointThetaControllerKey = "waypoint/theta"
+kWaypointLeftReefKey = "waypoint/leftReef"
+kWaypointRightReefKey = "waypoint/rightReef"
 
 # Logging
 kSwerveActualStatesKey = "swerve/actual"
@@ -922,8 +945,8 @@ kIntakeL2ThroughL4MotorSpeed = 0.20
 
 kIntakeToArmOffset = 51.944769
 
-kIntakingAngle = Rotation2d.fromDegrees(254)
-kMaxPivotAngle = Rotation2d.fromDegrees(257)
+kIntakingAngle = Rotation2d.fromDegrees(257)
+kMaxPivotAngle = Rotation2d.fromDegrees(260)
 kScoreAngle = Rotation2d.fromDegrees(180 - kIntakeToArmOffset - 45.047053)
 kKnockAngle = Rotation2d(0)
 
@@ -1001,11 +1024,11 @@ kElevatorManualModeKey = "elevator/manualMode"
 kElevatorManualIncrement = 0.01
 
 # taken from cad
-kL4PositionBeltPosition = 52.50 * kMetersPerInch
+kL4PositionBeltPosition = 52 * kMetersPerInch
 kL3PositionBeltPosition = 30 * kMetersPerInch
 kL2PositionBeltPosition = 15 * kMetersPerInch
 kL1PositionBeltPosition = 0.5 * kMetersPerInch
-kIntakePositionBeltPosition = 42 * kMetersPerInch
+kIntakePositionBeltPosition = 40 * kMetersPerInch
 kAlgaeLowBeltPosition = 25 * kMetersPerInch
 kAlgaeHighBeltPosition = 31.5 * kMetersPerInch
 
@@ -1027,7 +1050,7 @@ kArmRootToArmEndTransform = Transform3d(
 # Climber constants
 kClimberCANID = 57
 kClimberName = "ClimberMotor"
-kClimberPGain = 0.12
+kClimberPGain = 0.2
 kClimberIGain = 0
 kClimberDGain = 0
 

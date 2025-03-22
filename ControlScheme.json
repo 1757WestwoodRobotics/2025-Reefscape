@@ -6,6 +6,13 @@
     },
     "left button on top of 2nd T16000M"
   ],
+  "autoWaypoint": [
+    1,
+    {
+      "Button": 4
+    },
+    "right button on top of 2nd T16000M"
+  ],
   "chassisForwardsBackwards": [
     0,
     {
@@ -44,60 +51,42 @@
   "algaeHigh": [
     0,
     {
-      "POV": [
-        0,
-        0
-      ]
+      "POV": [0, 0]
     },
     "POV up"
   ],
   "algaeHigh2": [
     0,
     {
-      "POV": [
-        0,
-        315
-      ]
+      "POV": [0, 315]
     },
     "POV up"
   ],
   "algaeHigh3": [
     0,
     {
-      "POV": [
-        0,
-        45
-      ]
+      "POV": [0, 45]
     },
     "POV up"
   ],
   "algaeLow": [
     0,
     {
-      "POV": [
-        0,
-        180
-      ]
+      "POV": [0, 180]
     },
     "POV down"
   ],
   "algaeLow2": [
     0,
     {
-      "POV": [
-        0,
-        135
-      ]
+      "POV": [0, 135]
     },
     "POV down"
   ],
   "algaeLow3": [
     0,
     {
-      "POV": [
-        0,
-        225
-      ]
+      "POV": [0, 225]
     },
     "POV down"
   ],
@@ -156,13 +145,6 @@
       "Button": 2
     },
     "bottom button on top of joystick (ThrustmasterT16000M)"
-  ],
-  "intakeKnock": [
-    1,
-    {
-      "Button": 4
-    },
-    "right button on top of joystick (ThrustmasterT16000M)"
   ],
   "intakeScoring": [
     1,
@@ -266,6 +248,20 @@
     2,
     {
       "Button": 20
+    },
+    "placeholder"
+  ],
+  "setLeftReef": [
+    2,
+    {
+      "Button": 22
+    },
+    "placeholder"
+  ],
+  "setRightReef": [
+    2,
+    {
+      "Button": 23
     },
     "placeholder"
   ]
