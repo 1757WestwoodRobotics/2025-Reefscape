@@ -110,8 +110,7 @@ class DriveToReefPosition(DriveWaypoint):
         )
 
         self.drive.arcadeDriveWithSpeeds(
-            absoluteOutput,
-            DriveSubsystem.CoordinateMode.FieldRelative
+            absoluteOutput, DriveSubsystem.CoordinateMode.FieldRelative
         )
 
     def getClosestPose(self) -> Pose2d:
@@ -165,6 +164,9 @@ class DriveToReefPosition(DriveWaypoint):
 
     def end(self, _interrupted: bool) -> None:
         # pylint: disable=W0212
+        self.drive.arcadeDriveWithSpeeds(
+            ChassisSpeeds(), DriveSubsystem.CoordinateMode.FieldRelative
+        )
         DataLogManager.log("... DONE")
 
 
