@@ -1,5 +1,10 @@
+from math import pi
+
 from commands2 import Command
 from pathplannerlib.auto import AutoBuilder
+from pathplannerlib.config import ChassisSpeeds
+from wpimath.trajectory import TrapezoidProfile, TrapezoidProfileRadians
+from wpimath.controller import ProfiledPIDController, ProfiledPIDControllerRadians
 from wpimath.geometry import Rotation2d, Pose2d
 from wpilib import DriverStation, DataLogManager
 from ntcore import NetworkTableInstance
@@ -21,14 +26,44 @@ class DriveWaypoint(Command):
         self.running = False
         self.addRequirements(self.drive)
 
+        self.xController = ProfiledPIDController(
+            constants.kTrajectoryPositionPGain,
+            constants.kTrajectoryPositionIGain,
+            constants.kTrajectoryPositionDGain,
+            TrapezoidProfile.Constraints(
+                constants.kMaxForwardLinearVelocity,
+                constants.kMaxForwardLinearAcceleration,
+            ),
+        )
+        self.yController = ProfiledPIDController(
+            constants.kTrajectoryPositionPGain,
+            constants.kTrajectoryPositionIGain,
+            constants.kTrajectoryPositionDGain,
+            TrapezoidProfile.Constraints(
+                constants.kMaxForwardLinearVelocity,
+                constants.kMaxForwardLinearAcceleration,
+            ),
+        )
+        self.thetaController = ProfiledPIDControllerRadians(
+            constants.kTrajectoryAnglePGain,
+            constants.kTrajectoryAngleIGain,
+            constants.kTrajectoryAngleDGain,
+            TrapezoidProfileRadians.Constraints(
+                constants.kMaxRotationAngularVelocity,
+                constants.kMaxRotationAngularAcceleration,
+            ),
+        )
+        self.thetaController.enableContinuousInput(-pi, pi)
+
     def initialize(self) -> None:
         raise NotImplementedError("Must be implemented by subclass")
 
     def execute(self) -> None:
-        self.command.execute()
-        if self.command.isFinished():
-            self.command.end(False)
-            self.running = False
+        pass
+        # self.command.execute()
+        # if self.command.isFinished():
+        #     self.command.end(False)
+        #     self.running = False
 
     def isFinished(self) -> bool:
         return False
@@ -49,14 +84,35 @@ class DriveToReefPosition(DriveWaypoint):
         )
 
     def initialize(self):
-        self.drive.useVisionPose = True
         self.running = True
         # pylint: disable=W0201
         self.targetPose = self.getClosestPose()
-        self.command = AutoBuilder.pathfindToPose(
-            self.targetPose, constants.kPathfindingConstraints
+        currentPose = self.drive.getVisionPose()
+        self.xController.reset(currentPose.X())
+        self.yController.reset(currentPose.Y())
+
+        self.thetaController.reset(self.drive.getRotation().radians(), 0)
+
+        # self.command = AutoBuilder.pathfindToPose(
+        #     self.targetPose, constants.kPathfindingConstraints
+        # )
+        # self.command.initialize()
+
+    def execute(self) -> None:
+        currentPose = self.drive.getVisionPose()
+
+        absoluteOutput = ChassisSpeeds(
+            self.xController.calculate(currentPose.X(), self.targetPose.X()),
+            self.yController.calculate(currentPose.Y(), self.targetPose.Y()),
+            self.thetaController.calculate(
+                self.drive.getRotation().radians(), self.targetPose.rotation().radians()
+            ),
         )
-        self.command.initialize()
+
+        self.drive.arcadeDriveWithSpeeds(
+            absoluteOutput,
+            DriveSubsystem.CoordinateMode.FieldRelative
+        )
 
     def getClosestPose(self) -> Pose2d:
         currentRotation = self.drive.getRotation()
@@ -109,7 +165,6 @@ class DriveToReefPosition(DriveWaypoint):
 
     def end(self, _interrupted: bool) -> None:
         # pylint: disable=W0212
-        self.drive.useVisionPose = False
         DataLogManager.log("... DONE")
 
 
