@@ -254,7 +254,7 @@ kRobotToCameraTransformLL2p = Transform3d(
         -11.602 * kMetersPerInch,
         -10.365 * kMetersPerInch,
         8.131 * kMetersPerInch,
-        Rotation3d.fromDegrees(180, 14.755, 0),
+        Rotation3d.fromDegrees(180, -14.755, 0),
     ),
 )
 

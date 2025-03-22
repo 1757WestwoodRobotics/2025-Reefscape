@@ -48,7 +48,7 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
                 -transform.Y(),
                 transform.Z(),
                 transform.rotation().X() / constants.kRadiansPerDegree,
-                transform.rotation().Y() / constants.kRadiansPerDegree,
+                -transform.rotation().Y() / constants.kRadiansPerDegree,
                 transform.rotation().Z() / constants.kRadiansPerDegree,
             ]
         )
