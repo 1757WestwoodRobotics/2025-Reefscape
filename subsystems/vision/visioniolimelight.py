@@ -45,7 +45,7 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
         self.camPoseSetter.set(
             [
                 transform.X(),
-                transform.Y(),
+                -transform.Y(),
                 transform.Z(),
                 transform.rotation().X() / constants.kRadiansPerDegree,
                 transform.rotation().Y() / constants.kRadiansPerDegree,
