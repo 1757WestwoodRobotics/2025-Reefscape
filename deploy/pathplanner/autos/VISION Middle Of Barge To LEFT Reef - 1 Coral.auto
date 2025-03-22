@@ -1,0 +1,61 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeIdle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevatorL2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle Of Barge To Left Reef VISION"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "visionAlign"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevatorL4"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeScoring"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "1 Coral",
+  "choreoAuto": false
+}
