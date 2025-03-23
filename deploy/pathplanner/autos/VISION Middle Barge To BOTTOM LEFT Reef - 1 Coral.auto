@@ -51,6 +51,24 @@
           "data": {
             "waitTime": 2.0
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intakeIdle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "elevatorL2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "top left to source prep"
+          }
         }
       ]
     }
