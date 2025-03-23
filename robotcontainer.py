@@ -149,7 +149,7 @@ class RobotContainer:
                 self.operatorInterface.chassisControls.rotationY,
             )
         )
-        self.elevator.setDefaultCommand(ElevatorL1Position(self.elevator))
+        self.elevator.setDefaultCommand(ElevatorL2Position(self.elevator))
 
         self.intake.setDefaultCommand(IntakeIdle(self.intake))
 
