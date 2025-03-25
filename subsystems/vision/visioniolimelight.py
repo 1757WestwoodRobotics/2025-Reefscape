@@ -1,6 +1,7 @@
 from typing import Optional
 from ntcore import NetworkTableInstance
 from wpimath.geometry import Pose3d, Rotation2d, Rotation3d, Transform3d, Pose2d
+from subsystems.drivesubsystem import VisionObservation
 from subsystems.vision.visionio import VisionSubsystemIO
 
 from util.convenientmath import clamp
@@ -12,6 +13,8 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
         VisionSubsystemIO.__init__(self)
         self.cameraTable = NetworkTableInstance.getDefault().getTable("limelight")
         self.validTarget = self.cameraTable.getIntegerTopic("tv").subscribe(0)
+        self.pipelineLatency = self.cameraTable.getIntegerTopic("tl").subscribe(0)
+        self.captureLatency = self.cameraTable.getIntegerTopic("cl").subscribe(0)
         self.botpose = self.cameraTable.getDoubleArrayTopic(
             "botpose_orb_wpiblue"
         ).subscribe([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
@@ -28,17 +31,30 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
             .subscribe(Pose2d())
         )
 
-    def getRobotFieldPose(self) -> Optional[Pose3d]:
+    def getRobotFieldPose(self) -> Optional[VisionObservation]:
         if self.validTarget.get() == 0:
             return None
         botPose = self.botpose.get()
         poseX, poseY, poseZ = botPose[0:3]
         rotation = self.robotPoseGetter.get().rotation().radians()
-        return Pose3d(
+        pose = Pose3d(
             clamp(poseX, 0, constants.kFieldLength),
             clamp(poseY, 0, constants.kFieldWidth),
             poseZ,
             Rotation3d(0, 0, rotation),
+        )
+
+        # this section is taken from the secret limelight docs called the limelight lib source code
+        # if you want the actual stuff look at https://github.com/LimelightVision/limelightlib-wpijava/blob/cbb84564b10316aaa64440c0f43db64d45539fe5/LimelightHelpers.java#L738
+        tsValue = self.botpose.getAtomic()
+        timestamp = tsValue.time
+
+        adjustedTimestamp = (
+            timestamp / 1e6 - (0 if len(botPose) < 7 else botPose[6]) / 1e4
+        )
+
+        return VisionObservation(
+            pose.toPose2d(), adjustedTimestamp, [0.7, 0.7, 9999999]
         )
 
     def updateCameraPosition(self, transform: Transform3d) -> None:

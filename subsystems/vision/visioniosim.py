@@ -11,6 +11,7 @@ from wpimath.geometry import (
     Translation3d,
 )
 import constants
+from subsystems.drivesubsystem import VisionObservation
 from subsystems.vision.visionio import VisionSubsystemIO
 from util.convenientmath import pose3dFrom2d, clamp
 
@@ -32,7 +33,7 @@ class VisionSubsystemIOSim(VisionSubsystemIO):
         )
         self.rng = RNG(constants.kSimulationVariation)
 
-    def getRobotFieldPose(self) -> Optional[Pose3d]:
+    def getRobotFieldPose(self) -> Optional[VisionObservation]:
         simPose = self.simBotPoseGetter.get()
         simPose3d = pose3dFrom2d(simPose)
 
@@ -66,12 +67,15 @@ class VisionSubsystemIOSim(VisionSubsystemIO):
                     + rngOffset
                 )
 
+        pose = Pose3d(
+            clamp(botPose.X(), 0, constants.kFieldLength),
+            clamp(botPose.Y(), 0, constants.kFieldWidth),
+            botPose.Z(),
+            botPose.rotation(),
+        )
         return (
-            Pose3d(
-                clamp(botPose.X(), 0, constants.kFieldLength),
-                clamp(botPose.Y(), 0, constants.kFieldWidth),
-                botPose.Z(),
-                botPose.rotation(),
+            VisionObservation(
+                pose.toPose2d(), Timer.getFPGATimestamp(), [0.7, 0.7, 9999999]
             )
             if seeTag
             else None

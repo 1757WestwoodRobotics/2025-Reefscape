@@ -340,7 +340,7 @@ class DriveSubsystem(Subsystem):
                 self.backRightModule.getPosition(),
             ),
             Pose2d(),
-            (0.1, 0.1, 0.1),
+            (0.05, 0.05, 5 * constants.kRadiansPerDegree),
         )
         # standard deviations stolen from 2910
 

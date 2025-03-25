@@ -8,19 +8,22 @@ from wpilib import RobotBase
 from wpimath.geometry import Pose2d, Pose3d
 
 import constants
+from subsystems.drivesubsystem import DriveSubsystem, VisionObservation
 from subsystems.vision.visionio import VisionSubsystemIO
 from subsystems.vision.visioniolimelight import VisionSubsystemIOLimelight
 from subsystems.vision.visioniosim import VisionSubsystemIOSim
+from util.convenientmath import pose3dFrom2d
 
 
 class VisionSubsystem(Subsystem):
     camera: VisionSubsystemIO
-    visionPose: Optional[Pose2d]
+    visionPose: Optional[VisionObservation]
 
-    def __init__(self) -> None:
+    def __init__(self, drive: DriveSubsystem) -> None:
         Subsystem.__init__(self)
         self.setName(__class__.__name__)
 
+        self.drive = drive
         self.poseReceiver = (
             NetworkTableInstance.getDefault()
             .getStructTopic(constants.kRobotPoseArrayKeys.valueKey, Pose2d)
@@ -59,10 +62,14 @@ class VisionSubsystem(Subsystem):
         visionPose = self.camera.getRobotFieldPose()
 
         if visionPose is not None:
-            self.cameraPosePublisher.set(visionPose + constants.kRobotToCameraTransform)
-            self.visionPose = visionPose.toPose2d()
-            self.visionPosePublisher.set(self.visionPose)
+            self.cameraPosePublisher.set(
+                pose3dFrom2d(visionPose.visionPose) + constants.kRobotToCameraTransform
+            )
+            self.visionPose = visionPose
+            self.visionPosePublisher.set(self.visionPose.visionPose)
             self.visionPoseValidPublisher.set(True)
+
+            self.drive.estimator.addVisionMeasurement(self.visionPose)
         else:
             self.visionPose = None
             self.visionPoseValidPublisher.set(False)

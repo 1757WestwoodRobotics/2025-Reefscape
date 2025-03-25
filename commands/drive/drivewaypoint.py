@@ -99,7 +99,7 @@ class DriveToReefPosition(DriveWaypoint):
         # self.command.initialize()
 
     def execute(self) -> None:
-        currentPose = self.drive.getVisionPose()
+        currentPose = self.drive.getPose()
 
         absoluteOutput = ChassisSpeeds(
             self.xController.calculate(currentPose.X(), self.targetPose.X()),
