@@ -1,6 +1,7 @@
 from typing import Optional
 from ntcore import NetworkTableInstance
 from wpimath.geometry import Pose3d, Rotation2d, Rotation3d, Transform3d, Pose2d
+from wpilib import Timer
 from subsystems.vision.visionio import VisionSubsystemIO
 
 from util.convenientmath import clamp
@@ -10,6 +11,11 @@ import constants
 class VisionSubsystemIOLimelight(VisionSubsystemIO):
     def __init__(self) -> None:
         VisionSubsystemIO.__init__(self)
+
+        self.timer = Timer()
+        self.timer.start()
+        self.timestamp = 0
+
         self.cameraTable = NetworkTableInstance.getDefault().getTable("limelight")
         self.validTarget = self.cameraTable.getIntegerTopic("tv").subscribe(0)
         self.botpose = self.cameraTable.getDoubleArrayTopic(
@@ -34,6 +40,7 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
         botPose = self.botpose.get()
         poseX, poseY, poseZ = botPose[0:3]
         rotation = self.robotPoseGetter.get().rotation().radians()
+        self.timestamp = self.timer.getFPGATimestamp()
         return Pose3d(
             clamp(poseX, 0, constants.kFieldLength),
             clamp(poseY, 0, constants.kFieldWidth),

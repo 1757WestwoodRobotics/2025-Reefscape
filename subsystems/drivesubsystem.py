@@ -37,6 +37,7 @@ from wpimath.kinematics import (
 )
 from wpimath.interpolation import TimeInterpolatablePose2dBuffer
 
+from subsystems.vision.visionsubsystem import VisionSubsystem
 import constants
 from util import convenientmath
 from util.angleoptimize import optimizeAngle
@@ -252,10 +253,10 @@ class DriveSubsystem(Subsystem):
         FieldRelative = auto()
         TargetRelative = auto()
 
-    def __init__(self) -> None:
+    def __init__(self, vision: VisionSubsystem) -> None:
         Subsystem.__init__(self)
         self.setName(__class__.__name__)
-
+        self.vision = vision
         self.rotationOffset = 0
 
         self.frontLeftModule = CTRESwerveModule(
@@ -605,6 +606,9 @@ class DriveSubsystem(Subsystem):
         )
         self.estimator.addOdometryMeasurement(odoMeasure)
         self.visionEstimate = self.estimator.estimatedPose
+
+        visionMeasure = VisionObservation(self.visionPoseGetter.get())
+        self.estimator.addVisionMeasurement()
         # self.visionPosePublisher.set(self.visionEstimate)
 
         # curTime = self.printTimer.get()

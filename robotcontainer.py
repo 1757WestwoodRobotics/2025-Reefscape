@@ -73,7 +73,7 @@ class RobotContainer:
 
         # The robot's subsystems
         self.vision = VisionSubsystem()
-        self.drive = DriveSubsystem()
+        self.drive = DriveSubsystem(self.vision)
         self.log = LoggingSubsystem(self.operatorInterface)
         self.intake = IntakeSubsystem()
         self.elevator = ElevatorSubsystem()
