@@ -53,7 +53,10 @@ class AbsoluteRelativeDrive(Command):
 
     def execute(self) -> None:
         if (
-            abs(self.forward()) < 0.01 and abs(self.sideways()) < 0.01
+            abs(self.forward()) < 0.01
+            and abs(self.sideways()) < 0.01
+            and abs(self.rotationX()) < 0.01
+            and abs(self.rotationX()) < 0.01
         ):  # deadband should put to zero, put a delta errorbound for floats
             self.drive.defenseState()
         else:
