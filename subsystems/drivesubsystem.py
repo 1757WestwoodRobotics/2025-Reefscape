@@ -144,6 +144,7 @@ class CTRESwerveModule(SwerveModule):
             config.canbus,
             constants.kDriveVGain,
         )
+        self.driveMotor.setNeutralMode(Talon.NeutralMode.Brake)
         if RobotBase.isReal():
             self.driveMotor.setCurrentLimit(constants.kDriveCurrentLimit)
         DataLogManager.log("   ... Done")
