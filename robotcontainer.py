@@ -114,12 +114,16 @@ class RobotContainer:
             "intakeCoral", IntakeCoralProcess(self.elevator, self.intake)
         )
         NamedCommands.registerCommand("visionAlign", DriveToReefPosition(self.drive))
+        NamedCommands.registerCommand("leftReef", SetLeftReef(self.drive))
+        NamedCommands.registerCommand("rightReef", SetRightReef(self.drive))
         NamedCommands.registerCommand("intakeIdle", IntakeIdle(self.intake))
         NamedCommands.registerCommand("intakeScoring", IntakeScoring(self.intake))
         # NamedCommands.registerCommand(
         #     "elevatorIntake", ElevatorIntakePosition(self.elevator)
         # )
-        NamedCommands.registerCommand("intakeCoral", IntakeCoral(self.intake))
+        NamedCommands.registerCommand(
+            "intakeCoral", IntakeCoralProcess(self.intake, self.elevator)
+        )
         NamedCommands.registerCommand("intakeIdle", IntakeIdle(self.intake))
         NamedCommands.registerCommand("intakeScoring", IntakeScoring(self.intake))
 

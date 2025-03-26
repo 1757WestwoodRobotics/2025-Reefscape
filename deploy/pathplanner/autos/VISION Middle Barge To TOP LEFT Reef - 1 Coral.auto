@@ -56,6 +56,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "1 Coral",
+  "folder": null,
   "choreoAuto": false
 }

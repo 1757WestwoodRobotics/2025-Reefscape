@@ -3,40 +3,42 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.14624232012857,
-        "y": 6.19311292384632
+        "x": 2.3376024590163933,
+        "y": 6.776178278688524
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.052380267014311,
-        "y": 6.476727718673873
+        "x": 2.126624551101523,
+        "y": 6.912664765697648
       },
       "isLocked": false,
-      "linkedName": "MiddleBarge"
+      "linkedName": "leftSourceTest"
     },
     {
       "anchor": {
-        "x": 4.02675,
-        "y": 5.624
+        "x": 3.7439999999999998,
+        "y": 5.4582500000000005
       },
       "prevControl": {
-        "x": 4.153505031640848,
-        "y": 5.839483553789442
+        "x": 3.4577460482248363,
+        "y": 5.730983225984653
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "TopRightReef"
+      "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.49195159857904086,
-      "rotationDegrees": -59.99999999999999
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "elevatorL2",
+      "waypointRelativePos": 0.44834571235651166,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -46,14 +48,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": -59.99999999999999
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 179.71840862680583
+    "rotation": -53.02217145985809
   },
   "useDefaultConstraints": true
 }
