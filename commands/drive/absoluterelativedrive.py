@@ -52,18 +52,23 @@ class AbsoluteRelativeDrive(Command):
         )
 
     def execute(self) -> None:
-        if DriverStation.getAlliance() == DriverStation.Alliance.kRed:
-            # if we're on the other side, switch the controls around
-            self.drive.arcadeDriveWithFactors(
-                -self.forward(),
-                -self.sideways(),
-                self.rotation(),
-                DriveSubsystem.CoordinateMode.FieldRelative,
-            )
+        if (
+            abs(self.forward()) < 0.01 and abs(self.sideways()) < 0.01
+        ):  # deadband should put to zero, put a delta errorbound for floats
+            self.drive.defenseState()
         else:
-            self.drive.arcadeDriveWithFactors(
-                self.forward(),
-                self.sideways(),
-                self.rotation(),
-                DriveSubsystem.CoordinateMode.FieldRelative,
-            )
+            if DriverStation.getAlliance() == DriverStation.Alliance.kRed:
+                # if we're on the other side, switch the controls around
+                self.drive.arcadeDriveWithFactors(
+                    -self.forward(),
+                    -self.sideways(),
+                    self.rotation(),
+                    DriveSubsystem.CoordinateMode.FieldRelative,
+                )
+            else:
+                self.drive.arcadeDriveWithFactors(
+                    self.forward(),
+                    self.sideways(),
+                    self.rotation(),
+                    DriveSubsystem.CoordinateMode.FieldRelative,
+                )
