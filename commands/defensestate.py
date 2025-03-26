@@ -1,7 +1,6 @@
 from commands2.command import Command
 from wpilib import DataLogManager
-from wpimath.geometry import Rotation2d
-from subsystems.drivesubsystem import DriveSubsystem, SwerveModule
+from subsystems.drivesubsystem import DriveSubsystem
 
 
 class DefenseState(Command):
@@ -16,14 +15,7 @@ class DefenseState(Command):
         DataLogManager.log(f"Command: {self.getName()}")
 
     def execute(self) -> None:
-        def setModuleTo(module: SwerveModule, angle: Rotation2d):
-            module.setWheelLinearVelocityTarget(0)
-            module.setSwerveAngleTarget(module.optimizedAngle(angle))
-
-        setModuleTo(self.drive.frontLeftModule, Rotation2d.fromDegrees(45))
-        setModuleTo(self.drive.frontRightModule, Rotation2d.fromDegrees(-45))
-        setModuleTo(self.drive.backLeftModule, Rotation2d.fromDegrees(135))
-        setModuleTo(self.drive.backRightModule, Rotation2d.fromDegrees(-135))
+        self.drive.defenseState()
 
     def isFinished(self) -> bool:
         return True

@@ -467,6 +467,16 @@ class DriveSubsystem(Subsystem):
             .subscribe(Pose2d())
         )
 
+    def defenseState(self):
+        def setModuleTo(module: SwerveModule, angle: Rotation2d):
+            module.setWheelLinearVelocityTarget(0)
+            module.setSwerveAngleTarget(module.optimizedAngle(angle))
+
+        setModuleTo(self.frontLeftModule, Rotation2d.fromDegrees(45))
+        setModuleTo(self.frontRightModule, Rotation2d.fromDegrees(-45))
+        setModuleTo(self.backLeftModule, Rotation2d.fromDegrees(135))
+        setModuleTo(self.backRightModule, Rotation2d.fromDegrees(-135))
+
     def resetDriveAtPosition(self, pose: Pose2d):
         self.resetSwerveModules()
         self.resetGyro(pose)
