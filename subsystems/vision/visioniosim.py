@@ -17,7 +17,7 @@ from util.convenientmath import pose3dFrom2d, clamp
 
 
 class VisionSubsystemIOSim(VisionSubsystemIO):
-    def __init__(self) -> None:
+    def __init__(self, name: str, location: Transform3d) -> None:
         VisionSubsystemIO.__init__(self)
         self.simBotPoseGetter = (
             NetworkTableInstance.getDefault()
@@ -25,13 +25,14 @@ class VisionSubsystemIOSim(VisionSubsystemIO):
             .subscribe(Pose2d())
         )
         self.camera = SimCamera(
-            "limelight",
-            constants.kRobotToCameraTransform,
+            name,
+            location,
             constants.kCameraFOVHorizontal,
             constants.kCameraFOVVertical,
             "ll",
         )
         self.rng = RNG(constants.kSimulationVariation)
+        self.location = location
 
     def getRobotFieldPose(self) -> Optional[VisionObservation]:
         simPose = self.simBotPoseGetter.get()

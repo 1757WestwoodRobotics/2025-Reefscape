@@ -248,7 +248,7 @@ kSimulationVariation = 0.001  # meters, as a standard deviation
 
 
 kCameraLocationPublisherKey = "camera/location"
-kRobotToCameraTransformLL2p = Transform3d(
+kRobotToCameraTransformLL2 = Transform3d(
     Pose3d(),
     Pose3d(
         -11.602 * kMetersPerInch,
@@ -258,18 +258,32 @@ kRobotToCameraTransformLL2p = Transform3d(
     ),
 )
 
-# kRobotToCameraTransformLL3 = Transform3d(
-#     Pose3d(),
-#     Pose3d(
-#         -11.498 * kMetersPerInch,
-#         -10.365 * kMetersPerInch,
-#         8.192 * kMetersPerInch,
-#         Rotation3d.fromDegrees(0, -14.755, 0),
-#     ),
-# )
+kRobotToCamera1TransformLL3 = Transform3d(
+    Pose3d(),
+    Pose3d(
+        -11.498 * kMetersPerInch,
+        -10.365 * kMetersPerInch,
+        8.192 * kMetersPerInch,
+        Rotation3d.fromDegrees(180, -14.755, 0),
+    ),
+)
 
-kRobotToCameraTransform = (
-    kRobotToCameraTransformLL2p  # NOTE: if/when we swap cameras this needs to change
+kRobotToCamera2TransformLL3 = Transform3d(
+    Pose3d(),
+    Pose3d(
+        12.529978 * kMetersPerInch,
+        8.455907 * kMetersPerInch,
+        8.172675 * kMetersPerInch,
+        Rotation3d.fromDegrees(180, -14.755, 0),
+    ),
+)
+
+kRobotToCamera1Transform = (
+    kRobotToCamera1TransformLL3  # NOTE: if/when we swap cameras this needs to change
+)
+
+kRobotToCamera2Transform = (
+    kRobotToCamera2TransformLL3  # NOTE: if/when we swap cameras this needs to change
 )
 
 # CANivore
@@ -434,7 +448,8 @@ kTargetFacingAngleRelativeToRobotKeys = OptionalValueKeys(
     "TargetFacingAngleRelativeToRobot"
 )
 kTargetPoseArrayKeys = OptionalValueKeys("TargetPoseArray")
-kRobotVisionPoseArrayKeys = OptionalValueKeys("EstimatedRobotPose")
+kRobotVisionPose1ArrayKeys = OptionalValueKeys("EstimatedRobotPoseLL1")
+kRobotVisionPose2ArrayKeys = OptionalValueKeys("EstimatedRobotPoseLL2")
 kRobotToTagPoseKey = "vision/poses"
 kRobotToTagIdKey = "vision/ids"
 kRobotToTagAmbiguityKey = "vision/ambiguity"
@@ -715,10 +730,11 @@ kApriltagPositionDictAndyMark = {
     ),
 }
 
+kReefBufferDistance = 0.5 * kMetersPerInch
 kLeftReefOffsetX = 17.628 * kMetersPerInch
 kLeftReefOffsetY = -15.455 * kMetersPerInch
 kLeftReefOffset = Transform3d(
-    kLeftReefOffsetX,
+    kLeftReefOffsetX + kReefBufferDistance,
     kLeftReefOffsetY,
     0,
     Rotation3d(0, 0, math.pi),
@@ -737,7 +753,7 @@ for i in range(6, 12):
 kRightReefOffsetX = 17.628 * kMetersPerInch
 kRightReefOffsetY = -2.688 * kMetersPerInch
 kRightReefOffset = Transform3d(
-    kRightReefOffsetX,
+    kRightReefOffsetX + kReefBufferDistance,
     kRightReefOffsetY,
     0,
     Rotation3d(0, 0, math.pi),
