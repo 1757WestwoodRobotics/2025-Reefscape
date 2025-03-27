@@ -730,10 +730,11 @@ kApriltagPositionDictAndyMark = {
     ),
 }
 
+kReefBufferDistance = 0.5 * kMetersPerInch
 kLeftReefOffsetX = 17.628 * kMetersPerInch
 kLeftReefOffsetY = -15.455 * kMetersPerInch
 kLeftReefOffset = Transform3d(
-    kLeftReefOffsetX,
+    kLeftReefOffsetX + kReefBufferDistance,
     kLeftReefOffsetY,
     0,
     Rotation3d(0, 0, math.pi),
@@ -752,7 +753,7 @@ for i in range(6, 12):
 kRightReefOffsetX = 17.628 * kMetersPerInch
 kRightReefOffsetY = -2.688 * kMetersPerInch
 kRightReefOffset = Transform3d(
-    kRightReefOffsetX,
+    kRightReefOffsetX + kReefBufferDistance,
     kRightReefOffsetY,
     0,
     Rotation3d(0, 0, math.pi),
