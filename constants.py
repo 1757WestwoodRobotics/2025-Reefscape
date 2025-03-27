@@ -271,9 +271,9 @@ kRobotToCamera1TransformLL3 = Transform3d(
 kRobotToCamera2TransformLL3 = Transform3d(
     Pose3d(),
     Pose3d(
-        -11.498 * kMetersPerInch,
-        -10.365 * kMetersPerInch,
-        8.192 * kMetersPerInch,
+        12.529978 * kMetersPerInch,
+        8.455907 * kMetersPerInch,
+        8.172675 * kMetersPerInch,
         Rotation3d.fromDegrees(0, -14.755, 0),
     ),
 )
