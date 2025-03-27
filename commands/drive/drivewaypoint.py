@@ -7,7 +7,6 @@ from wpimath.trajectory import TrapezoidProfile, TrapezoidProfileRadians
 from wpimath.controller import ProfiledPIDController, ProfiledPIDControllerRadians
 from wpimath.geometry import Rotation2d, Pose2d
 from wpilib import DriverStation, DataLogManager
-from ntcore import NetworkTableInstance
 
 from subsystems.drivesubsystem import DriveSubsystem
 import constants
@@ -77,11 +76,6 @@ class DriveWaypoint(Command):
 class DriveToReefPosition(DriveWaypoint):
     def __init__(self, drive: DriveSubsystem):
         DriveWaypoint.__init__(self, drive)
-        self.visionPoseGetter = (
-            NetworkTableInstance.getDefault()
-            .getStructTopic(constants.kRobotVisionPoseArrayKeys.valueKey, Pose2d)
-            .subscribe(Pose2d())
-        )
 
     def initialize(self):
         self.running = True
@@ -156,9 +150,7 @@ class DriveToReefPosition(DriveWaypoint):
 
     def isFinished(self) -> bool:
         return (
-            self.targetPose.translation().distance(
-                self.visionPoseGetter.get().translation()
-            )
+            self.targetPose.translation().distance(self.drive.getPose().translation())
             < 1 * constants.kMetersPerInch
         )
 

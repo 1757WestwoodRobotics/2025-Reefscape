@@ -464,7 +464,7 @@ class DriveSubsystem(Subsystem):
         self.useVisionPose = False
         self.visionPoseGetter = (
             NetworkTableInstance.getDefault()
-            .getStructTopic(constants.kRobotVisionPoseArrayKeys.valueKey, Pose2d)
+            .getStructTopic(constants.kRobotVisionPose1ArrayKeys.valueKey, Pose2d)
             .subscribe(Pose2d())
         )
 
