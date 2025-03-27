@@ -52,11 +52,11 @@ class AbsoluteRelativeDrive(Command):
         )
 
     def execute(self) -> None:
+        rotation = self.rotation()
         if (
             abs(self.forward()) < 0.01
             and abs(self.sideways()) < 0.01
-            and abs(self.rotationX()) < 0.01
-            and abs(self.rotationX()) < 0.01
+            and abs(rotation) < 0.01
         ):  # deadband should put to zero, put a delta errorbound for floats
             self.drive.defenseState()
         else:
@@ -65,13 +65,13 @@ class AbsoluteRelativeDrive(Command):
                 self.drive.arcadeDriveWithFactors(
                     -self.forward(),
                     -self.sideways(),
-                    self.rotation(),
+                    rotation,
                     DriveSubsystem.CoordinateMode.FieldRelative,
                 )
             else:
                 self.drive.arcadeDriveWithFactors(
                     self.forward(),
                     self.sideways(),
-                    self.rotation(),
+                    rotation,
                     DriveSubsystem.CoordinateMode.FieldRelative,
                 )
