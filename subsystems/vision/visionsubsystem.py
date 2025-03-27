@@ -108,9 +108,7 @@ class VisionSubsystem(Subsystem):
         cameraPose = None
 
         if visionPose is not None:
-            cameraPose = (
-                pose3dFrom2d(visionPose.visionPose) + constants.kRobotToCamera1Transform
-            )
+            cameraPose = pose3dFrom2d(visionPose.visionPose) + camera.location
             posePublisher.set(visionPose.visionPose)
             poseValidPublisher.set(True)
 
