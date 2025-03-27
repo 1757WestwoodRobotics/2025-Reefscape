@@ -9,9 +9,9 @@ import constants
 
 
 class VisionSubsystemIOLimelight(VisionSubsystemIO):
-    def __init__(self) -> None:
+    def __init__(self, name: str) -> None:
         VisionSubsystemIO.__init__(self)
-        self.cameraTable = NetworkTableInstance.getDefault().getTable("limelight")
+        self.cameraTable = NetworkTableInstance.getDefault().getTable(name)
         self.validTarget = self.cameraTable.getIntegerTopic("tv").subscribe(0)
         self.pipelineLatency = self.cameraTable.getIntegerTopic("tl").subscribe(0)
         self.captureLatency = self.cameraTable.getIntegerTopic("cl").subscribe(0)

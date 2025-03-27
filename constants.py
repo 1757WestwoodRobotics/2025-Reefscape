@@ -258,18 +258,32 @@ kRobotToCameraTransformLL2p = Transform3d(
     ),
 )
 
-# kRobotToCameraTransformLL3 = Transform3d(
-#     Pose3d(),
-#     Pose3d(
-#         -11.498 * kMetersPerInch,
-#         -10.365 * kMetersPerInch,
-#         8.192 * kMetersPerInch,
-#         Rotation3d.fromDegrees(0, -14.755, 0),
-#     ),
-# )
+kRobotToCamera1TransformLL3 = Transform3d(
+    Pose3d(),
+    Pose3d(
+        -11.498 * kMetersPerInch,
+        -10.365 * kMetersPerInch,
+        8.192 * kMetersPerInch,
+        Rotation3d.fromDegrees(0, -14.755, 0),
+    ),
+)
 
-kRobotToCameraTransform = (
-    kRobotToCameraTransformLL2p  # NOTE: if/when we swap cameras this needs to change
+kRobotToCamera2TransformLL3 = Transform3d(
+    Pose3d(),
+    Pose3d(
+        -11.498 * kMetersPerInch,
+        -10.365 * kMetersPerInch,
+        8.192 * kMetersPerInch,
+        Rotation3d.fromDegrees(0, -14.755, 0),
+    ),
+)
+
+kRobotToCamera1Transform = (
+    kRobotToCamera1TransformLL3  # NOTE: if/when we swap cameras this needs to change
+)
+
+kRobotToCamera2Transform = (
+    kRobotToCamera2TransformLL3  # NOTE: if/when we swap cameras this needs to change
 )
 
 # CANivore
@@ -434,7 +448,8 @@ kTargetFacingAngleRelativeToRobotKeys = OptionalValueKeys(
     "TargetFacingAngleRelativeToRobot"
 )
 kTargetPoseArrayKeys = OptionalValueKeys("TargetPoseArray")
-kRobotVisionPoseArrayKeys = OptionalValueKeys("EstimatedRobotPose")
+kRobotVisionPose1ArrayKeys = OptionalValueKeys("EstimatedRobotPoseLL1")
+kRobotVisionPose2ArrayKeys = OptionalValueKeys("EstimatedRobotPoseLL2")
 kRobotToTagPoseKey = "vision/poses"
 kRobotToTagIdKey = "vision/ids"
 kRobotToTagAmbiguityKey = "vision/ambiguity"

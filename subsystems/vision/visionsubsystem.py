@@ -3,12 +3,15 @@ from typing import Optional
 # import numpy as np
 
 from commands2 import Subsystem
-from ntcore import NetworkTableInstance
+from ntcore import BooleanPublisher, NetworkTableInstance, StructPublisher
 from wpilib import RobotBase
 from wpimath.geometry import Pose2d, Pose3d
 
 import constants
-from subsystems.drivesubsystem import DriveSubsystem, VisionObservation
+from subsystems.drivesubsystem import (
+    DriveSubsystem,
+    RobotPoseEstimator,
+)
 from subsystems.vision.visionio import VisionSubsystemIO
 from subsystems.vision.visioniolimelight import VisionSubsystemIOLimelight
 from subsystems.vision.visioniosim import VisionSubsystemIOSim
@@ -16,8 +19,8 @@ from util.convenientmath import pose3dFrom2d
 
 
 class VisionSubsystem(Subsystem):
-    camera: VisionSubsystemIO
-    visionPose: Optional[VisionObservation]
+    camera1: VisionSubsystemIO
+    camera2: VisionSubsystemIO
 
     def __init__(self, drive: DriveSubsystem) -> None:
         Subsystem.__init__(self)
@@ -30,46 +33,90 @@ class VisionSubsystem(Subsystem):
             .subscribe(Pose2d())
         )
 
-        self.visionPosePublisher = (
+        self.vision1PosePublisher = (
             NetworkTableInstance.getDefault()
-            .getStructTopic(constants.kRobotVisionPoseArrayKeys.valueKey, Pose2d)
+            .getStructTopic(constants.kRobotVisionPose1ArrayKeys.valueKey, Pose2d)
             .publish()
         )
-        self.visionPoseValidPublisher = (
+        self.vision2PosePublisher = (
             NetworkTableInstance.getDefault()
-            .getBooleanTopic(constants.kRobotVisionPoseArrayKeys.validKey)
+            .getStructTopic(constants.kRobotVisionPose2ArrayKeys.valueKey, Pose2d)
+            .publish()
+        )
+        self.visionPose1ValidPublisher = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kRobotVisionPose2ArrayKeys.validKey)
+            .publish()
+        )
+        self.visionPose2ValidPublisher = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kRobotVisionPose2ArrayKeys.validKey)
             .publish()
         )
 
         self.cameraPosePublisher = (
             NetworkTableInstance.getDefault()
-            .getStructTopic(constants.kCameraLocationPublisherKey, Pose3d)
+            .getStructArrayTopic(constants.kCameraLocationPublisherKey, Pose3d)
             .publish()
         )
-        self.visionPose = None
 
         if RobotBase.isReal():
-            self.camera = VisionSubsystemIOLimelight()
+            self.camera1 = VisionSubsystemIOLimelight("limelight1")
+            self.camera2 = VisionSubsystemIOLimelight("limelight2")
         else:
-            self.camera = VisionSubsystemIOSim()
+            self.camera1 = VisionSubsystemIOSim(
+                "limelight1", constants.kRobotToCamera1Transform
+            )
+            self.camera2 = VisionSubsystemIOSim(
+                "limelight2", constants.kRobotToCamera2Transform
+            )
 
-        self.camera.updateCameraPosition(constants.kRobotToCameraTransform)
+        self.camera1.updateCameraPosition(constants.kRobotToCamera1Transform)
+        self.camera2.updateCameraPosition(constants.kRobotToCamera2Transform)
 
     def periodic(self) -> None:
         yaw = self.poseReceiver.get().rotation()
-        self.camera.updateRobotYaw(yaw)
+        self.camera1.updateRobotYaw(yaw)
+        self.camera2.updateRobotYaw(yaw)
 
-        visionPose = self.camera.getRobotFieldPose()
+        cameraPoses = [
+            VisionSubsystem.processCamera(
+                self.camera1,
+                self.vision1PosePublisher,
+                self.visionPose1ValidPublisher,
+                self.drive.estimator,
+            ),
+            VisionSubsystem.processCamera(
+                self.camera2,
+                self.vision2PosePublisher,
+                self.visionPose2ValidPublisher,
+                self.drive.estimator,
+            ),
+        ]
+
+        self.cameraPosePublisher.set(list(filter(lambda x: x is not None, cameraPoses)))
+
+    @staticmethod
+    def processCamera(
+        camera: VisionSubsystemIO,
+        posePublisher: StructPublisher,
+        poseValidPublisher: BooleanPublisher,
+        driveEstimator: RobotPoseEstimator,
+    ) -> Optional[Pose3d]:
+        visionPose = camera.getRobotFieldPose()
+
+        cameraPose = None
 
         if visionPose is not None:
-            self.cameraPosePublisher.set(
-                pose3dFrom2d(visionPose.visionPose) + constants.kRobotToCameraTransform
+            cameraPose = (
+                pose3dFrom2d(visionPose.visionPose) + constants.kRobotToCamera1Transform
             )
-            self.visionPose = visionPose
-            self.visionPosePublisher.set(self.visionPose.visionPose)
-            self.visionPoseValidPublisher.set(True)
+            posePublisher.set(visionPose.visionPose)
+            poseValidPublisher.set(True)
 
-            self.drive.estimator.addVisionMeasurement(self.visionPose)
+            driveEstimator.addVisionMeasurement(visionPose)
         else:
-            self.visionPose = None
-            self.visionPoseValidPublisher.set(False)
+            visionPose = None
+            poseValidPublisher.set(False)
+
+        return cameraPose
