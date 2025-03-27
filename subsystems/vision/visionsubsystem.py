@@ -61,8 +61,12 @@ class VisionSubsystem(Subsystem):
         )
 
         if RobotBase.isReal():
-            self.camera1 = VisionSubsystemIOLimelight("limelight1")
-            self.camera2 = VisionSubsystemIOLimelight("limelight2")
+            self.camera1 = VisionSubsystemIOLimelight(
+                "limelight-br", constants.kRobotToCamera1Transform
+            )
+            self.camera2 = VisionSubsystemIOLimelight(
+                "limelight-fl", constants.kRobotToCamera2Transform
+            )
         else:
             self.camera1 = VisionSubsystemIOSim(
                 "limelight1", constants.kRobotToCamera1Transform
