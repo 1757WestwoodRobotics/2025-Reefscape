@@ -3,7 +3,7 @@ from operator import add
 
 from commands2 import Subsystem
 from ntcore import NetworkTableInstance
-from wpilib import PowerDistribution, DriverStation
+from wpilib import PowerDistribution, DriverStation, SmartDashboard
 
 from wpimath.geometry import (
     Pose2d,
@@ -23,6 +23,7 @@ class LoggingSubsystem(Subsystem):
         self.setName(__class__.__name__)
 
         self.pdh = PowerDistribution(1, PowerDistribution.ModuleType.kRev)
+        SmartDashboard.putData("PDH", self.pdh)
         self.oi = oi
         self.dsTable = NetworkTableInstance.getDefault().getTable(
             constants.kJoystickKeyLogPrefix
