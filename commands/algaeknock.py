@@ -4,7 +4,7 @@ from subsystems.elevatorsubsystem import ElevatorSubsystem
 from commands.elevatorsetting import (
     ElevatorAlgaeHigh,
     ElevatorAlgaeLow,
-    ElevatorL1Position,
+    ElevatorL2Position,
 )
 from commands.intakesetting import IntakeKnock, IntakeIdle
 
