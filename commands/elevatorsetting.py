@@ -100,7 +100,7 @@ class ElevatorIntakePositionToggleOff(Command):
         self.elevator = elevatorSubsystem
 
     def execute(self) -> None:
-        self.elevator.setDefaultCommand(ElevatorL1Position(self.elevator))
+        self.elevator.setDefaultCommand(ElevatorL2Position(self.elevator))
 
     def isFinished(self) -> bool:
         return True
