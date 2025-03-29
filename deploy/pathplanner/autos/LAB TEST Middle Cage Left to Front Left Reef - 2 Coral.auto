@@ -71,7 +71,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Front Left Reef to Left Source"
+                  "pathName": "Front Left Reef to Left Source SHORT"
                 }
               },
               {
@@ -81,7 +81,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.5
+                        "waitTime": 0.25
                       }
                     },
                     {
@@ -109,7 +109,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Left Source to Front Left Reef"
+                  "pathName": "Left Source to Front Left Reef SHORT"
                 }
               },
               {
@@ -192,6 +192,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "2 Coral",
+  "folder": null,
   "choreoAuto": false
 }

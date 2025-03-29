@@ -55,13 +55,13 @@
         {
           "type": "named",
           "data": {
-            "name": "elevatorL2"
+            "name": "intakeIdle"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "intakeIdle"
+            "name": "elevatorL2"
           }
         }
       ]
