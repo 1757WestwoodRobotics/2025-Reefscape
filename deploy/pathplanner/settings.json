@@ -3,8 +3,9 @@
   "robotLength": 0.92075,
   "holonomicMode": true,
   "pathFolders": [
-    "Source to Reef",
+    "Other",
     "Reef to Source",
+    "Source to Reef",
     "Start to Reef"
   ],
   "autoFolders": [
