@@ -19,7 +19,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Middle Cage Left to Front Left Reef"
+            "pathName": "Middle Cage Right to Front Right Reef"
           }
         },
         {
@@ -71,7 +71,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Front Left Reef to Left Source"
+                  "pathName": "Front Right Reef to Right Source"
                 }
               },
               {
@@ -109,7 +109,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Left Source to Front Left Reef"
+                  "pathName": "Right Source to Front Right Reef"
                 }
               },
               {
