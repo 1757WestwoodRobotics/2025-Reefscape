@@ -38,6 +38,6 @@ class KnockExitSequence(SequentialCommandGroup):
         self, intakeSubsystem: IntakeSubsystem, elevatorSubsystem: ElevatorSubsystem
     ):
         SequentialCommandGroup.__init__(
-            self, IntakeIdle(intakeSubsystem), ElevatorL1Position(elevatorSubsystem)
+            self, IntakeIdle(intakeSubsystem), ElevatorL2Position(elevatorSubsystem)
         )
         self.setName(__class__.__name__)
