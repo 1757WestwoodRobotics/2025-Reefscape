@@ -3,9 +3,9 @@
   "robotLength": 0.92075,
   "holonomicMode": true,
   "pathFolders": [
-    "Barge → Right Reef",
-    "Barge → Left Reef",
-    "Right Reef → Source"
+    "Source to Reef",
+    "Reef to Source",
+    "Start to Reef"
   ],
   "autoFolders": [
     "1 Coral",

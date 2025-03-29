@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "VISION Middle Barge To Bottom Left Reef"
+            "pathName": "Middle Cage Left to Front Left Reef"
           }
         },
         {
@@ -43,7 +43,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Top Right Reef To Top Source"
+            "pathName": null
           }
         },
         {
@@ -55,7 +55,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Top Source To Top Left Reef"
+            "pathName": null
           }
         },
         {
@@ -97,7 +97,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Top Left Reef To Top Source"
+            "pathName": "Front Left Reef to Left Source"
           }
         },
         {
@@ -109,7 +109,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Top Source To Left Reef"
+            "pathName": null
           }
         },
         {
@@ -151,7 +151,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left Reef To Top Source"
+            "pathName": "Front Reef to Left Source"
           }
         },
         {
@@ -163,7 +163,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Top Source To Bottom Left Reef"
+            "pathName": null
           }
         },
         {
