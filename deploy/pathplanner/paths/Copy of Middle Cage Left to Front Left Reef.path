@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.0622064063423555,
+        "y": 5.3032187562239805
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.1257068182292738,
+        "y": 4.54331680097078
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.8470000000000004,
+        "y": 4.444249999999999
+      },
+      "prevControl": {
+        "x": 2.222496798163966,
+        "y": 4.468926191329956
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "FrontReef"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.6211281842657619
+  },
+  "reversed": false,
+  "folder": "Lab paths",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 0.6211281842657619
+  },
+  "useDefaultConstraints": true
+}
