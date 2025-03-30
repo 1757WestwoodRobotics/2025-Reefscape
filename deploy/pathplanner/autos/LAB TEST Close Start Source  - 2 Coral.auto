@@ -13,6 +13,12 @@
         {
           "type": "named",
           "data": {
+            "name": "leftReef"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "elevatorL2"
           }
         },
