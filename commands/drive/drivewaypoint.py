@@ -7,6 +7,7 @@ from wpimath.trajectory import TrapezoidProfile, TrapezoidProfileRadians
 from wpimath.controller import ProfiledPIDController, ProfiledPIDControllerRadians
 from wpimath.geometry import Rotation2d, Pose2d
 from wpilib import DriverStation, DataLogManager
+from ntcore import NetworkTableInstance
 
 from subsystems.drivesubsystem import DriveSubsystem
 import constants
@@ -26,7 +27,7 @@ class DriveWaypoint(Command):
         self.addRequirements(self.drive)
 
         self.xController = ProfiledPIDController(
-            constants.kTrajectoryPositionPGain,
+            constants.kTrajectoryPositionPGainVision,
             constants.kTrajectoryPositionIGain,
             constants.kTrajectoryPositionDGain,
             TrapezoidProfile.Constraints(
@@ -35,7 +36,7 @@ class DriveWaypoint(Command):
             ),
         )
         self.yController = ProfiledPIDController(
-            constants.kTrajectoryPositionPGain,
+            constants.kTrajectoryPositionPGainVision,
             constants.kTrajectoryPositionIGain,
             constants.kTrajectoryPositionDGain,
             TrapezoidProfile.Constraints(
@@ -86,6 +87,13 @@ class DriveToReefPosition(DriveWaypoint):
         self.yController.reset(currentPose.Y())
 
         self.thetaController.reset(self.drive.getRotation().radians(), 0)
+
+        targetPosePublisher = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic("targetReefPose", Pose2d)
+            .publish()
+        )
+        targetPosePublisher.set(self.targetPose)
 
         # self.command = AutoBuilder.pathfindToPose(
         #     self.targetPose, constants.kPathfindingConstraints

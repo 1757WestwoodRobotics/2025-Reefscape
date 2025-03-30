@@ -825,7 +825,8 @@ kDriveToTargetAngularVelocityTolerance = 5 * kRadiansPerDegree / 1
 """radians / second"""
 
 # Trajectory Following
-kTrajectoryPositionPGain = 3
+kTrajectoryPositionPGainAuto = 7
+kTrajectoryPositionPGainVision = 3
 kTrajectoryPositionIGain = 0
 kTrajectoryPositionDGain = 0
 
@@ -833,8 +834,11 @@ kTrajectoryAnglePGain = 7
 kTrajectoryAngleIGain = 0
 kTrajectoryAngleDGain = 0
 
-kPathFollowingTranslationConstants = PIDConstants(
-    kTrajectoryPositionPGain, kTrajectoryPositionIGain, kTrajectoryPositionDGain
+kPathFollowingTranslationConstantsAuto = PIDConstants(
+    kTrajectoryPositionPGainAuto, kTrajectoryPositionIGain, kTrajectoryPositionDGain
+)
+kPathFollowingTranslationConstantsVision = PIDConstants(
+    kTrajectoryPositionPGainVision, kTrajectoryPositionIGain, kTrajectoryPositionDGain
 )
 kPathFollowingRotationConstants = PIDConstants(
     kTrajectoryAnglePGain, kTrajectoryAngleIGain, kTrajectoryAngleDGain
