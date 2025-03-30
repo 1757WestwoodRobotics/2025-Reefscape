@@ -11,7 +11,6 @@ from commands.resetdrive import ResetDrive
 from commands.drivedistance import DriveDistance
 from commands.defensestate import DefenseState
 from commands.intakesetting import (
-    IntakeCoral,
     IntakeIdle,
     IntakeScoring,
     IntakeCoralProcess,
