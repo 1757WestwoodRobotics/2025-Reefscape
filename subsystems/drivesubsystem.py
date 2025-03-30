@@ -374,7 +374,7 @@ class DriveSubsystem(Subsystem):
             self.getRobotRelativeSpeeds,
             self.drivePathPlanned,
             PPHolonomicDriveController(
-                constants.kPathFollowingTranslationConstants,
+                constants.kPathFollowingTranslationConstantsAuto,
                 constants.kPathFollowingRotationConstants,
             ),
             # controller
