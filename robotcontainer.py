@@ -6,7 +6,12 @@ from commands2.button import POVButton
 from pathplannerlib.auto import PathPlannerAuto, NamedCommands
 from commands.drive.absoluterelativedrive import AbsoluteRelativeDrive
 from commands.drive.anglealign import AngleAlignDrive
-from commands.drive.drivewaypoint import DriveToReefPosition, SetLeftReef, SetRightReef
+from commands.drive.drivewaypoint import (
+    DriveToReefPosition,
+    DriveToReefPositionTimeout,
+    SetLeftReef,
+    SetRightReef,
+)
 from commands.resetdrive import ResetDrive
 from commands.drivedistance import DriveDistance
 from commands.defensestate import DefenseState
@@ -112,7 +117,9 @@ class RobotContainer:
         NamedCommands.registerCommand(
             "intakeCoral", IntakeCoralProcess(self.elevator, self.intake)
         )
-        NamedCommands.registerCommand("visionAlign", DriveToReefPosition(self.drive))
+        NamedCommands.registerCommand(
+            "visionAlign", DriveToReefPositionTimeout(self.drive)
+        )
         NamedCommands.registerCommand("intakeIdle", IntakeIdle(self.intake))
         NamedCommands.registerCommand("intakeScoring", IntakeScoring(self.intake))
         # NamedCommands.registerCommand(

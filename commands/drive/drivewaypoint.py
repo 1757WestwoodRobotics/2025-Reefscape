@@ -6,7 +6,7 @@ from pathplannerlib.config import ChassisSpeeds
 from wpimath.trajectory import TrapezoidProfile, TrapezoidProfileRadians
 from wpimath.controller import ProfiledPIDController, ProfiledPIDControllerRadians
 from wpimath.geometry import Rotation2d, Pose2d
-from wpilib import DriverStation, DataLogManager
+from wpilib import DriverStation, DataLogManager, Timer
 from ntcore import NetworkTableInstance
 
 from subsystems.drivesubsystem import DriveSubsystem
@@ -194,3 +194,20 @@ class SetRightReef(Command):
 
     def isFinished(self):
         return True
+
+
+class DriveToReefPositionTimeout(DriveToReefPosition):
+    def __init__(self, drive: DriveSubsystem):
+        DriveToReefPosition.__init__(self, drive)
+        self.setName(__class__.__name__)
+
+    def initialize(self):
+        self.timer = Timer()
+        self.timer.start()
+        super().initialize()
+
+    def isFinished(self) -> bool:
+        return (
+            self.targetPose.translation().distance(self.drive.getPose().translation())
+            < 1 * constants.kMetersPerInch
+        ) or self.timer.get() > 2
