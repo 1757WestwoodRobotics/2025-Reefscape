@@ -3,6 +3,7 @@
   "robotLength": 0.92075,
   "holonomicMode": true,
   "pathFolders": [
+    "Lab paths",
     "Other",
     "Reef to Source",
     "Source to Reef",
