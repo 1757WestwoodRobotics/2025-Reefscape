@@ -10,12 +10,15 @@ from wpilib import DriverStation, DataLogManager
 from ntcore import NetworkTableInstance
 
 from subsystems.drivesubsystem import DriveSubsystem
+from operatorinterface import AnalogInput
 import constants
 from util.angleoptimize import optimizeAngle
 
 
 class DriveWaypoint(Command):
-    def __init__(self, drive: DriveSubsystem) -> None:
+    def __init__(
+        self, drive: DriveSubsystem, xOffset: AnalogInput, yOffset: AnalogInput
+    ) -> None:
         Command.__init__(self)
         self.setName(__class__.__name__)
 
@@ -25,6 +28,9 @@ class DriveWaypoint(Command):
 
         self.running = False
         self.addRequirements(self.drive)
+
+        self.xoff = xOffset
+        self.yoff = yOffset
 
         self.driveVelocity = (
             NetworkTableInstance.getDefault()
@@ -81,8 +87,10 @@ class DriveWaypoint(Command):
 
 
 class DriveToReefPosition(DriveWaypoint):
-    def __init__(self, drive: DriveSubsystem):
-        DriveWaypoint.__init__(self, drive)
+    def __init__(
+        self, drive: DriveSubsystem, xOffset: AnalogInput, yOffset: AnalogInput
+    ) -> None:
+        DriveWaypoint.__init__(self, drive, xOffset, yOffset)
 
     def initialize(self):
         self.running = True
@@ -93,8 +101,9 @@ class DriveToReefPosition(DriveWaypoint):
         self.xController.reset(currentPose.X(), currentVelocity.vx)
         self.yController.reset(currentPose.Y(), currentVelocity.vy)
 
-
-        self.thetaController.reset(self.drive.getRotation().radians(), currentVelocity.omega)
+        self.thetaController.reset(
+            self.drive.getRotation().radians(), currentVelocity.omega
+        )
 
         targetPosePublisher = (
             NetworkTableInstance.getDefault()
@@ -112,8 +121,16 @@ class DriveToReefPosition(DriveWaypoint):
         currentPose = self.drive.getPose()
 
         absoluteOutput = ChassisSpeeds(
-            self.xController.calculate(currentPose.X(), self.targetPose.X()),
-            self.yController.calculate(currentPose.Y(), self.targetPose.Y()),
+            self.xController.calculate(
+                currentPose.X(),
+                self.targetPose.X()
+                + self.xoff() * constants.kWaypointJoystickVariation,
+            ),
+            self.yController.calculate(
+                currentPose.Y(),
+                self.targetPose.Y()
+                + self.yoff() * constants.kWaypointJoystickVariation,
+            ),
             self.thetaController.calculate(
                 self.drive.getRotation().radians(), self.targetPose.rotation().radians()
             ),

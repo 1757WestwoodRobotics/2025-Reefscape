@@ -112,7 +112,9 @@ class RobotContainer:
         NamedCommands.registerCommand(
             "intakeCoral", IntakeCoralProcess(self.elevator, self.intake)
         )
-        NamedCommands.registerCommand("visionAlign", DriveToReefPosition(self.drive))
+        NamedCommands.registerCommand(
+            "visionAlign", DriveToReefPosition(self.drive, lambda: 0, lambda: 0)
+        )
         NamedCommands.registerCommand("intakeIdle", IntakeIdle(self.intake))
         NamedCommands.registerCommand("intakeScoring", IntakeScoring(self.intake))
         # NamedCommands.registerCommand(
@@ -191,7 +193,11 @@ class RobotContainer:
             )
         )
         ModifiableJoystickButton(self.operatorInterface.autoWaypoint).whileTrue(
-            DriveToReefPosition(self.drive)
+            DriveToReefPosition(
+                self.drive,
+                self.operatorInterface.chassisControls.forwardsBackwards,
+                self.operatorInterface.chassisControls.sideToSide,
+            )
         )
 
         ModifiableJoystickButton(self.operatorInterface.resetGyro).onTrue(
