@@ -26,6 +26,12 @@ class DriveWaypoint(Command):
         self.running = False
         self.addRequirements(self.drive)
 
+        self.driveVelocity = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic(constants.kDriveVelocityKeys, ChassisSpeeds)
+            .subscribe(ChassisSpeeds())
+        )
+
         self.xController = ProfiledPIDController(
             constants.kTrajectoryPositionPGainVision,
             constants.kTrajectoryPositionIGain,
@@ -83,10 +89,12 @@ class DriveToReefPosition(DriveWaypoint):
         # pylint: disable=W0201
         self.targetPose = self.getClosestPose()
         currentPose = self.drive.getVisionPose()
-        self.xController.reset(currentPose.X())
-        self.yController.reset(currentPose.Y())
+        currentVelocity: ChassisSpeeds = self.driveVelocity.get()
+        self.xController.reset(currentPose.X(), currentVelocity.vx)
+        self.yController.reset(currentPose.Y(), currentVelocity.vy)
 
-        self.thetaController.reset(self.drive.getRotation().radians(), 0)
+
+        self.thetaController.reset(self.drive.getRotation().radians(), currentVelocity.omega)
 
         targetPosePublisher = (
             NetworkTableInstance.getDefault()
