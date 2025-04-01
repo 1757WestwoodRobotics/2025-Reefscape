@@ -3,6 +3,7 @@ from wpilib import Timer
 from subsystems.intakesubsystem import IntakeSubsystem
 from subsystems.elevatorsubsystem import ElevatorSubsystem
 from commands.elevatorsetting import ElevatorIntakePosition
+from util.simtalon import Talon
 
 
 class SetIntakeState(Command):
@@ -61,9 +62,22 @@ class IntakeCoralProcess(ParallelCommandGroup):
     def __init__(
         self, intakeSubsystem: IntakeSubsystem, elevatorSubsystem: ElevatorSubsystem
     ):
+        self.intake = intakeSubsystem
+        self.t = Timer()
+
         ParallelCommandGroup.__init__(
             self,
             ElevatorIntakePosition(elevatorSubsystem),
             IntakeCoral(intakeSubsystem),
         )
         self.setName(__class__.__name__)
+
+    def initialize(self):
+        self.t.reset()
+        self.t.start()
+
+    def isFinished(self) -> bool:
+        return (
+            self.intake.intakeMotor.get(Talon.ControlMode.Velocity) < 3
+            and self.t.get() > 1
+        )
