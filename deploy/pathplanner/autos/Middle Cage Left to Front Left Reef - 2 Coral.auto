@@ -5,39 +5,53 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "intakeIdle"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Middle Cage Left to Front Left Reef"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intakeIdle"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevatorL2"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "elevatorL2"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Middle Cage Left to Front Left Reef"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "visionAlign"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevatorL4"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "visionAlign"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevatorL4"
+                }
+              }
+            ]
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
+            "waitTime": 0.25
           }
         },
         {
@@ -49,19 +63,13 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
+            "waitTime": 0.25
           }
         },
         {
           "type": "named",
           "data": {
             "name": "intakeIdle"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevatorL2"
           }
         },
         {
@@ -75,22 +83,9 @@
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.5
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "intakeCoral"
-                      }
-                    }
-                  ]
+                  "name": "intakeCoral"
                 }
               }
             ]
@@ -127,12 +122,6 @@
                       "data": {
                         "name": "intakeIdle"
                       }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "elevatorL2"
-                      }
                     }
                   ]
                 }
@@ -161,7 +150,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
+            "waitTime": 0.25
           }
         },
         {
@@ -173,7 +162,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
+            "waitTime": 0.25
           }
         },
         {
