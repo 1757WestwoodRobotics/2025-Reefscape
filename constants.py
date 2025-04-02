@@ -730,7 +730,7 @@ kApriltagPositionDictAndyMark = {
     ),
 }
 
-kReefBufferDistance = 1 * kMetersPerInch
+kReefBufferDistance = 0.5 * kMetersPerInch
 kLeftReefOffsetX = 17.628 * kMetersPerInch
 kLeftReefOffsetY = -16.455 * kMetersPerInch
 kLeftReefOffset = Transform3d(
@@ -825,8 +825,8 @@ kDriveToTargetAngularVelocityTolerance = 5 * kRadiansPerDegree / 1
 """radians / second"""
 
 # Trajectory Following
-kTrajectoryPositionPGainAuto = 7
-kTrajectoryPositionPGainVision = 3
+kTrajectoryPositionPGainAuto = 9
+kTrajectoryPositionPGainVision = 5
 kTrajectoryPositionIGain = 0
 kTrajectoryPositionDGain = 0
 
