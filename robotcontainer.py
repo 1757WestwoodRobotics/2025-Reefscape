@@ -18,6 +18,7 @@ from commands.intakesetting import (
 from commands.elevatorsetting import (
     ElevatorIntakePositionToggleOn,
     ElevatorIntakePositionToggleOff,
+    ElevatorDefaultL1,
     ElevatorL1Position,
     ElevatorL2Position,
     ElevatorL3Position,
@@ -256,6 +257,10 @@ class RobotContainer:
         ModifiableJoystickButton(
             self.operatorInterface.elevatorIntakePositionToggleOff
         ).onTrue(ElevatorIntakePositionToggleOff(self.elevator))
+
+        ModifiableJoystickButton(self.operatorInterface.elevatorDefaultL1).onTrue(
+            ElevatorDefaultL1(self.elevator)
+        )
 
         ModifiableJoystickButton(self.operatorInterface.climberUp).onTrue(
             ClimberAtFrame(self.climber)
