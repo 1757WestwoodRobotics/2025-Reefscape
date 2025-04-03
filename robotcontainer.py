@@ -27,6 +27,8 @@ from commands.elevatorsetting import (
     ElevatorManualUp,
     ElevatorManualDown,
     ElevatorManualMode,
+    SetNoSpace,
+    SetCoralSpace,
 )
 from commands.climbersetting import (
     ClimberAtFrame,
@@ -315,6 +317,14 @@ class RobotContainer:
 
         ModifiableJoystickButton(self.operatorInterface.setRightReef).onTrue(
             SetRightReef(self.drive)
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.setNoSpace).onTrue(
+            SetNoSpace(self.elevator)
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.setCoralSpace).onTrue(
+            SetCoralSpace(self.elevator)
         )
 
     def getAutonomousCommand(self) -> commands2.Command:

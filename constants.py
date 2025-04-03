@@ -1041,6 +1041,7 @@ kElevatorAtPositionKey = "elevator/atPosition"
 kElevatorFudgeKey = "elevator/fudge"
 kElevatorPoseKey = "elevator/pose"
 kElevatorManualModeKey = "elevator/manualMode"
+kCoralSpaceKey = "elevator/coralSpace"
 kElevatorManualIncrement = 0.01
 
 # taken from cad
@@ -1049,6 +1050,7 @@ kL3PositionBeltPosition = 29.5 * kMetersPerInch
 kL2PositionBeltPosition = 14.5 * kMetersPerInch
 kL1PositionBeltPosition = 0.5 * kMetersPerInch
 kIntakePositionBeltPosition = 41 * kMetersPerInch
+kIntakePositionCoralSpaceBeltPosition = 38.5 * kMetersPerInch
 kAlgaeLowBeltPosition = 25 * kMetersPerInch
 kAlgaeHighBeltPosition = 31.5 * kMetersPerInch
 

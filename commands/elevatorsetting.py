@@ -148,3 +148,29 @@ class ElevatorManualDown(Command):
                     constants.kL4PositionBeltPosition,
                 )
             )
+
+
+class SetNoSpace(Command):
+    def __init__(self, elevator: ElevatorSubsystem) -> None:
+        Command.__init__(self)
+        self.setName(__class__.__name__)
+        self.elevator = elevator
+
+    def initialize(self):
+        self.elevator.coralSpacePublisher.set(False)
+
+    def isFinished(self) -> bool:
+        return True
+
+
+class SetCoralSpace(Command):
+    def __init__(self, elevator: ElevatorSubsystem) -> None:
+        Command.__init__(self)
+        self.setName(__class__.__name__)
+        self.elevator = elevator
+
+    def initialize(self):
+        self.elevator.coralSpacePublisher.set(True)
+
+    def isFinished(self) -> bool:
+        return True
