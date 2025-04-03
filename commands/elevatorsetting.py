@@ -106,6 +106,19 @@ class ElevatorIntakePositionToggleOff(Command):
         return True
 
 
+class ElevatorDefaultL1(Command):
+    def __init__(self, elevatorSubsystem: ElevatorSubsystem) -> None:
+        Command.__init__(self)
+        self.setName(__class__.__name__)
+        self.elevator = elevatorSubsystem
+
+    def execute(self) -> None:
+        self.elevator.setDefaultCommand(ElevatorL1Position(self.elevator))
+
+    def isFinished(self) -> bool:
+        return True
+
+
 class ElevatorManualMode(SetElevatorState):
     def __init__(self, elevatorSubsystem: ElevatorSubsystem) -> None:
         SetElevatorState.__init__(self, elevatorSubsystem)

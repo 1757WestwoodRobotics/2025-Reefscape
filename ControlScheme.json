@@ -296,5 +296,12 @@
       "Button": 12
     },
     "placeholder"
+  ],
+  "elevatorDefaultL1": [
+    2,
+    {
+      "Button": 15
+    },
+    "placeholder"
   ]
 }
