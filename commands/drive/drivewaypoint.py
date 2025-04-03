@@ -128,13 +128,6 @@ class DriveToReefPosition(DriveWaypoint):
             self.drive.getRotation().radians(), currentVelocity.omega
         )
 
-        targetPosePublisher = (
-            NetworkTableInstance.getDefault()
-            .getStructTopic("targetReefPose", Pose2d)
-            .publish()
-        )
-        targetPosePublisher.set(self.targetPose)
-
         # self.command = AutoBuilder.pathfindToPose(
         #     self.targetPose, constants.kPathfindingConstraints
         # )
