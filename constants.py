@@ -961,6 +961,8 @@ kIntakeMotorSpeed = 0.25
 kIntakeL1MotorSpeed = 0.35
 kIntakeL2ThroughL4MotorSpeed = 0.20
 
+kIntakeCoralDetectionTime = 0.2 # seconds
+
 # CAD angles, taken from horizontal
 
 kIntakeToArmOffset = 51.944769

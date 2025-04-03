@@ -1,6 +1,7 @@
 from enum import Enum, auto
 from commands2 import Subsystem
 from wpilib import RobotBase
+from wpimath.filter import Debouncer
 from wpimath.geometry import Rotation2d
 from ntcore import NetworkTableInstance
 from util.simtalon import Talon
@@ -144,6 +145,10 @@ class IntakeSubsystem(Subsystem):
             .subscribe(0)
         )
 
+        self.coralDetectionDebouncer = Debouncer(
+            constants.kIntakeCoralDetectionTime, Debouncer.DebounceType.kRising
+        )
+
     def periodic(self) -> None:
         # a lot simpler when there isn't a convoluted intake sequence
         L1Speed = self.intakeL1SpeedGetter.get()
@@ -157,7 +162,9 @@ class IntakeSubsystem(Subsystem):
                 self.intakeMotor.set(Talon.ControlMode.Percent, -1 * IntakeCoralSpeed)
             case self.IntakeState.Idle:
                 self.setPivotAngle(constants.kScoreAngle)
-                self.intakeMotor.set(Talon.ControlMode.Percent, 0)
+                self.intakeMotor.set(
+                    Talon.ControlMode.Percent, -0.05
+                )  # 5% idle to affirm solid grasp
             case self.IntakeState.Scoring:
                 self.setPivotAngle(constants.kScoreAngle)
                 if ElevatorState == "ElevatorState.L1Position":
@@ -166,7 +173,7 @@ class IntakeSubsystem(Subsystem):
                     self.intakeMotor.set(Talon.ControlMode.Percent, L2ThroughL4Speed)
             case self.IntakeState.Knock:
                 self.setPivotAngle(constants.kKnockAngle)
-                self.intakeMotor.set(Talon.ControlMode.Percent, 0)
+                self.intakeMotor.set(Talon.ControlMode.Percent, -0.05)
 
         self.intakeAtPositionPublisher.set(self.intakeAtPosition())
         self.intakeStatePublisher.set(str(self.state))
@@ -176,6 +183,11 @@ class IntakeSubsystem(Subsystem):
             self.pivotAnglePublisher.set(
                 intakeAccountForSillyEncoder(self.pivotEncoder.getPosition().radians())
             )
+
+    def hasGamepiece(self) -> bool:
+        return self.coralDetectionDebouncer.calculate(  # debouncer prevents stray "misfires"
+            abs(self.intakeMotor.get(Talon.ControlMode.Velocity)) < 2
+        )
 
     def resetPivot(self) -> None:
         encoderInRadians = intakeAccountForSillyEncoder(

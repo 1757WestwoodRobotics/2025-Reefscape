@@ -56,6 +56,9 @@ class IntakeCoral(SetIntakeState):
     def execute(self) -> None:
         self.intake.setIntaking()
 
+    def isFinished(self) -> bool:
+        return self.intake.hasGamepiece() and self.t.get() > 0.1
+
 
 class IntakeCoralProcess(ParallelCommandGroup):
     def __init__(
