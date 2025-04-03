@@ -192,14 +192,14 @@ class RobotContainer:
                 * constants.kNormalSpeedMultiplier,
                 lambda: self.operatorInterface.chassisControls.sideToSide()
                 * constants.kNormalSpeedMultiplier,
-            )
+            ).repeatedly()
         )
         ModifiableJoystickButton(self.operatorInterface.autoWaypoint).whileTrue(
             DriveToReefPosition(
                 self.drive,
                 self.operatorInterface.chassisControls.forwardsBackwards,
                 self.operatorInterface.chassisControls.sideToSide,
-            )
+            ).repeatedly()
         )
 
         ModifiableJoystickButton(self.operatorInterface.resetGyro).onTrue(
