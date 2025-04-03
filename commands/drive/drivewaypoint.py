@@ -6,7 +6,7 @@ from pathplannerlib.config import ChassisSpeeds
 from wpimath.trajectory import TrapezoidProfile, TrapezoidProfileRadians
 from wpimath.controller import ProfiledPIDController, ProfiledPIDControllerRadians
 from wpimath.geometry import Rotation2d, Pose2d
-from wpilib import DriverStation, DataLogManager
+from wpilib import DriverStation, DataLogManager, SmartDashboard
 from ntcore import NetworkTableInstance
 
 from subsystems.drivesubsystem import DriveSubsystem
@@ -65,6 +65,16 @@ class DriveWaypoint(Command):
                 constants.kMaxRotationAngularAcceleration,
             ),
         )
+        SmartDashboard.putData(
+            constants.kTargetWaypointXControllerKey, self.xController
+        )
+        SmartDashboard.putData(
+            constants.kTargetWaypointYControllerKey, self.yController
+        )
+        SmartDashboard.putData(
+            constants.kTargetWaypointThetaControllerKey, self.thetaController
+        )
+
         self.thetaController.enableContinuousInput(-pi, pi)
 
     def initialize(self) -> None:
@@ -90,12 +100,25 @@ class DriveToReefPosition(DriveWaypoint):
     def __init__(
         self, drive: DriveSubsystem, xOffset: AnalogInput, yOffset: AnalogInput
     ) -> None:
+        self.activePub = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kWaypointActiveKey)
+            .publish()
+        )
+        self.targetPub = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic(constants.kTargetWaypointPoseKey, Pose2d)
+            .publish()
+        )
         DriveWaypoint.__init__(self, drive, xOffset, yOffset)
 
     def initialize(self):
+        self.activePub.set(True)
         self.running = True
         # pylint: disable=W0201
         self.targetPose = self.getClosestPose()
+        self.targetPub.set(self.targetPose)
+
         currentPose = self.drive.getVisionPose()
         currentVelocity: ChassisSpeeds = self.driveVelocity.get()
         self.xController.reset(currentPose.X(), currentVelocity.vx)
@@ -189,6 +212,8 @@ class DriveToReefPosition(DriveWaypoint):
 
     def end(self, _interrupted: bool) -> None:
         # pylint: disable=W0212
+        self.running = False
+        self.activePub.set(False)
         self.drive.arcadeDriveWithSpeeds(
             ChassisSpeeds(), DriveSubsystem.CoordinateMode.FieldRelative
         )
