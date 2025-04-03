@@ -95,6 +95,18 @@ class ElevatorSubsystem(Subsystem):
         )
         self.elevatorManualModePublisher.set(False)
 
+        self.coralSpaceGetter = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kCoralSpaceKey)
+            .subscribe(False)
+        )
+        self.coralSpacePublisher = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kCoralSpaceKey)
+            .publish()
+        )
+        self.coralSpacePublisher.set(False)
+
         self.l4Position = ModifiableConstant(
             "L4PositionBelt", constants.kL4PositionBeltPosition
         )
@@ -117,6 +129,10 @@ class ElevatorSubsystem(Subsystem):
         self.intakePosition = ModifiableConstant(
             "IntakePositionBelt", constants.kIntakePositionBeltPosition
         )
+        self.intakePositionCoralSpace = ModifiableConstant(
+            "IntakePositionCoralSpaceBelt",
+            constants.kIntakePositionCoralSpaceBeltPosition,
+        )
 
     def periodic(self) -> None:
         match self.state:
@@ -135,7 +151,12 @@ class ElevatorSubsystem(Subsystem):
             case self.ElevatorState.AlgaeLow:
                 self.setElevatorMotorsAtPosition(self.algaeLowPosition.value)
             case self.ElevatorState.IntakePosition:
-                self.setElevatorMotorsAtPosition(self.intakePosition.value)
+                if self.coralSpaceGetter.get() is True:
+                    self.setElevatorMotorsAtPosition(
+                        self.intakePositionCoralSpace.value
+                    )
+                else:
+                    self.setElevatorMotorsAtPosition(self.intakePosition.value)
 
         self.elevatorStatePublisher.set(str(self.state))
         if self.state is not self.ElevatorState.ManualMode:
