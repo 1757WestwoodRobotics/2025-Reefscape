@@ -898,6 +898,7 @@ kMaxWaypointTranslationalAcceleration = kMaxWaypointTranslationalVelocity * 3
 kPossibleWaypoints = []
 kWaypointJoystickVariation = 0.1
 """meters"""
+kWaypointActiveKey = "waypoint/active"
 
 kTargetWaypointPoseKey = "waypoint/target"
 kTargetWaypointXControllerKey = "waypoint/x"
