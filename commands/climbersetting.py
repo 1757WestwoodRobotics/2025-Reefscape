@@ -1,6 +1,7 @@
 from commands2.command import Command
 from wpilib import Timer
 from subsystems.climbersubsystem import ClimberSubsystem
+from util.convenientmath import clamp
 import constants
 
 
@@ -61,12 +62,13 @@ class ClimberManualUp(Command):
         Command.__init__(self)
         self.setName(__class__.__name__)
         self.climber = climber
+        self.addRequirements(self.climber)
 
     def execute(self):
         self.climber.setManualMode()
         climberPosition = self.climber.getClimberPosition()
-        self.climber.climberPositionPublisher.set(
-            climberPosition + constants.kClimberManualIncrement,
+        self.climber.climberManualTargetPositionPublisher.set(
+            clamp(climberPosition + constants.kClimberManualIncrement, -10, 250)
         )
 
 
@@ -75,10 +77,11 @@ class ClimberManualDown(Command):
         Command.__init__(self)
         self.setName(__class__.__name__)
         self.climber = climber
+        self.addRequirements(self.climber)
 
     def execute(self):
         self.climber.setManualMode()
         climberPosition = self.climber.getClimberPosition()
-        self.climber.climberPositionPublisher.set(
-            climberPosition - constants.kClimberManualIncrement,
+        self.climber.climberManualTargetPositionPublisher.set(
+            clamp(climberPosition - constants.kClimberManualIncrement, -10, 250)
         )

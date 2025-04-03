@@ -73,13 +73,27 @@ class ClimberSubsystem(Subsystem):
 
         self.climberEndPositionPublisher.set(constants.kClimberTuckedPosition)
 
+        self.climberManualTargetPositionGetter = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kClimberManualTargetPositionKey)
+            .subscribe(constants.kClimberTuckedPosition)
+        )
+
+        self.climberManualTargetPositionPublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kClimberManualTargetPositionKey)
+            .publish()
+        )
+
         self.heldPosition = self.climberMotor.get(Talon.ControlMode.Position)
 
     def periodic(self) -> None:
         EndClimbPosition = self.climberEndPositionGetter.get()
         match self.state:
             case self.ClimberState.ManualMode:
-                self.setClimberMotorTowardsPosition(self.climberPositionGetter.get())
+                self.setClimberMotorTowardsPosition(
+                    self.climberManualTargetPositionGetter.get()
+                )
             case self.ClimberState.TuckedPosition:
                 self.setClimberMotorTowardsPosition(EndClimbPosition)
             case self.ClimberState.AtFramePosition:
@@ -87,11 +101,11 @@ class ClimberSubsystem(Subsystem):
             case self.ClimberState.NothingPressed:
                 self.setClimberMotorTowardsPosition(self.heldPosition)
 
-        self.climberStatePublisher.set(str(self.state))
         if self.state is not self.ClimberState.ManualMode:
-            self.climberPositionPublisher.set(
-                self.climberMotor.get(Talon.ControlMode.Position)
-            )
+            self.climberManualTargetPositionPublisher.set(self.getClimberPosition())
+
+        self.climberStatePublisher.set(str(self.state))
+        self.climberPositionPublisher.set(self.getClimberPosition())
         self.climberAtPositionPublisher.set(self.climberAtPosition())
         self.climberPositionTargetPublisher.set(self.targetPosition)
 
