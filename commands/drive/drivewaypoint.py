@@ -49,7 +49,7 @@ class DriveWaypoint(Command):
             constants.kTrajectoryPositionDGain,
             TrapezoidProfile.Constraints(
                 constants.kMaxForwardLinearVelocity,
-                constants.kMaxForwardLinearAcceleration,
+                constants.kMaxForwardLinearAccelerationWaypoint,
             ),
         )
         self.yController = ProfiledPIDController(
@@ -58,7 +58,7 @@ class DriveWaypoint(Command):
             constants.kTrajectoryPositionDGain,
             TrapezoidProfile.Constraints(
                 constants.kMaxForwardLinearVelocity,
-                constants.kMaxForwardLinearAcceleration,
+                constants.kMaxForwardLinearAccelerationWaypoint,
             ),
         )
         self.thetaController = ProfiledPIDControllerRadians(
