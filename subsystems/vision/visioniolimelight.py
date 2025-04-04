@@ -16,6 +16,7 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
         self.validTarget = self.cameraTable.getIntegerTopic("tv").subscribe(0)
         self.pipelineLatency = self.cameraTable.getIntegerTopic("tl").subscribe(0)
         self.captureLatency = self.cameraTable.getIntegerTopic("cl").subscribe(0)
+        self.ledState = self.cameraTable.getIntegerTopic("ledMode").publish()
         self.botpose = self.cameraTable.getDoubleArrayTopic(
             "botpose_orb_wpiblue"
         ).subscribe([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
@@ -72,3 +73,9 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
 
     def updateRobotYaw(self, yaw: Rotation2d) -> None:
         self.robotOrientationSetter.set([yaw.degrees(), 0, 0, 0, 0, 0])
+
+    def setLights(self, lightVal: bool) -> None:
+        if lightVal:
+            self.ledState.set(3)
+        else:
+            self.ledState.set(0)
