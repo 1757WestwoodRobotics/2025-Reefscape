@@ -6,6 +6,7 @@ import commands2
 from phoenix6.signal_logger import SignalLogger
 from phoenix6 import BaseStatusSignal
 
+from commands.climbersetting import ClimberPassiveDeploy
 from util.simtalon import Talon
 from robotcontainer import RobotContainer
 
@@ -60,6 +61,7 @@ class MentorBot(commands2.TimedCommandRobot):
         # teleop starts running. If you want the autonomous to
         # continue until interrupted by another command, remove
         # this line or comment it out.
+        ClimberPassiveDeploy(self.container.climber).schedule()
         if self.autonomousCommand:
             self.autonomousCommand.cancel()
 

@@ -59,6 +59,14 @@ class ClimberNothingPressed(SetClimberState):
         self.climber.setNothingPressedPosition()
 
 
+class ClimberPassiveDeploy(SetClimberState):
+    def __init__(self, climberSubsystem: ClimberSubsystem) -> None:
+        SetClimberState.__init__(self, climberSubsystem)
+
+    def execute(self) -> None:
+        self.climber.setPassivePosition()
+
+
 class ClimberManualMode(SetClimberState):
     def __init__(self, climberSubsystem: ClimberSubsystem) -> None:
         SetClimberState.__init__(self, climberSubsystem)

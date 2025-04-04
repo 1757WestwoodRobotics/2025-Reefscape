@@ -12,6 +12,7 @@ class ClimberSubsystem(Subsystem):
         TuckedPosition = auto()
         AtFramePosition = auto()
         NothingPressed = auto()
+        PassiveDeploy = auto()
         ManualMode = auto()
 
     def __init__(self) -> None:
@@ -98,6 +99,10 @@ class ClimberSubsystem(Subsystem):
                 self.setClimberMotorTowardsPosition(EndClimbPosition)
             case self.ClimberState.AtFramePosition:
                 self.setClimberMotorTowardsPosition(constants.kClimberAtFramePosition)
+            case self.ClimberState.PassiveDeploy:
+                self.setClimberMotorTowardsPosition(
+                    constants.kClimberMiniDeployPosition
+                )
             case self.ClimberState.NothingPressed:
                 self.setClimberMotorTowardsPosition(self.heldPosition)
 
@@ -124,6 +129,9 @@ class ClimberSubsystem(Subsystem):
 
     def setTuckedPosition(self) -> None:
         self.state = self.ClimberState.TuckedPosition
+
+    def setPassivePosition(self) -> None:
+        self.state = self.ClimberState.PassiveDeploy
 
     def setAtFramePosition(self) -> None:
         self.state = self.ClimberState.AtFramePosition
