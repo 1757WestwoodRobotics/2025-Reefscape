@@ -1051,7 +1051,7 @@ kElevatorManualIncrement = 0.01
 
 # taken from cad
 kL4PositionBeltPosition = 52 * kMetersPerInch
-kL3PositionBeltPosition = 29.5 * kMetersPerInch
+kL3PositionBeltPosition = 30.5 * kMetersPerInch
 kL2PositionBeltPosition = 14.5 * kMetersPerInch
 kL1PositionBeltPosition = 0.5 * kMetersPerInch
 kIntakePositionBeltPosition = 41 * kMetersPerInch
