@@ -124,7 +124,7 @@ class DriveToReefPosition(DriveWaypoint):
         self.targetPose = self.getClosestPose()
         self.targetPub.set(self.targetPose)
 
-        currentPose = self.drive.getVisionPose()
+        currentPose = self.drive.getPose()
         self.xController.reset(currentPose.X())
         self.yController.reset(currentPose.Y())
 

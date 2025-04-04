@@ -32,7 +32,6 @@ from commands.elevatorsetting import (
     SetCoralSpace,
 )
 from commands.climbersetting import (
-    ClimberAtFrame,
     ClimberTucked,
     ClimberNothingPressed,
     ClimberManualUp,
