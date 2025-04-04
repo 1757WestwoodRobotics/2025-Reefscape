@@ -89,6 +89,7 @@ class VisionSubsystem(Subsystem):
         self.camera2.updateRobotYaw(yaw)
 
         atPosition = self.atPositionIndicator.get()
+
         self.camera1.setLights(atPosition)
         self.camera2.setLights(atPosition)
 

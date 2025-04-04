@@ -200,11 +200,10 @@ class DriveToReefPosition(DriveWaypoint):
                     return position.toPose2d()
             return self.drive.getPose()
 
-
     def atPosition(self) -> bool:
         return (
             self.targetPose.translation().distance(self.drive.getPose().translation())
-            < 1 * constants.kMetersPerInch
+            < (1 if RobotState.isAutonomous() else 2) * constants.kMetersPerInch
         )
 
     def isFinished(self) -> bool:
