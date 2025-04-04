@@ -59,6 +59,11 @@ class VisionSubsystem(Subsystem):
             .getStructArrayTopic(constants.kCameraLocationPublisherKey, Pose3d)
             .publish()
         )
+        self.atPositionIndicator = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kWaypointAtTargetKey)
+            .subscribe(False)
+        )
 
         if RobotBase.isReal():
             self.camera1 = VisionSubsystemIOLimelight(
@@ -82,6 +87,10 @@ class VisionSubsystem(Subsystem):
         yaw = self.poseReceiver.get().rotation()
         self.camera1.updateRobotYaw(yaw)
         self.camera2.updateRobotYaw(yaw)
+
+        atPosition = self.atPositionIndicator.get()
+        self.camera1.setLights(atPosition)
+        self.camera2.setLights(atPosition)
 
         cameraPoses = [
             VisionSubsystem.processCamera(

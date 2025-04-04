@@ -899,6 +899,7 @@ kPossibleWaypoints = []
 kWaypointJoystickVariation = 0.1
 """meters"""
 kWaypointActiveKey = "waypoint/active"
+kWaypointAtTargetKey = "waypoint/atPosition"
 
 kTargetWaypointPoseKey = "waypoint/target"
 kTargetWaypointXControllerKey = "waypoint/x"

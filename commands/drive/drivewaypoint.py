@@ -37,6 +37,11 @@ class DriveWaypoint(Command):
             .getStructTopic(constants.kDriveVelocityKeys, ChassisSpeeds)
             .subscribe(ChassisSpeeds())
         )
+        self.waypointAtTarget = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kWaypointAtTargetKey)
+            .publish()
+        )
 
         self.xController = ProfiledPIDController(
             constants.kTrajectoryPositionPGainVision,
@@ -194,22 +199,22 @@ class DriveToReefPosition(DriveWaypoint):
                     return position.toPose2d()
             return self.drive.getPose()
 
-    def isFinished(self) -> bool:
+        self.waypointAtTarget.set(self.atPosition())
+
+    def atPosition(self) -> bool:
         return (
-            (
-                self.targetPose.translation().distance(
-                    self.drive.getPose().translation()
-                )
-                < 1 * constants.kMetersPerInch
-            )
-            if RobotState.isAutonomous()
-            else False
+            self.targetPose.translation().distance(self.drive.getPose().translation())
+            < 1 * constants.kMetersPerInch
         )
+
+    def isFinished(self) -> bool:
+        return self.atPosition() if RobotState.isAutonomous() else False
 
     def end(self, _interrupted: bool) -> None:
         # pylint: disable=W0212
         self.running = False
         self.activePub.set(False)
+        self.waypointAtTarget.set(False)
         self.drive.arcadeDriveWithSpeeds(
             ChassisSpeeds(), DriveSubsystem.CoordinateMode.FieldRelative
         )
