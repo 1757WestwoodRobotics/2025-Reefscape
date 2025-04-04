@@ -44,7 +44,7 @@
   "defenseStateControl": [
     2,
     {
-      "Button": 21
+      "Button": 24
     },
     "left button on top of joystick (ThrustmasterT16000M)"
   ],
@@ -165,9 +165,9 @@
     "bottom button on top of joystick (ThrustmasterT16000M)"
   ],
   "intakeScoring": [
-    1,
+    2,
     {
-      "Button": 1
+      "Button": 21
     },
     "trigger (ThrustmasterT16000M)"
   ],
