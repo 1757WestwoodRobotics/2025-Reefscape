@@ -1,6 +1,8 @@
-from commands2.command import Command
+from commands2 import Command, ParallelCommandGroup
 from wpilib import Timer
 from subsystems.climbersubsystem import ClimberSubsystem
+from subsystems.elevatorsubsystem import ElevatorSubsystem
+from commands.elevatorsetting import ElevatorDefaultL1
 from util.convenientmath import clamp
 import constants
 
@@ -39,6 +41,14 @@ class ClimberAtFrame(SetClimberState):
 
     def execute(self) -> None:
         self.climber.setAtFramePosition()
+
+
+class PrepClimb(ParallelCommandGroup):
+    def __init__(self, climber: ClimberSubsystem, elevator: ElevatorSubsystem):
+        ParallelCommandGroup.__init__(
+            self, ClimberAtFrame(climber), ElevatorDefaultL1(elevator)
+        )
+        self.setName(__class__.__name__)
 
 
 class ClimberNothingPressed(SetClimberState):
