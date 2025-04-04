@@ -1105,3 +1105,4 @@ kClimberCurrentLimit = (
 # in rotations
 kClimberTuckedPosition = 25
 kClimberAtFramePosition = 240
+kClimberMiniDeployPosition = (kClimberTuckedPosition + kClimberAtFramePosition) / 2
