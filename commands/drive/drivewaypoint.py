@@ -157,6 +157,7 @@ class DriveToReefPosition(DriveWaypoint):
         self.drive.arcadeDriveWithSpeeds(
             absoluteOutput, DriveSubsystem.CoordinateMode.FieldRelative
         )
+        self.waypointAtTarget.set(self.atPosition())
 
     def getClosestPose(self) -> Pose2d:
         currentRotation = self.drive.getRotation()
@@ -199,7 +200,6 @@ class DriveToReefPosition(DriveWaypoint):
                     return position.toPose2d()
             return self.drive.getPose()
 
-        self.waypointAtTarget.set(self.atPosition())
 
     def atPosition(self) -> bool:
         return (
