@@ -37,6 +37,7 @@ from commands.climbersetting import (
     ClimberNothingPressed,
     ClimberManualUp,
     ClimberManualDown,
+    PrepClimb,
 )
 from commands.fudgeelevator import FudgeElevatorUp, FudgeElevatorDown
 from commands.fudgeintake import (
@@ -263,7 +264,7 @@ class RobotContainer:
         )
 
         ModifiableJoystickButton(self.operatorInterface.climberUp).onTrue(
-            ClimberAtFrame(self.climber)
+            PrepClimb(self.climber, self.elevator)
         )
 
         ModifiableJoystickButton(self.operatorInterface.climberDown).onTrue(
