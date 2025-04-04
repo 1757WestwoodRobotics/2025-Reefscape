@@ -189,6 +189,9 @@ kMaxWheelLinearAcceleration = kMaxWheelLinearVelocity / 1
 kMaxForwardLinearAcceleration = kMaxWheelLinearAcceleration
 """meters / second^2"""
 
+kMaxForwardLinearAccelerationWaypoint = kMaxForwardLinearAcceleration * 1.2
+"""meters / second^2"""
+
 kMaxSidewaysLinearAcceleration = kMaxWheelLinearAcceleration
 """meters / second^2"""
 
