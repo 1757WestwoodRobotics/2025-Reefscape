@@ -6,7 +6,7 @@ from pathplannerlib.config import ChassisSpeeds
 from wpimath.trajectory import TrapezoidProfile, TrapezoidProfileRadians
 from wpimath.controller import ProfiledPIDController, ProfiledPIDControllerRadians
 from wpimath.geometry import Rotation2d, Pose2d
-from wpilib import DriverStation, DataLogManager, SmartDashboard
+from wpilib import DriverStation, DataLogManager, RobotState, SmartDashboard
 from ntcore import NetworkTableInstance
 
 from subsystems.drivesubsystem import DriveSubsystem
@@ -199,8 +199,14 @@ class DriveToReefPosition(DriveWaypoint):
 
     def isFinished(self) -> bool:
         return (
-            self.targetPose.translation().distance(self.drive.getPose().translation())
-            < 1 * constants.kMetersPerInch
+            (
+                self.targetPose.translation().distance(
+                    self.drive.getPose().translation()
+                )
+                < 1 * constants.kMetersPerInch
+            )
+            if RobotState.isAutonomous()
+            else False
         )
 
     def end(self, _interrupted: bool) -> None:
