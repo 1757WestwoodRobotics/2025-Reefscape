@@ -120,13 +120,10 @@ class DriveToReefPosition(DriveWaypoint):
         self.targetPub.set(self.targetPose)
 
         currentPose = self.drive.getVisionPose()
-        currentVelocity: ChassisSpeeds = self.driveVelocity.get()
-        self.xController.reset(currentPose.X(), currentVelocity.vx)
-        self.yController.reset(currentPose.Y(), currentVelocity.vy)
+        self.xController.reset(currentPose.X())
+        self.yController.reset(currentPose.Y())
 
-        self.thetaController.reset(
-            self.drive.getRotation().radians(), currentVelocity.omega
-        )
+        self.thetaController.reset(self.drive.getRotation().radians(), 0)
 
         # self.command = AutoBuilder.pathfindToPose(
         #     self.targetPose, constants.kPathfindingConstraints
