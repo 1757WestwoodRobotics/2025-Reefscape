@@ -1100,5 +1100,5 @@ kClimberCurrentLimit = (
 )
 
 # in rotations
-kClimberTuckedPosition = 10
+kClimberTuckedPosition = 25
 kClimberAtFramePosition = 240
