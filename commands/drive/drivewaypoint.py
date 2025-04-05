@@ -6,7 +6,7 @@ from pathplannerlib.config import ChassisSpeeds
 from wpimath.trajectory import TrapezoidProfile, TrapezoidProfileRadians
 from wpimath.controller import ProfiledPIDController, ProfiledPIDControllerRadians
 from wpimath.geometry import Rotation2d, Pose2d
-from wpilib import DriverStation, DataLogManager
+from wpilib import DriverStation, DataLogManager, RobotState, SmartDashboard
 from ntcore import NetworkTableInstance
 
 from subsystems.drivesubsystem import DriveSubsystem
@@ -37,6 +37,11 @@ class DriveWaypoint(Command):
             .getStructTopic(constants.kDriveVelocityKeys, ChassisSpeeds)
             .subscribe(ChassisSpeeds())
         )
+        self.waypointAtTarget = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kWaypointAtTargetKey)
+            .publish()
+        )
 
         self.xController = ProfiledPIDController(
             constants.kTrajectoryPositionPGainVision,
@@ -44,7 +49,7 @@ class DriveWaypoint(Command):
             constants.kTrajectoryPositionDGain,
             TrapezoidProfile.Constraints(
                 constants.kMaxForwardLinearVelocity,
-                constants.kMaxForwardLinearAcceleration,
+                constants.kMaxForwardLinearAccelerationWaypoint,
             ),
         )
         self.yController = ProfiledPIDController(
@@ -53,7 +58,7 @@ class DriveWaypoint(Command):
             constants.kTrajectoryPositionDGain,
             TrapezoidProfile.Constraints(
                 constants.kMaxForwardLinearVelocity,
-                constants.kMaxForwardLinearAcceleration,
+                constants.kMaxForwardLinearAccelerationWaypoint,
             ),
         )
         self.thetaController = ProfiledPIDControllerRadians(
@@ -65,6 +70,16 @@ class DriveWaypoint(Command):
                 constants.kMaxRotationAngularAcceleration,
             ),
         )
+        SmartDashboard.putData(
+            constants.kTargetWaypointXControllerKey, self.xController
+        )
+        SmartDashboard.putData(
+            constants.kTargetWaypointYControllerKey, self.yController
+        )
+        SmartDashboard.putData(
+            constants.kTargetWaypointThetaControllerKey, self.thetaController
+        )
+
         self.thetaController.enableContinuousInput(-pi, pi)
 
     def initialize(self) -> None:
@@ -90,27 +105,30 @@ class DriveToReefPosition(DriveWaypoint):
     def __init__(
         self, drive: DriveSubsystem, xOffset: AnalogInput, yOffset: AnalogInput
     ) -> None:
+        self.activePub = (
+            NetworkTableInstance.getDefault()
+            .getBooleanTopic(constants.kWaypointActiveKey)
+            .publish()
+        )
+        self.targetPub = (
+            NetworkTableInstance.getDefault()
+            .getStructTopic(constants.kTargetWaypointPoseKey, Pose2d)
+            .publish()
+        )
         DriveWaypoint.__init__(self, drive, xOffset, yOffset)
 
     def initialize(self):
+        self.activePub.set(True)
         self.running = True
         # pylint: disable=W0201
         self.targetPose = self.getClosestPose()
-        currentPose = self.drive.getVisionPose()
-        currentVelocity: ChassisSpeeds = self.driveVelocity.get()
-        self.xController.reset(currentPose.X(), currentVelocity.vx)
-        self.yController.reset(currentPose.Y(), currentVelocity.vy)
+        self.targetPub.set(self.targetPose)
 
-        self.thetaController.reset(
-            self.drive.getRotation().radians(), currentVelocity.omega
-        )
+        currentPose = self.drive.getPose()
+        self.xController.reset(currentPose.X())
+        self.yController.reset(currentPose.Y())
 
-        targetPosePublisher = (
-            NetworkTableInstance.getDefault()
-            .getStructTopic("targetReefPose", Pose2d)
-            .publish()
-        )
-        targetPosePublisher.set(self.targetPose)
+        self.thetaController.reset(self.drive.getRotation().radians(), 0)
 
         # self.command = AutoBuilder.pathfindToPose(
         #     self.targetPose, constants.kPathfindingConstraints
@@ -139,6 +157,7 @@ class DriveToReefPosition(DriveWaypoint):
         self.drive.arcadeDriveWithSpeeds(
             absoluteOutput, DriveSubsystem.CoordinateMode.FieldRelative
         )
+        self.waypointAtTarget.set(self.atPosition())
 
     def getClosestPose(self) -> Pose2d:
         currentRotation = self.drive.getRotation()
@@ -181,14 +200,20 @@ class DriveToReefPosition(DriveWaypoint):
                     return position.toPose2d()
             return self.drive.getPose()
 
-    def isFinished(self) -> bool:
+    def atPosition(self) -> bool:
         return (
             self.targetPose.translation().distance(self.drive.getPose().translation())
-            < 1 * constants.kMetersPerInch
+            < (1 if RobotState.isAutonomous() else 2) * constants.kMetersPerInch
         )
+
+    def isFinished(self) -> bool:
+        return self.atPosition() if RobotState.isAutonomous() else False
 
     def end(self, _interrupted: bool) -> None:
         # pylint: disable=W0212
+        self.running = False
+        self.activePub.set(False)
+        self.waypointAtTarget.set(False)
         self.drive.arcadeDriveWithSpeeds(
             ChassisSpeeds(), DriveSubsystem.CoordinateMode.FieldRelative
         )

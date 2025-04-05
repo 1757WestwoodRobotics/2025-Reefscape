@@ -88,6 +88,9 @@ class VisionSubsystemIOSim(VisionSubsystemIO):
     def updateRobotYaw(self, _yaw: Rotation2d) -> None:
         pass  # doesn't matter
 
+    def setLights(self, _lightVal: bool) -> None:
+        pass  # doesn't matter
+
 
 class SimCamera:
     # pylint:disable-next=too-many-arguments, too-many-positional-arguments

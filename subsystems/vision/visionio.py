@@ -13,3 +13,6 @@ class VisionSubsystemIO:
 
     def updateRobotYaw(self, yaw: Rotation2d) -> None:
         raise NotImplementedError("Must be implemented by subclass")
+
+    def setLights(self, lightVal: bool) -> None:
+        raise NotImplementedError("Must be implemented by subclass")

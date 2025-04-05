@@ -51,7 +51,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.125
+            "waitTime": 0.25
           }
         },
         {
@@ -136,15 +136,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "visionAlign"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "elevatorL4"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "visionAlign"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "elevatorL4"
+                }
+              }
+            ]
           }
         },
         {

@@ -44,49 +44,67 @@
   "defenseStateControl": [
     2,
     {
-      "Button": 21
+      "Button": 24
     },
     "left button on top of joystick (ThrustmasterT16000M)"
   ],
   "algaeHigh": [
     0,
     {
-      "POV": [0, 0]
+      "POV": [
+        0,
+        0
+      ]
     },
     "POV up"
   ],
   "algaeHigh2": [
     0,
     {
-      "POV": [0, 315]
+      "POV": [
+        0,
+        315
+      ]
     },
     "POV up"
   ],
   "algaeHigh3": [
     0,
     {
-      "POV": [0, 45]
+      "POV": [
+        0,
+        45
+      ]
     },
     "POV up"
   ],
   "algaeLow": [
     0,
     {
-      "POV": [0, 180]
+      "POV": [
+        0,
+        180
+      ]
     },
     "POV down"
   ],
   "algaeLow2": [
     0,
     {
-      "POV": [0, 135]
+      "POV": [
+        0,
+        135
+      ]
     },
     "POV down"
   ],
   "algaeLow3": [
     0,
     {
-      "POV": [0, 225]
+      "POV": [
+        0,
+        225
+      ]
     },
     "POV down"
   ],
@@ -147,9 +165,9 @@
     "bottom button on top of joystick (ThrustmasterT16000M)"
   ],
   "intakeScoring": [
-    1,
+    2,
     {
-      "Button": 1
+      "Button": 21
     },
     "trigger (ThrustmasterT16000M)"
   ],
@@ -262,6 +280,27 @@
     2,
     {
       "Button": 23
+    },
+    "placeholder"
+  ],
+  "setNoSpace": [
+    2,
+    {
+      "Button": 11
+    },
+    "placeholder"
+  ],
+  "setCoralSpace": [
+    2,
+    {
+      "Button": 12
+    },
+    "placeholder"
+  ],
+  "elevatorDefaultL1": [
+    2,
+    {
+      "Button": 15
     },
     "placeholder"
   ]

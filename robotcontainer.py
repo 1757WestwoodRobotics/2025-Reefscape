@@ -18,6 +18,7 @@ from commands.intakesetting import (
 from commands.elevatorsetting import (
     ElevatorIntakePositionToggleOn,
     ElevatorIntakePositionToggleOff,
+    ElevatorDefaultL1,
     ElevatorL1Position,
     ElevatorL2Position,
     ElevatorL3Position,
@@ -27,13 +28,15 @@ from commands.elevatorsetting import (
     ElevatorManualUp,
     ElevatorManualDown,
     ElevatorManualMode,
+    SetNoSpace,
+    SetCoralSpace,
 )
 from commands.climbersetting import (
-    ClimberAtFrame,
     ClimberTucked,
     ClimberNothingPressed,
     ClimberManualUp,
     ClimberManualDown,
+    PrepClimb,
 )
 from commands.fudgeelevator import FudgeElevatorUp, FudgeElevatorDown
 from commands.fudgeintake import (
@@ -190,14 +193,14 @@ class RobotContainer:
                 * constants.kNormalSpeedMultiplier,
                 lambda: self.operatorInterface.chassisControls.sideToSide()
                 * constants.kNormalSpeedMultiplier,
-            )
+            ).repeatedly()
         )
         ModifiableJoystickButton(self.operatorInterface.autoWaypoint).whileTrue(
             DriveToReefPosition(
                 self.drive,
                 self.operatorInterface.chassisControls.forwardsBackwards,
                 self.operatorInterface.chassisControls.sideToSide,
-            )
+            ).repeatedly()
         )
 
         ModifiableJoystickButton(self.operatorInterface.resetGyro).onTrue(
@@ -255,8 +258,12 @@ class RobotContainer:
             self.operatorInterface.elevatorIntakePositionToggleOff
         ).onTrue(ElevatorIntakePositionToggleOff(self.elevator))
 
+        ModifiableJoystickButton(self.operatorInterface.elevatorDefaultL1).onTrue(
+            ElevatorDefaultL1(self.elevator)
+        )
+
         ModifiableJoystickButton(self.operatorInterface.climberUp).onTrue(
-            ClimberAtFrame(self.climber)
+            PrepClimb(self.climber, self.elevator)
         )
 
         ModifiableJoystickButton(self.operatorInterface.climberDown).onTrue(
@@ -315,6 +322,14 @@ class RobotContainer:
 
         ModifiableJoystickButton(self.operatorInterface.setRightReef).onTrue(
             SetRightReef(self.drive)
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.setNoSpace).onTrue(
+            SetNoSpace(self.elevator)
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.setCoralSpace).onTrue(
+            SetCoralSpace(self.elevator)
         )
 
     def getAutonomousCommand(self) -> commands2.Command:

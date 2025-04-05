@@ -189,6 +189,9 @@ kMaxWheelLinearAcceleration = kMaxWheelLinearVelocity / 1
 kMaxForwardLinearAcceleration = kMaxWheelLinearAcceleration
 """meters / second^2"""
 
+kMaxForwardLinearAccelerationWaypoint = kMaxForwardLinearAcceleration * 1.2
+"""meters / second^2"""
+
 kMaxSidewaysLinearAcceleration = kMaxWheelLinearAcceleration
 """meters / second^2"""
 
@@ -898,6 +901,8 @@ kMaxWaypointTranslationalAcceleration = kMaxWaypointTranslationalVelocity * 3
 kPossibleWaypoints = []
 kWaypointJoystickVariation = 0.1
 """meters"""
+kWaypointActiveKey = "waypoint/active"
+kWaypointAtTargetKey = "waypoint/atPosition"
 
 kTargetWaypointPoseKey = "waypoint/target"
 kTargetWaypointXControllerKey = "waypoint/x"
@@ -1041,14 +1046,16 @@ kElevatorAtPositionKey = "elevator/atPosition"
 kElevatorFudgeKey = "elevator/fudge"
 kElevatorPoseKey = "elevator/pose"
 kElevatorManualModeKey = "elevator/manualMode"
+kCoralSpaceKey = "elevator/coralSpace"
 kElevatorManualIncrement = 0.01
 
 # taken from cad
 kL4PositionBeltPosition = 52 * kMetersPerInch
-kL3PositionBeltPosition = 29.5 * kMetersPerInch
+kL3PositionBeltPosition = 30.5 * kMetersPerInch
 kL2PositionBeltPosition = 14.5 * kMetersPerInch
 kL1PositionBeltPosition = 0.5 * kMetersPerInch
 kIntakePositionBeltPosition = 41 * kMetersPerInch
+kIntakePositionCoralSpaceBeltPosition = 38.5 * kMetersPerInch
 kAlgaeLowBeltPosition = 25 * kMetersPerInch
 kAlgaeHighBeltPosition = 31.5 * kMetersPerInch
 
@@ -1079,6 +1086,7 @@ kClimberStateKey = "climber/state"
 kClimberTargetKey = "climber/target"
 kClimberAtPositionKey = "climber/atPosition"
 kClimberEndClimbKey = "climber/endClimb"
+kClimberManualTargetPositionKey = "climber/manualTargetPosition"
 
 kClimberGearRatio = 100 / 1
 kClimberWinchDiameter = 1.2 * kMetersPerInch
@@ -1095,5 +1103,6 @@ kClimberCurrentLimit = (
 )
 
 # in rotations
-kClimberTuckedPosition = 10
+kClimberTuckedPosition = 25
 kClimberAtFramePosition = 240
+kClimberMiniDeployPosition = (kClimberTuckedPosition + kClimberAtFramePosition) / 2
