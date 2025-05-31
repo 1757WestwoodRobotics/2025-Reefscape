@@ -40,6 +40,13 @@ class VisionSubsystemIOLimelight(VisionSubsystemIO):
         botPose = self.botpose.get()
         poseX, poseY, poseZ = botPose[0:3]
         rotation = self.robotPoseGetter.get().rotation().radians()
+        if (
+            poseX < 0
+            or poseX > constants.kFieldLength
+            or poseY < 0
+            or poseY > constants.kFieldWidth
+        ):
+            return None
         pose = Pose3d(
             clamp(poseX, 0, constants.kFieldLength),
             clamp(poseY, 0, constants.kFieldWidth),
