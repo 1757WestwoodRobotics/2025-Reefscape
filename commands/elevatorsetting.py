@@ -114,6 +114,7 @@ class ElevatorDefaultL1(Command):
 
     def execute(self) -> None:
         self.elevator.setDefaultCommand(ElevatorL1Position(self.elevator))
+        ElevatorL1Position(self.elevator).repeatedly().schedule()
 
     def isFinished(self) -> bool:
         return True
