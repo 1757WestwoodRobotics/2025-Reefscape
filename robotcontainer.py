@@ -6,7 +6,12 @@ from commands2.button import POVButton
 from pathplannerlib.auto import PathPlannerAuto, NamedCommands
 from commands.drive.absoluterelativedrive import AbsoluteRelativeDrive
 from commands.drive.anglealign import AngleAlignDrive
-from commands.drive.drivewaypoint import DriveToReefPosition, SetLeftReef, SetRightReef
+from commands.drive.drivewaypoint import (
+    DriveToReefPosition,
+    SetCenterReef,
+    SetLeftReef,
+    SetRightReef,
+)
 from commands.resetdrive import ResetDrive
 from commands.drivedistance import DriveDistance
 from commands.defensestate import DefenseState
@@ -322,6 +327,10 @@ class RobotContainer:
 
         ModifiableJoystickButton(self.operatorInterface.setRightReef).onTrue(
             SetRightReef(self.drive)
+        )
+
+        ModifiableJoystickButton(self.operatorInterface.setCenterReef).onTrue(
+            SetCenterReef(self.drive)
         )
 
         ModifiableJoystickButton(self.operatorInterface.setNoSpace).onTrue(

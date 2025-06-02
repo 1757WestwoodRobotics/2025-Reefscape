@@ -772,6 +772,28 @@ for i in range(6, 12):
     apriltag = kApriltagPositionDictAndyMark[i]
     kRightReefToOffsetPositionRed[i] = apriltag + kRightReefOffset
 
+
+kCenterReefOffsetX = 17.628 * kMetersPerInch
+kCenterReefOffsetY = (
+    kRightReefOffsetY + kLeftReefOffsetY
+) / 2  # center is between the two, average them
+kCenterReefOffset = Transform3d(
+    kCenterReefOffsetX + kReefBufferDistance,
+    kCenterReefOffsetY,
+    0,
+    Rotation3d(0, 0, math.pi),
+)
+
+kCenterReefToOffsetPositionBlue = {}
+kCenterReefToOffsetPositionRed = {}
+
+for i in range(17, 23):
+    apriltag = kApriltagPositionDictAndyMark[i]
+    kCenterReefToOffsetPositionBlue[i] = apriltag + kCenterReefOffset
+for i in range(6, 12):
+    apriltag = kApriltagPositionDictAndyMark[i]
+    kCenterReefToOffsetPositionRed[i] = apriltag + kCenterReefOffset
+
 # Autonomous
 kAutoDriveDistance = -8 * kWheelCircumference
 """meters"""
