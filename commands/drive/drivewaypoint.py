@@ -169,7 +169,11 @@ class DriveToReefPosition(DriveWaypoint):
             for position in (
                 constants.kLeftReefToOffsetPositionBlue.values()
                 if self.drive.leftReefGetter.get()
-                else constants.kRightReefToOffsetPositionBlue.values()
+                else (
+                    constants.kRightReefToOffsetPositionBlue.values()
+                    if self.drive.rightReefGetter.get()
+                    else constants.kCenterReefToOffsetPositionBlue.values()
+                )
             ):
                 if (
                     abs(
@@ -186,7 +190,11 @@ class DriveToReefPosition(DriveWaypoint):
             for position in (
                 constants.kLeftReefToOffsetPositionRed.values()
                 if self.drive.leftReefGetter.get()
-                else constants.kRightReefToOffsetPositionRed.values()
+                else (
+                    constants.kRightReefToOffsetPositionRed.values()
+                    if self.drive.rightReefGetter.get()
+                    else constants.kCenterReefToOffsetPositionRed.values()
+                )
             ):
                 if (
                     abs(
@@ -241,6 +249,19 @@ class SetRightReef(Command):
     def initialize(self):
         self.drive.leftReefPublisher.set(False)
         self.drive.rightReefPublisher.set(True)
+
+    def isFinished(self):
+        return True
+
+
+class SetCenterReef(Command):
+    def __init__(self, drive: DriveSubsystem) -> None:
+        self.setName(__class__.__name__)
+        self.drive = drive
+
+    def initialize(self):
+        self.drive.leftReefPublisher.set(False)
+        self.drive.rightReefPublisher.set(False)
 
     def isFinished(self):
         return True
