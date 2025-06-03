@@ -964,8 +964,7 @@ kPivotEncoderOffset = 0.23
 
 kIntakeMotorSpeed = 0.25
 kIntakeL1MotorSpeed = 0.35
-kIntakeL2ThroughL4MotorSpeed = 0.20
-
+kIntakeL2ThroughL4MotorSpeed = 0.35
 # CAD angles, taken from horizontal
 
 kIntakeToArmOffset = 51.944769
