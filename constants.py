@@ -962,7 +962,7 @@ kPivotInverted = False
 kPivotEncoderID = 46
 kPivotEncoderOffset = 0.23
 
-kIntakeMotorSpeed = 0.25
+kIntakeMotorSpeed = 0.29
 kIntakeL1MotorSpeed = 0.35
 kIntakeL2ThroughL4MotorSpeed = 0.35
 # CAD angles, taken from horizontal
