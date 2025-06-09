@@ -965,7 +965,6 @@ kPivotEncoderOffset = 0.23
 kIntakeMotorSpeed = 0.25
 kIntakeL1MotorSpeed = 0.35
 kIntakeL2ThroughL4MotorSpeed = 0.20
-
 # CAD angles, taken from horizontal
 
 kIntakeToArmOffset = 51.944769
@@ -1092,7 +1091,7 @@ kClimberGearRatio = 100 / 1
 kClimberWinchDiameter = 1.2 * kMetersPerInch
 kClimberWinchCircumferance = kClimberWinchDiameter * math.pi
 kClimberPositionTolerance = 1
-kClimberManualIncrement = 20
+kClimberManualIncrement = 80
 
 kClimberCurrentLimit = (
     CurrentLimitsConfigs()
