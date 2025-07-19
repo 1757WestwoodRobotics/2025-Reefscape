@@ -120,7 +120,7 @@ class ElevatorSubsystem(Subsystem):
             "L1PositionBelt", constants.kL1PositionBeltPosition
         )
 
-        self.algaeHighPosition = ModifiableConstant(
+        self.algaeHighRemovalPosition = ModifiableConstant(
             "AlgaeRemovalHighPositionBelt", constants.kAlgaeRemovalHighBeltPosition
         )
         self.algaeLowPosition = ModifiableConstant(

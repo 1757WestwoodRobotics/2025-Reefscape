@@ -3,7 +3,8 @@ from subsystems.intakesubsystem import IntakeSubsystem
 from subsystems.elevatorsubsystem import ElevatorSubsystem
 from commands.elevatorsetting import (
     ElevatorAlgaeRemovalHigh,
-    ElevatorAlgaeRemovalLow
+    ElevatorAlgaeRemovalLow,
+    ElevatorL2Position
 )
 from commands.intakesetting import IntakeKnock, IntakeIdle
 
