@@ -41,7 +41,7 @@ class IntakeScoring(SetIntakeState):
         self.intake.setScoring()
 
 
-class IntakeGrab(SetIntakeState):
+class IntakeAlgae(SetIntakeState):
     def __init__(self, intakeSubsystem: IntakeSubsystem) -> None:
         SetIntakeState.__init__(self, intakeSubsystem)
 

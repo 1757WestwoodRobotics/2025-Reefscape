@@ -6,7 +6,7 @@ from commands.elevatorsetting import (
     ElevatorAlgaeRemovalLow,
     ElevatorL2Position
 )
-from commands.intakesetting import IntakeKnock, IntakeIdle
+from commands.intakesetting import IntakeAlgae, IntakeIdle
 
 
 class AlgaeRemovalHigh(ParallelCommandGroup):
@@ -16,7 +16,7 @@ class AlgaeRemovalHigh(ParallelCommandGroup):
         ParallelCommandGroup.__init__(
             self,
             ElevatorAlgaeRemovalHigh(elevatorSubsystem),
-            ClawRemovalAngle(intakeSubsystem),
+            IntakeAlgae(intakeSubsystem),
         )
         self.setName(__class__.__name__)
 
@@ -28,7 +28,7 @@ class AlgaeRemovalLow(ParallelCommandGroup):
         ParallelCommandGroup.__init__(
             self,
             ElevatorAlgaeRemovalLow(elevatorSubsystem),
-            ClawRemovalAngle(intakeSubsystem),
+            IntakeAlgae(intakeSubsystem),
         )
         self.setName(__class__.__name__)
 
