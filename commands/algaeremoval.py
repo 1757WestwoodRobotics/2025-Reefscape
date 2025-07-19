@@ -2,33 +2,32 @@ from commands2 import ParallelCommandGroup, SequentialCommandGroup
 from subsystems.intakesubsystem import IntakeSubsystem
 from subsystems.elevatorsubsystem import ElevatorSubsystem
 from commands.elevatorsetting import (
-    ElevatorAlgaeHigh,
-    ElevatorAlgaeLow,
-    ElevatorL2Position,
+    ElevatorAlgaeRemovalHigh,
+    ElevatorAlgaeRemovalLow
 )
 from commands.intakesetting import IntakeKnock, IntakeIdle
 
 
-class AlgaeKnockHigh(ParallelCommandGroup):
+class AlgaeRemovalHigh(ParallelCommandGroup):
     def __init__(
         self, intakeSubsystem: IntakeSubsystem, elevatorSubsystem: ElevatorSubsystem
     ):
         ParallelCommandGroup.__init__(
             self,
-            ElevatorAlgaeHigh(elevatorSubsystem),
-            IntakeKnock(intakeSubsystem),
+            ElevatorAlgaeRemovalHigh(elevatorSubsystem),
+            ClawRemovalAngle(intakeSubsystem),
         )
         self.setName(__class__.__name__)
 
 
-class AlgaeKnockLow(ParallelCommandGroup):
+class AlgaeRemovalLow(ParallelCommandGroup):
     def __init__(
         self, intakeSubsystem: IntakeSubsystem, elevatorSubsystem: ElevatorSubsystem
     ):
         ParallelCommandGroup.__init__(
             self,
-            ElevatorAlgaeLow(elevatorSubsystem),
-            IntakeKnock(intakeSubsystem),
+            ElevatorAlgaeRemovalLow(elevatorSubsystem),
+            ClawRemovalAngle(intakeSubsystem),
         )
         self.setName(__class__.__name__)
 

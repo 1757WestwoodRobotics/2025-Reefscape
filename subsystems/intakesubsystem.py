@@ -16,7 +16,7 @@ class IntakeSubsystem(Subsystem):
         Intaking = auto()
         Idle = auto()
         Scoring = auto()
-        Knock = auto()
+        Grab = auto()
 
     def __init__(self) -> None:
         Subsystem.__init__(self)
@@ -164,8 +164,8 @@ class IntakeSubsystem(Subsystem):
                     self.intakeMotor.set(Talon.ControlMode.Percent, L1Speed)
                 else:
                     self.intakeMotor.set(Talon.ControlMode.Percent, L2ThroughL4Speed)
-            case self.IntakeState.Knock:
-                self.setPivotAngle(constants.kKnockAngle)
+            case self.IntakeState.Grab:
+                self.setPivotAngle(constants.kClawRemovalAngle)
                 self.intakeMotor.set(Talon.ControlMode.Percent, 0)
 
         self.intakeAtPositionPublisher.set(self.intakeAtPosition())
@@ -199,7 +199,7 @@ class IntakeSubsystem(Subsystem):
                 self.targetAngle = Rotation2d.fromDegrees(
                     rotation.degrees() + self.intakeFudgeScoreGetter.get()
                 )
-            case self.IntakeState.Knock:
+            case self.IntakeState.Grab:
                 self.targetAngle = Rotation2d.fromDegrees(rotation.degrees())
 
         self.pivotMotor.set(
@@ -231,5 +231,5 @@ class IntakeSubsystem(Subsystem):
     def setScoring(self) -> None:
         self.state = self.IntakeState.Scoring
 
-    def setKnock(self) -> None:
-        self.state = self.IntakeState.Knock
+    def setGrab(self) -> None:
+        self.state = self.IntakeState.Grab

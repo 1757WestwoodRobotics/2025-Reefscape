@@ -972,7 +972,7 @@ kIntakeToArmOffset = 51.944769
 kIntakingAngle = Rotation2d.fromDegrees(257)
 kMaxPivotAngle = Rotation2d.fromDegrees(260)
 kScoreAngle = Rotation2d.fromDegrees(180 - kIntakeToArmOffset - 45.047053)
-kKnockAngle = Rotation2d(0)
+kClawRemovalAngle = Rotation2d(0)
 
 kIntakeAtPositionKey = "intake/atPosition"
 kPivotAngleKey = "intake/pivotAngle"
