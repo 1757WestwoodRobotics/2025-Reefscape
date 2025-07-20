@@ -165,7 +165,7 @@ class IntakeSubsystem(Subsystem):
                 else:
                     self.intakeMotor.set(Talon.ControlMode.Percent, L2ThroughL4Speed)
             case self.IntakeState.Grab:
-                self.setPivotAngle(constants.kClawRemovalAngle)
+                self.setPivotAngle(constants.kArmClawRemovalAngle)
                 self.intakeMotor.set(Talon.ControlMode.Percent, 0)
 
         self.intakeAtPositionPublisher.set(self.intakeAtPosition())
