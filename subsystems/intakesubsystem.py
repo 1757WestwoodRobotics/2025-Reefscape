@@ -13,10 +13,10 @@ import constants
 
 class IntakeSubsystem(Subsystem):
     class IntakeState(Enum):
-        Intaking = auto()
         Idle = auto()
         Scoring = auto()
         Grab = auto()
+        Intake = auto()
 
     def __init__(self) -> None:
         Subsystem.__init__(self)
@@ -24,6 +24,15 @@ class IntakeSubsystem(Subsystem):
 
         self.pivotEncoder = CTREEncoder(
             constants.kPivotEncoderID, constants.kPivotEncoderOffset
+        )
+
+        self.algaeMotor = Talon(
+            constants.kAlgaeCANID,
+            constants.kAlgaeName,
+            constants.kAlgaePGain,
+            constants.kAlgaeIGain,
+            constants.kAlgaeDGain,
+            constants.kAlgaeInverted,
         )
 
         self.intakeMotor = Talon(
@@ -166,7 +175,7 @@ class IntakeSubsystem(Subsystem):
                     self.intakeMotor.set(Talon.ControlMode.Percent, L2ThroughL4Speed)
             case self.IntakeState.Grab:
                 self.setPivotAngle(constants.kArmClawRemovalAngle)
-                self.intakeMotor.set(Talon.ControlMode.Percent, 0)
+                self.algaeMotor.set(Talon.ControlMode.Percent, 0)
 
         self.intakeAtPositionPublisher.set(self.intakeAtPosition())
         self.intakeStatePublisher.set(str(self.state))
@@ -231,5 +240,6 @@ class IntakeSubsystem(Subsystem):
     def setScoring(self) -> None:
         self.state = self.IntakeState.Scoring
 
-    def setGrab(self) -> None:
+    def setGrabbing(self) -> None:
         self.state = self.IntakeState.Grab
+

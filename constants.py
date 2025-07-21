@@ -935,6 +935,13 @@ kVelocityControlDGain = 0
 kVelocityControlMotorType = DCMotor.falcon500()
 kVelocityControlkV = 0.01
 
+# algae grabber motor constants
+kAlgaeCANID = 20 #placeholder (fix later)
+kAlgaeName = "AlgaeMotor"
+kAlgaePGain = 0.8
+kAlgaeIGain = 0
+kAlgaeDGain = 0
+
 # taken from last year, update when cad finished
 kIntakeCANID = 25
 kIntakeName = "IntakeMotor"
@@ -958,11 +965,13 @@ kPivotGearRatio = (5 / 1) * (50 / 16) * (84 / 16)
 
 kIntakeInverted = True
 kPivotInverted = False
+kAlgaeInverted = False
 
 kPivotEncoderID = 46
 kPivotEncoderOffset = 0.23
 
 kIntakeMotorSpeed = 0.25
+kAlgaeMotorSpeed = 0.8
 kIntakeL1MotorSpeed = 0.35
 kIntakeL2ThroughL4MotorSpeed = 0.20
 # CAD angles, taken from horizontal

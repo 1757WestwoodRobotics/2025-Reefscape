@@ -46,7 +46,7 @@ class IntakeAlgae(SetIntakeState):
         SetIntakeState.__init__(self, intakeSubsystem)
 
     def execute(self) -> None:
-        self.intake.setGrab()
+        self.intake.setGrabbing()
 
 
 class IntakeCoral(SetIntakeState):
