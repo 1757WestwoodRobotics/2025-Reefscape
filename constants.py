@@ -971,7 +971,9 @@ kPivotEncoderID = 46
 kPivotEncoderOffset = 0.23
 
 kIntakeMotorSpeed = 0.25
-kAlgaeMotorSpeed = 0.8
+kIntakeAlgaeMotorSpeed = 0.75
+kScoreAlgaeBargeMotorSpeed = 0.6
+kScoreAlgaeProcessorMotorSpeed = 0.5
 kIntakeL1MotorSpeed = 0.35
 kIntakeL2ThroughL4MotorSpeed = 0.20
 # CAD angles, taken from horizontal

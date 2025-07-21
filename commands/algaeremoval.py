@@ -33,7 +33,7 @@ class AlgaeRemovalLow(ParallelCommandGroup):
         self.setName(__class__.__name__)
 
 
-class KnockExitSequence(SequentialCommandGroup):
+class AlgaeRemovalExitSequence(SequentialCommandGroup):
     def __init__(
         self, intakeSubsystem: IntakeSubsystem, elevatorSubsystem: ElevatorSubsystem
     ):
