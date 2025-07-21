@@ -119,6 +119,12 @@ class IntakeSubsystem(Subsystem):
             .subscribe(constants.kIntakeMotorSpeed)
         )
 
+        self.intakeAlgaeSpeedGetter = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kIntakeAlgaeKey)
+            .subscribe(constants.kIntakeAlgaeMotorSpeed)
+        )
+
         self.elevatorPositionGetter = (
             NetworkTableInstance.getDefault()
             .getStringTopic(constants.kElevatorStateKey)
@@ -158,6 +164,7 @@ class IntakeSubsystem(Subsystem):
         L1Speed = self.intakeL1SpeedGetter.get()
         L2ThroughL4Speed = self.intakeL2ThroughL4SpeedGetter.get()
         IntakeCoralSpeed = self.intakeCoralSpeedGetter.get()
+        IntakeAlgaeSpeed = self.intakeAlgaeSpeedGetter.get()
         ElevatorState = self.elevatorPositionGetter.get()
 
         match self.state:
@@ -167,6 +174,7 @@ class IntakeSubsystem(Subsystem):
             case self.IntakeState.Idle:
                 self.setPivotAngle(constants.kScoreAngle)
                 self.intakeMotor.set(Talon.ControlMode.Percent, -0.4 * IntakeCoralSpeed)
+                self.algaeMotor.set(Talon.ControlMode.Percent, -0.2 * IntakeAlgaeSpeed)
             case self.IntakeState.Scoring:
                 self.setPivotAngle(constants.kScoreAngle)
                 if ElevatorState == "ElevatorState.L1Position":
@@ -175,7 +183,7 @@ class IntakeSubsystem(Subsystem):
                     self.intakeMotor.set(Talon.ControlMode.Percent, L2ThroughL4Speed)
             case self.IntakeState.Grab:
                 self.setPivotAngle(constants.kArmClawRemovalAngle)
-                self.algaeMotor.set(Talon.ControlMode.Percent, 0)
+                self.algaeMotor.set(Talon.ControlMode.Percent, -1 * IntakeAlgaeSpeed)
 
         self.intakeAtPositionPublisher.set(self.intakeAtPosition())
         self.intakeStatePublisher.set(str(self.state))
