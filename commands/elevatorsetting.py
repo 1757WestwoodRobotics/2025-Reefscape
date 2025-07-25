@@ -72,6 +72,14 @@ class ElevatorAlgaeRemovalLow(SetElevatorState):
         self.elevator.setAlgaeRemovalLow()
 
 
+class ElevatorLollipopAlgae(SetElevatorState):
+    def __init__(self, elevatorSubsystem: ElevatorSubsystem) -> None:
+        SetElevatorState.__init__(self, elevatorSubsystem)
+
+    def execute(self) -> None:
+        self.elevator.setLollipopAlgaeIntake() # fix later
+
+
 class ElevatorIntakePosition(SetElevatorState):
     def __init__(self, elevatorSubsystem: ElevatorSubsystem) -> None:
         SetElevatorState.__init__(self, elevatorSubsystem)

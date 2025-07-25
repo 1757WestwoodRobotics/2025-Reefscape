@@ -34,6 +34,7 @@ class IntakeSubsystem(Subsystem):
             constants.kAlgaeDGain,
             constants.kAlgaeInverted,
         )
+        self.algaeMotor.setCurrentLimit(constants.kAlgaeCurrentLimit)
 
         self.intakeMotor = Talon(
             constants.kIntakeCANID,

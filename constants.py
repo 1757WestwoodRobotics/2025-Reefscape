@@ -1002,6 +1002,13 @@ kIntakeCurrentLimit = (
     .with_supply_current_limit(60)
     .with_supply_current_limit_enable(True)
 )
+kAlgaeCurrentLimit = (
+    CurrentLimitsConfigs()
+    .with_stator_current_limit(60)
+    .with_stator_current_limit_enable(True)
+    .with_supply_current_limit(60)
+    .with_supply_current_limit_enable(True)
+)
 kPivotCurrentLimit = (
     CurrentLimitsConfigs()
     .with_stator_current_limit(40)
