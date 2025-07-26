@@ -120,12 +120,21 @@ class ElevatorSubsystem(Subsystem):
             "L1PositionBelt", constants.kL1PositionBeltPosition
         )
 
-        self.algaeHighRemovalPosition = ModifiableConstant(
+        self.algaeRemovalHighPosition = ModifiableConstant(
             "AlgaeRemovalHighPositionBelt", constants.kAlgaeRemovalHighBeltPosition
         )
-        self.algaeLowPosition = ModifiableConstant(
+        self.algaeRemovalLowPosition = ModifiableConstant(
             "AlgaeRemovalLowPositionBelt", constants.kAlgaeRemovalLowBeltPosition
         )
+
+        self.algaeRemovalLollipopPosition = ModifiableConstant(
+            "AlgaeRemovalLollipopPositionBelt", constants.kAlgaeRemovalLollipopBeltPosition
+        )
+
+        self.algaeRemovalGroundPosition = ModifiableConstant(
+            "AlgaeRemovalGroundPositionBelt", constants.kAlgaeRemovalGroundBeltPosition
+        )
+        
         self.intakePosition = ModifiableConstant(
             "IntakePositionBelt", constants.kIntakePositionBeltPosition
         )
@@ -150,6 +159,11 @@ class ElevatorSubsystem(Subsystem):
                 self.setElevatorMotorsAtPosition(self.algaeRemovalHighPosition.value)
             case self.ElevatorState.AlgaeRemovalLow:
                 self.setElevatorMotorsAtPosition(self.algaeRemovalLowPosition.value)
+            case self.ElevatorState.AlgaeRemovalHigh:
+                self.setElevatorMotorsAtPosition(self.algaeRemovalHighPosition.value)
+            case self.ElevatorState.AlgaeRemovalHigh:
+                self.setElevatorMotorsAtPosition(self.algaeRemovalHighPosition.value)
+
             case self.ElevatorState.IntakePosition:
                 if self.coralSpaceGetter.get() is True:
                     self.setElevatorMotorsAtPosition(

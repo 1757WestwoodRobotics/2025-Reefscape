@@ -25,6 +25,6 @@ class AlgaeScoreProcessor(ParallelCommandGroup):
         ParallelCommandGroup.__init__(
             self,
             ElevatorL1Position(elevatorSubsystem),
-            # AlgaeScoreNet(intakeSubsystem)
+            # AlgaeScoreProcessor(intakeSubsystem)
         )
         self.setName(__class__.__name__)
