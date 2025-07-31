@@ -77,7 +77,7 @@ class ElevatorLollipopAlgae(SetElevatorState):
         SetElevatorState.__init__(self, elevatorSubsystem)
 
     def execute(self) -> None:
-        self.elevator.setLollipopAlgaeIntake() # fix later
+        self.elevator.setLollipopAlgaeIntake()
 
 
 class ElevatorIntakePosition(SetElevatorState):

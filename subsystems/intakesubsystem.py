@@ -15,8 +15,9 @@ class IntakeSubsystem(Subsystem):
     class IntakeState(Enum):
         Idle = auto()
         Scoring = auto()
-        Grab = auto()
-        Intake = auto()
+        Grabbing = auto()
+        Intaking = auto()
+        AlgaeScoring = auto()
 
     def __init__(self) -> None:
         Subsystem.__init__(self)
@@ -120,11 +121,31 @@ class IntakeSubsystem(Subsystem):
             .subscribe(constants.kIntakeMotorSpeed)
         )
 
+        self.intakeAlgaeSpeedPublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kIntakeAlgaeKey)
+            .publish()
+        )
+        self.intakeCoralSpeedPublisher.set(constants.kIntakeAlgaeMotorSpeed)
+
         self.intakeAlgaeSpeedGetter = (
             NetworkTableInstance.getDefault()
             .getFloatTopic(constants.kIntakeAlgaeKey)
             .subscribe(constants.kIntakeAlgaeMotorSpeed)
         )
+
+        self.intakeAlgaeScoreSpeedGetter = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kIntakeAlgaeKey)
+            .subscribe(constants.kAlgaeMotorScoreSpeed)
+        )
+
+        self.intakeAlgaeScoreSpeedPublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kScoreAlgaeKey)
+            .publish()
+        )
+        self.intakeCoralSpeedPublisher.set(constants.kIntakeAlgaeMotorSpeed)
 
         self.elevatorPositionGetter = (
             NetworkTableInstance.getDefault()
@@ -167,6 +188,7 @@ class IntakeSubsystem(Subsystem):
         IntakeCoralSpeed = self.intakeCoralSpeedGetter.get()
         IntakeAlgaeSpeed = self.intakeAlgaeSpeedGetter.get()
         ElevatorState = self.elevatorPositionGetter.get()
+        IntakeAlgaeScoreSpeed = self.intakeAlgaeScoreSpeedGetter.get()
 
         match self.state:
             case self.IntakeState.Intaking:
@@ -182,9 +204,12 @@ class IntakeSubsystem(Subsystem):
                     self.intakeMotor.set(Talon.ControlMode.Percent, L1Speed)
                 else:
                     self.intakeMotor.set(Talon.ControlMode.Percent, L2ThroughL4Speed)
-            case self.IntakeState.Grab:
+            case self.IntakeState.Grabbing:
                 self.setPivotAngle(constants.kArmClawRemovalAngle)
                 self.algaeMotor.set(Talon.ControlMode.Percent, -1 * IntakeAlgaeSpeed)
+            case self.IntakeState.AlgaeScoring:
+                self.setPivotAngle(constants.kAlgaeScoreAngle)
+                self.algaeMotor.set(Talon.ControlMode.Percent, IntakeAlgaeScoreSpeed)
 
         self.intakeAtPositionPublisher.set(self.intakeAtPosition())
         self.intakeStatePublisher.set(str(self.state))
@@ -209,7 +234,7 @@ class IntakeSubsystem(Subsystem):
     def setPivotAngle(self, rotation: Rotation2d) -> None:
         # I know it's weird but adding 2 rotation2ds together constrains the angle from -180 to 180
         match self.state:
-            case self.IntakeState.Intaking:
+            case self.IntakeState.Intake:
                 self.targetAngle = Rotation2d.fromDegrees(
                     rotation.degrees() + self.intakeFudgeCoralGetter.get()
                 )
@@ -217,7 +242,7 @@ class IntakeSubsystem(Subsystem):
                 self.targetAngle = Rotation2d.fromDegrees(
                     rotation.degrees() + self.intakeFudgeScoreGetter.get()
                 )
-            case self.IntakeState.Grab:
+            case self.IntakeState.Grabbing:
                 self.targetAngle = Rotation2d.fromDegrees(rotation.degrees())
 
         self.pivotMotor.set(
@@ -250,5 +275,8 @@ class IntakeSubsystem(Subsystem):
         self.state = self.IntakeState.Scoring
 
     def setGrabbing(self) -> None:
-        self.state = self.IntakeState.Grab
+        self.state = self.IntakeState.Grabbing
+
+    def setAlgaeScoring(self) -> None:
+        self.state = self.IntakeState.AlgaeScoring
 

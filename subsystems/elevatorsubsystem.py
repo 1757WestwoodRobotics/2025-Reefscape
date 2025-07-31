@@ -20,6 +20,7 @@ class ElevatorSubsystem(Subsystem):
         AlgaeRemovalLow = auto()
         IntakePosition = auto()
         ManualMode = auto()
+        LollipopAlgae = auto()
 
     def __init__(self) -> None:
         Subsystem.__init__(self)
@@ -128,11 +129,7 @@ class ElevatorSubsystem(Subsystem):
         )
 
         self.algaeRemovalLollipopPosition = ModifiableConstant(
-            "AlgaeRemovalLollipopPositionBelt", constants.kAlgaeRemovalLollipopBeltPosition
-        )
-
-        self.algaeRemovalGroundPosition = ModifiableConstant(
-            "AlgaeRemovalGroundPositionBelt", constants.kAlgaeRemovalGroundBeltPosition
+            "AlgaeRemovalLollipopPositionBelt", constants.kAlgaeIntakeLollipopBeltPosition
         )
         
         self.intakePosition = ModifiableConstant(
@@ -159,10 +156,8 @@ class ElevatorSubsystem(Subsystem):
                 self.setElevatorMotorsAtPosition(self.algaeRemovalHighPosition.value)
             case self.ElevatorState.AlgaeRemovalLow:
                 self.setElevatorMotorsAtPosition(self.algaeRemovalLowPosition.value)
-            case self.ElevatorState.AlgaeRemovalHigh:
-                self.setElevatorMotorsAtPosition(self.algaeRemovalHighPosition.value)
-            case self.ElevatorState.AlgaeRemovalHigh:
-                self.setElevatorMotorsAtPosition(self.algaeRemovalHighPosition.value)
+            case self.ElevatorState.LollipopAlgae:
+                self.setElevatorMotorsAtPosition(self.algaeRemovalLollipopPosition.value)
 
             case self.ElevatorState.IntakePosition:
                 if self.coralSpaceGetter.get() is True:
@@ -235,3 +230,7 @@ class ElevatorSubsystem(Subsystem):
 
     def setManualMode(self) -> None:
         self.state = self.ElevatorState.ManualMode
+
+    def setLollipopAlgaeIntake(self) -> None:
+        self.state = self.ElevatorState.LollipopAlgae
+        self.elevatorManualModePublisher.set(False)

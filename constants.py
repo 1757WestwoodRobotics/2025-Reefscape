@@ -972,6 +972,7 @@ kPivotEncoderOffset = 0.23
 
 kIntakeMotorSpeed = 0.25
 kIntakeAlgaeMotorSpeed = 0.75
+kAlgaeMotorScoreSpeed = 0.8
 kScoreAlgaeBargeMotorSpeed = 0.6
 kScoreAlgaeProcessorMotorSpeed = 0.5
 kIntakeL1MotorSpeed = 0.35
@@ -984,11 +985,14 @@ kIntakingAngle = Rotation2d.fromDegrees(257)
 kMaxPivotAngle = Rotation2d.fromDegrees(260)
 kScoreAngle = Rotation2d.fromDegrees(180 - kIntakeToArmOffset - 45.047053)
 kArmClawRemovalAngle = Rotation2d(-17.5)
+kAlgaeScoreAngle = Rotation2d.fromDegrees # () please fill in later
 
 kIntakeAtPositionKey = "intake/atPosition"
 kPivotAngleKey = "intake/pivotAngle"
 kIntakeStateKey = "intake/state"
 kIntakeCoralKey = "intake/intakingSpeed"
+kScoreAlgaeKey = "score/scoringAlgaeSpeed"
+kIntakeAlgaeKey = "intake/intakingSpeed"
 kIntakeL1SpeedKey = "intake/L1Speed"
 kIntakeL2ThroughL4SpeedKey = "intake/L2-L4Speed"
 kIntakeFudgeCoralKey = "intake/fudgeCoral"
@@ -1075,6 +1079,7 @@ kIntakePositionBeltPosition = 41 * kMetersPerInch
 kIntakePositionCoralSpaceBeltPosition = 38.5 * kMetersPerInch
 kAlgaeRemovalLowBeltPosition = 25 * kMetersPerInch
 kAlgaeRemovalHighBeltPosition = 31.5 * kMetersPerInch
+# kAlgaeIntakeLollipopBeltPosition = please fill later
 
 kElevatorFudgeAmount = 0.5 * kMetersPerInch
 

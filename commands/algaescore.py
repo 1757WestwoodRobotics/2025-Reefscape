@@ -14,7 +14,7 @@ class AlgaeScoreNet(ParallelCommandGroup):
         ParallelCommandGroup.__init__(
             self, 
             ElevatorL4Position(elevatorSubsystem),
-            # AlgaeScoreNet(intakeSubsystem)
+            AlgaeScoreNet(intakeSubsystem),
         )
         self.setName(__class__.__name__)
 
@@ -25,6 +25,6 @@ class AlgaeScoreProcessor(ParallelCommandGroup):
         ParallelCommandGroup.__init__(
             self,
             ElevatorL1Position(elevatorSubsystem),
-            # AlgaeScoreProcessor(intakeSubsystem)
+            AlgaeScoreProcessor(intakeSubsystem),
         )
         self.setName(__class__.__name__)
