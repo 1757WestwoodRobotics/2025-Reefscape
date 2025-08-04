@@ -207,6 +207,9 @@ class IntakeSubsystem(Subsystem):
             case self.IntakeState.Grabbing:
                 self.setPivotAngle(constants.kArmClawRemovalAngle)
                 self.algaeMotor.set(Talon.ControlMode.Percent, -1 * IntakeAlgaeSpeed)
+            case self.IntakeState.GrabbingGround:
+                self.setPivotAngle(constants.kArmClawGroundAngle)
+                self.algaeMotor.set(Talon.ControlMode.Percent, -1 * IntakeAlgaeSpeed)
             case self.IntakeState.AlgaeScoring:
                 self.setPivotAngle(constants.kAlgaeScoreAngle)
                 self.algaeMotor.set(Talon.ControlMode.Percent, IntakeAlgaeScoreSpeed)
@@ -277,6 +280,8 @@ class IntakeSubsystem(Subsystem):
     def setGrabbing(self) -> None:
         self.state = self.IntakeState.Grabbing
 
+    def setGrabbingGround(self) -> None:
+        self.state = self.IntakeState.GrabbingGround
+
     def setAlgaeScoring(self) -> None:
         self.state = self.IntakeState.AlgaeScoring
-

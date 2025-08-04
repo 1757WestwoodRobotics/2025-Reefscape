@@ -40,22 +40,24 @@ class AlgaeGroundIntake(ParallelCommandGroup):
         self, intakeSubsystem: IntakeSubsystem, elevatorSubsystem: ElevatorSubsystem
     ):
         ParallelCommandGroup.__init__(
-            self, 
+            self,
             ElevatorL1Position(elevatorSubsystem),
             GroundAlgaeIntake(intakeSubsystem),
         )
         self.setName(__class__.__name__)
+
 
 class AlgaeLollipopIntake(ParallelCommandGroup):
     def __init__(
         self, intakeSubsystem: IntakeSubsystem, elevatorSubsystem: ElevatorSubsystem
     ):
         ParallelCommandGroup.__init__(
-            self, 
+            self,
             ElevatorLollipopAlgae(elevatorSubsystem),
             GroundAlgaeIntake(intakeSubsystem),
         )
         self.setName(__class__.__name__)
+
 
 class AlgaeIntakeExitSequence(SequentialCommandGroup):
     def __init__(
