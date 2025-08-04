@@ -15,9 +15,11 @@ class IntakeSubsystem(Subsystem):
     class IntakeState(Enum):
         Idle = auto()
         Scoring = auto()
-        Grabbing = auto()
+        GrabbingReef = auto()
+        GrabbingGround = auto()
         Intaking = auto()
-        AlgaeScoring = auto()
+        AlgaeNetScoring = auto()
+        AlgaeProcessorScoring = auto()
 
     def __init__(self) -> None:
         Subsystem.__init__(self)
@@ -204,14 +206,17 @@ class IntakeSubsystem(Subsystem):
                     self.intakeMotor.set(Talon.ControlMode.Percent, L1Speed)
                 else:
                     self.intakeMotor.set(Talon.ControlMode.Percent, L2ThroughL4Speed)
-            case self.IntakeState.Grabbing:
+            case self.IntakeState.GrabbingReef:
                 self.setPivotAngle(constants.kArmClawRemovalAngle)
                 self.algaeMotor.set(Talon.ControlMode.Percent, -1 * IntakeAlgaeSpeed)
             case self.IntakeState.GrabbingGround:
                 self.setPivotAngle(constants.kArmClawGroundAngle)
                 self.algaeMotor.set(Talon.ControlMode.Percent, -1 * IntakeAlgaeSpeed)
-            case self.IntakeState.AlgaeScoring:
-                self.setPivotAngle(constants.kAlgaeScoreAngle)
+            case self.IntakeState.AlgaeNetScoring:
+                self.setPivotAngle(constants.kAlgaeNetAngle)
+                self.algaeMotor.set(Talon.ControlMode.Percent, IntakeAlgaeScoreSpeed)
+            case self.IntakeState.AlgaeProcessorScoring:
+                self.setPivotAngle(constants.kAlgaeProcessorAngle)
                 self.algaeMotor.set(Talon.ControlMode.Percent, IntakeAlgaeScoreSpeed)
 
         self.intakeAtPositionPublisher.set(self.intakeAtPosition())
@@ -237,7 +242,7 @@ class IntakeSubsystem(Subsystem):
     def setPivotAngle(self, rotation: Rotation2d) -> None:
         # I know it's weird but adding 2 rotation2ds together constrains the angle from -180 to 180
         match self.state:
-            case self.IntakeState.Intake:
+            case self.IntakeState.Intaking:
                 self.targetAngle = Rotation2d.fromDegrees(
                     rotation.degrees() + self.intakeFudgeCoralGetter.get()
                 )
@@ -278,10 +283,13 @@ class IntakeSubsystem(Subsystem):
         self.state = self.IntakeState.Scoring
 
     def setGrabbing(self) -> None:
-        self.state = self.IntakeState.Grabbing
+        self.state = self.IntakeState.GrabbingReef
 
     def setGrabbingGround(self) -> None:
         self.state = self.IntakeState.GrabbingGround
 
-    def setAlgaeScoring(self) -> None:
-        self.state = self.IntakeState.AlgaeScoring
+    def setAlgaeNetScoring(self) -> None:
+        self.state = self.IntakeState.AlgaeNetScoring
+
+    def setAlgaeProcessorScoring(self) -> None:
+        self.state = self.IntakeState.AlgaeProcessorScoring
