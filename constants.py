@@ -971,10 +971,10 @@ kPivotEncoderID = 46
 kPivotEncoderOffset = 0.23
 
 kIntakeMotorSpeed = 0.25
-kIntakeAlgaeMotorSpeed = 0.75  # CALIBRATION NEEDED!
-kAlgaeMotorScoreSpeed = 0.8  # CALIBRATION NEEDED!
-kScoreAlgaeBargeMotorSpeed = 0.6  # CALIBRATION NEEDED!
-kScoreAlgaeProcessorMotorSpeed = 0.5  # CALIBRATION NEEDED!
+kIntakeAlgaeMotorSpeed = 0.75
+kAlgaeMotorScoreSpeed = 0.8
+kScoreAlgaeBargeMotorSpeed = 0.6
+kScoreAlgaeProcessorMotorSpeed = 0.5
 kIntakeL1MotorSpeed = 0.35
 kIntakeL2ThroughL4MotorSpeed = 0.20
 # CAD angles, taken from horizontal
@@ -984,9 +984,10 @@ kIntakeToArmOffset = 51.944769
 kIntakingAngle = Rotation2d.fromDegrees(257)
 kMaxPivotAngle = Rotation2d.fromDegrees(260)
 kScoreAngle = Rotation2d.fromDegrees(180 - kIntakeToArmOffset - 45.047053)
-kArmClawRemovalAngle = Rotation2d(-17.5)  # CALIBRATION NEEDED!
-kArmClawGroundAngle = Rotation2d(17.5)  # CALIBRATION NEEDED!
-kAlgaeScoreAngle = Rotation2d(25)  # CALIBRATION NEEDED!
+kArmClawRemovalAngle = Rotation2d.fromDegrees(-17.5)
+kArmClawGroundAngle = Rotation2d.fromDegrees(163)
+kAlgaeNetAngle = Rotation2d.fromDegrees(46.5)
+kAlgaeProcessorAngle = Rotation2d.fromDegrees(144.5)
 
 kIntakeAtPositionKey = "intake/atPosition"
 kPivotAngleKey = "intake/pivotAngle"
@@ -1078,9 +1079,9 @@ kL2PositionBeltPosition = 14.5 * kMetersPerInch
 kL1PositionBeltPosition = 0.5 * kMetersPerInch
 kIntakePositionBeltPosition = 41 * kMetersPerInch
 kIntakePositionCoralSpaceBeltPosition = 38.5 * kMetersPerInch
-kAlgaeRemovalLowBeltPosition = 25 * kMetersPerInch  # CALIBRATION NEEDED!
-kAlgaeRemovalHighBeltPosition = 31.5 * kMetersPerInch  # CALIBRATION NEEDED!
-kAlgaeIntakeLollipopBeltPosition = 5 * kMetersPerInch  # CALIBRATION NEEDED!
+kAlgaeRemovalLowBeltPosition = 19 * kMetersPerInch
+kAlgaeRemovalHighBeltPosition = 34.5 * kMetersPerInch
+kAlgaeIntakeLollipopBeltPosition = 7 * kMetersPerInch
 
 kElevatorFudgeAmount = 0.5 * kMetersPerInch
 
