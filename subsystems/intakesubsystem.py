@@ -123,31 +123,61 @@ class IntakeSubsystem(Subsystem):
             .subscribe(constants.kIntakeMotorSpeed)
         )
 
-        self.intakeAlgaeSpeedPublisher = (
+        self.intakeAlgaeGroundSpeedPublisher = (
             NetworkTableInstance.getDefault()
-            .getFloatTopic(constants.kIntakeAlgaeKey)
+            .getFloatTopic(constants.kIntakeAlgaeGroundKey)
             .publish()
         )
-        self.intakeCoralSpeedPublisher.set(constants.kIntakeAlgaeMotorSpeed)
+        self.intakeAlgaeGroundSpeedPublisher.set(constants.kIntakeAlgaeGroundMotorSpeed)
 
-        self.intakeAlgaeSpeedGetter = (
+        self.intakeAlgaeGroundSpeedGetter = (
             NetworkTableInstance.getDefault()
-            .getFloatTopic(constants.kIntakeAlgaeKey)
-            .subscribe(constants.kIntakeAlgaeMotorSpeed)
+            .getFloatTopic(constants.kIntakeAlgaeGroundKey)
+            .subscribe(constants.kIntakeAlgaeGroundMotorSpeed)
         )
 
-        self.intakeAlgaeScoreSpeedGetter = (
+        self.intakeAlgaeScoreNetSpeedGetter = (
             NetworkTableInstance.getDefault()
-            .getFloatTopic(constants.kIntakeAlgaeKey)
-            .subscribe(constants.kAlgaeMotorScoreSpeed)
+            .getFloatTopic(constants.kScoreAlgaeNetKey)
+            .subscribe(constants.kIntakeScoreAlgaeMotorNetSpeed)
         )
 
-        self.intakeAlgaeScoreSpeedPublisher = (
+        self.intakeAlgaeScoreNetSpeedPublisher = (
             NetworkTableInstance.getDefault()
-            .getFloatTopic(constants.kScoreAlgaeKey)
+            .getFloatTopic(constants.kScoreAlgaeNetKey)
             .publish()
         )
-        self.intakeCoralSpeedPublisher.set(constants.kIntakeAlgaeMotorSpeed)
+        self.intakeAlgaeScoreNetSpeedPublisher.set(
+            constants.kIntakeScoreAlgaeMotorNetSpeed
+        )
+
+        self.intakeAlgaeScoreProcessorSpeedGetter = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kScoreAlgaeProcessorKey)
+            .subscribe(constants.kIntakeScoreAlgaeMotorProcessorSpeed)
+        )
+
+        self.intakeAlgaeScoreNetSpeedPublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kScoreAlgaeProcessorKey)
+            .publish()
+        )
+        self.intakeAlgaeScoreNetSpeedPublisher.set(
+            constants.kIntakeScoreAlgaeMotorProcessorSpeed
+        )
+
+        self.intakeAlgaeReefSpeedPublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kIntakeAlgaeReefKey)
+            .publish()
+        )
+        self.intakeAlgaeReefSpeedPublisher.set(constants.kIntakeAlgaeReefMotorSpeed)
+
+        self.intakeAlgaeReefSpeedGetter = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kIntakeAlgaeReefKey)
+            .subscribe(constants.kIntakeAlgaeReefMotorSpeed)
+        )
 
         self.elevatorPositionGetter = (
             NetworkTableInstance.getDefault()
@@ -188,9 +218,11 @@ class IntakeSubsystem(Subsystem):
         L1Speed = self.intakeL1SpeedGetter.get()
         L2ThroughL4Speed = self.intakeL2ThroughL4SpeedGetter.get()
         IntakeCoralSpeed = self.intakeCoralSpeedGetter.get()
-        IntakeAlgaeSpeed = self.intakeAlgaeSpeedGetter.get()
+        IntakeAlgaeGroundSpeed = self.intakeAlgaeSpeedGetter.get()
         ElevatorState = self.elevatorPositionGetter.get()
-        IntakeAlgaeScoreSpeed = self.intakeAlgaeScoreSpeedGetter.get()
+        IntakeAlgaeScoreNetSpeed = self.intakeAlgaeScoreNetSpeedGetter.get()
+        IntakeAlgaeScoreProcessorSpeed = self.intakeAlgaeScoreProcessorSpeedGetter.get()
+        IntakeAlgaeReefSpeed = self.intakeAlgaeReefSpeedGetter.get()
 
         match self.state:
             case self.IntakeState.Intaking:
@@ -199,7 +231,9 @@ class IntakeSubsystem(Subsystem):
             case self.IntakeState.Idle:
                 self.setPivotAngle(constants.kScoreAngle)
                 self.intakeMotor.set(Talon.ControlMode.Percent, -0.4 * IntakeCoralSpeed)
-                self.algaeMotor.set(Talon.ControlMode.Percent, -0.2 * IntakeAlgaeSpeed)
+                self.algaeMotor.set(
+                    Talon.ControlMode.Percent, -0.2 * IntakeAlgaeGroundSpeed
+                )
             case self.IntakeState.Scoring:
                 self.setPivotAngle(constants.kScoreAngle)
                 if ElevatorState == "ElevatorState.L1Position":
@@ -208,16 +242,22 @@ class IntakeSubsystem(Subsystem):
                     self.intakeMotor.set(Talon.ControlMode.Percent, L2ThroughL4Speed)
             case self.IntakeState.GrabbingReef:
                 self.setPivotAngle(constants.kArmClawRemovalAngle)
-                self.algaeMotor.set(Talon.ControlMode.Percent, -1 * IntakeAlgaeSpeed)
+                self.algaeMotor.set(
+                    Talon.ControlMode.Percent, -1 * IntakeAlgaeReefSpeed
+                )
             case self.IntakeState.GrabbingGround:
                 self.setPivotAngle(constants.kArmClawGroundAngle)
-                self.algaeMotor.set(Talon.ControlMode.Percent, -1 * IntakeAlgaeSpeed)
+                self.algaeMotor.set(
+                    Talon.ControlMode.Percent, -1 * IntakeAlgaeGroundSpeed
+                )
             case self.IntakeState.AlgaeNetScoring:
                 self.setPivotAngle(constants.kAlgaeNetAngle)
-                self.algaeMotor.set(Talon.ControlMode.Percent, IntakeAlgaeScoreSpeed)
+                self.algaeMotor.set(Talon.ControlMode.Percent, IntakeAlgaeScoreNetSpeed)
             case self.IntakeState.AlgaeProcessorScoring:
                 self.setPivotAngle(constants.kAlgaeProcessorAngle)
-                self.algaeMotor.set(Talon.ControlMode.Percent, IntakeAlgaeScoreSpeed)
+                self.algaeMotor.set(
+                    Talon.ControlMode.Percent, IntakeAlgaeScoreProcessorSpeed
+                )
 
         self.intakeAtPositionPublisher.set(self.intakeAtPosition())
         self.intakeStatePublisher.set(str(self.state))

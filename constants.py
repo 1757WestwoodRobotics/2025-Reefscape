@@ -971,10 +971,10 @@ kPivotEncoderID = 46
 kPivotEncoderOffset = 0.23
 
 kIntakeMotorSpeed = 0.25
-kIntakeAlgaeMotorSpeed = 0.75
-kAlgaeMotorScoreSpeed = 0.8
-kScoreAlgaeBargeMotorSpeed = 0.6
-kScoreAlgaeProcessorMotorSpeed = 0.5
+kIntakeAlgaeGroundMotorSpeed = 0.6
+kIntakeAlgaeReefMotorSpeed = 0.5
+kIntakeScoreAlgaeMotorProcessorSpeed = 0.75
+kIntakeScoreAlgaeMotorNetSpeed = 0.75
 kIntakeL1MotorSpeed = 0.35
 kIntakeL2ThroughL4MotorSpeed = 0.20
 # CAD angles, taken from horizontal
@@ -993,8 +993,10 @@ kIntakeAtPositionKey = "intake/atPosition"
 kPivotAngleKey = "intake/pivotAngle"
 kIntakeStateKey = "intake/state"
 kIntakeCoralKey = "intake/intakingSpeed"
-kScoreAlgaeKey = "score/scoringAlgaeSpeed"
-kIntakeAlgaeKey = "intake/intakingSpeed"
+kScoreAlgaeNetKey = "score/scoringAlgaeNet"
+kScoreAlgaeProcessorKey = "score/scoringAlgaeProcessor"
+kIntakeAlgaeGroundKey = "intake/intakingGroundAlgaeSpeed"
+kIntakeAlgaeReefKey = "intake/intakingReefAlgaeSpeed"
 kIntakeL1SpeedKey = "intake/L1Speed"
 kIntakeL2ThroughL4SpeedKey = "intake/L2-L4Speed"
 kIntakeFudgeCoralKey = "intake/fudgeCoral"
