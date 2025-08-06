@@ -322,7 +322,7 @@ class IntakeSubsystem(Subsystem):
     def setScoring(self) -> None:
         self.state = self.IntakeState.Scoring
 
-    def setGrabbing(self) -> None:
+    def setGrabbingReef(self) -> None:
         self.state = self.IntakeState.GrabbingReef
 
     def setGrabbingGround(self) -> None:
