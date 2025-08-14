@@ -16,6 +16,7 @@ class ElevatorSubsystem(Subsystem):
         L3Position = auto()
         L2Position = auto()
         L1Position = auto()
+        AlgaeHoldingIdlePosition = auto()
         AlgaeRemovalHigh = auto()
         AlgaeRemovalLow = auto()
         IntakePosition = auto()
@@ -111,6 +112,9 @@ class ElevatorSubsystem(Subsystem):
         self.l4Position = ModifiableConstant(
             "L4PositionBelt", constants.kL4PositionBeltPosition
         )
+        self.algaeHoldingIdlePosition = ModifiableConstant(
+            "AlgaeHoldingIdlePosition", constants.kAlgaeHoldingIdleBeltPosition
+        )
         self.l3Position = ModifiableConstant(
             "L3PositionBelt", constants.kL3PositionBeltPosition
         )
@@ -129,9 +133,10 @@ class ElevatorSubsystem(Subsystem):
         )
 
         self.algaeRemovalLollipopPosition = ModifiableConstant(
-            "AlgaeRemovalLollipopPositionBelt", constants.kAlgaeIntakeLollipopBeltPosition
+            "AlgaeRemovalLollipopPositionBelt",
+            constants.kAlgaeIntakeLollipopBeltPosition,
         )
-        
+
         self.intakePosition = ModifiableConstant(
             "IntakePositionBelt", constants.kIntakePositionBeltPosition
         )
@@ -157,7 +162,11 @@ class ElevatorSubsystem(Subsystem):
             case self.ElevatorState.AlgaeRemovalLow:
                 self.setElevatorMotorsAtPosition(self.algaeRemovalLowPosition.value)
             case self.ElevatorState.LollipopAlgae:
-                self.setElevatorMotorsAtPosition(self.algaeRemovalLollipopPosition.value)
+                self.setElevatorMotorsAtPosition(
+                    self.algaeRemovalLollipopPosition.value
+                )
+            case self.ElevatorState.AlgaeHoldingIdlePosition:
+                self.setElevatorMotorsAtPosition(self.algaeHoldingIdlePosition.value)
 
             case self.ElevatorState.IntakePosition:
                 if self.coralSpaceGetter.get() is True:
@@ -234,3 +243,6 @@ class ElevatorSubsystem(Subsystem):
     def setLollipopAlgaeIntake(self) -> None:
         self.state = self.ElevatorState.LollipopAlgae
         self.elevatorManualModePublisher.set(False)
+
+    def setAlgaeHoldingIdlePosition(self) -> None:
+        self.state = self.ElevatorState.AlgaeHoldingIdlePosition

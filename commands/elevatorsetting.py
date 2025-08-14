@@ -40,6 +40,14 @@ class ElevatorL3Position(SetElevatorState):
         self.elevator.setL3Position()
 
 
+class ElevatorAlgaeIdlePosition(SetElevatorState):
+    def __init__(self, elevatorSubsystem: ElevatorSubsystem) -> None:
+        SetElevatorState.__init__(self, elevatorSubsystem)
+
+    def execute(self) -> None:
+        self.elevator.setAlgaeHoldingIdlePosition
+
+
 class ElevatorL2Position(SetElevatorState):
     def __init__(self, elevatorSubsystem: ElevatorSubsystem) -> None:
         SetElevatorState.__init__(self, elevatorSubsystem)
