@@ -42,7 +42,7 @@
     "right button on top of joystick (ThrustmasterT16000M)"
   ],
   "algaeLollipopIntake": [
-    1,
+    0,
     {
       "POV": [
         1,
@@ -218,7 +218,6 @@
     },
     "POV down"
   ],
-
   "elevatorIntakePositionToggleOn": [
     2,
     {
