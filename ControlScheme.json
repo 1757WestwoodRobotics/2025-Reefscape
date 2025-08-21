@@ -44,7 +44,7 @@
   "defenseStateControl": [
     2,
     {
-      "Button": 24
+      "Button": 25
     },
     "left button on top of joystick (ThrustmasterT16000M)"
   ],
@@ -280,6 +280,13 @@
     2,
     {
       "Button": 23
+    },
+    "placeholder"
+  ],
+  "setCenterReef": [
+    2,
+    {
+      "Button": 24
     },
     "placeholder"
   ],
