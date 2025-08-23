@@ -41,12 +41,12 @@ class IntakeScoring(SetIntakeState):
         self.intake.setScoring()
 
 
-class IntakeAlgae(SetIntakeState):
+class IntakeAlgaeReef(SetIntakeState):
     def __init__(self, intakeSubsystem: IntakeSubsystem) -> None:
         SetIntakeState.__init__(self, intakeSubsystem)
 
     def execute(self) -> None:
-        self.intake.setGrabbing()
+        self.intake.setGrabbingReef()
 
 
 class IntakeCoral(SetIntakeState):
@@ -62,7 +62,7 @@ class AlgaeScoreNet(SetIntakeState):
         SetIntakeState.__init__(self, intakeSubsystem)
 
     def execute(self) -> None:
-        self.intake.setAlgaeScoring()
+        self.intake.setAlgaeNetScoring()
 
 
 class AlgaeScoreProcessor(SetIntakeState):
@@ -70,7 +70,7 @@ class AlgaeScoreProcessor(SetIntakeState):
         SetIntakeState.__init__(self, intakeSubsystem)
 
     def execute(self) -> None:
-        self.intake.setAlgaeScoring()
+        self.intake.setAlgaeProcessorScoring()
 
 
 class GroundAlgaeIntake(SetIntakeState):

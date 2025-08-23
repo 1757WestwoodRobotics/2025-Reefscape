@@ -4,7 +4,6 @@ from subsystems.elevatorsubsystem import ElevatorSubsystem
 from commands.elevatorsetting import (
     ElevatorAlgaeRemovalHigh,
     ElevatorAlgaeRemovalLow,
-    ElevatorL2Position,
     ElevatorL1Position,
     ElevatorL4Position,
     ElevatorAlgaeIdlePosition,
@@ -91,8 +90,8 @@ class AlgaeIntakeExitSequence(SequentialCommandGroup):
     ):
         SequentialCommandGroup.__init__(
             self,
-            IntakeIdle(intakeSubsystem),
             ElevatorAlgaeIdlePosition(elevatorSubsystem),
+            IntakeIdle(intakeSubsystem),
         )
         self.setName(__class__.__name__)
 
