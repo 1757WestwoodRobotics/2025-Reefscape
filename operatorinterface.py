@@ -109,9 +109,6 @@ class OperatorInterface:
             elif "POV" in binding[1].keys():
                 self.prefs.setInt(f"OI/{control}/angle", binding[1]["POV"][1])
                 self.prefs.setInt(f"OI/{control}/pov", binding[1]["POV"][0])
-            elif "POV" in binding[0].keys():
-                self.prefs.setInt(f"OI/{control}/angle", binding[0]["POV"][1])
-                self.prefs.setInt(f"OI/{control}/pov", binding[0]["POV"][0])
 
         for num in controllerNumbers:
             controller = Joystick(num)
