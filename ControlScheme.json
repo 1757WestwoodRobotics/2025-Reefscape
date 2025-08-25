@@ -27,8 +27,8 @@
     },
     "bottom button on top of joystick (ThrustmasterT16000M)"
   ],
-  "elevatorL1": [
-    0,
+  "algaeScoreProcessor": [
+    0, 
     {
       "Button": 3
     },
@@ -116,6 +116,7 @@
     "left button set, left bottom (ThrustmasterT16000M)"
   ],
 
+
   "chassisXRotation": [
     1,
     {
@@ -129,6 +130,13 @@
       "Axis": 1
     },
     "Joystick Vertical (ThrustmasterT16000M)"
+  ],
+  "algaeScoreNet": [
+    1,
+    {
+      "Button": 1
+    },
+    "trigger"
   ],
   "intakeCoral": [
     1,
@@ -219,6 +227,7 @@
     "bottom button on top of joystick (ThrustmasterT16000M)"
   ],
 
+
   "elevatorIntakePositionToggleOn": [
     2,
     {
@@ -302,6 +311,20 @@
       "Button": 12
     },
     "bottom left button of yellow set (button box)"
+  ],
+  "algaeScoreOperator": [
+    2,
+    {
+      "Button": 13
+    },
+    "top middle button of yellow set (button box)"
+  ],
+  "algaeManualIntakeOperator": [
+    2,
+    {
+      "Button": 14
+    },
+    "bottom middle button of yellow set (button box)"
   ],
   "elevatorDefaultL1": [
     2,

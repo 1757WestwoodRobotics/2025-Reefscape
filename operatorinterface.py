@@ -201,6 +201,10 @@ class OperatorInterface:
         self.setNoSpace = getButtonBindingOfName("setNoSpace")
         self.setCoralSpace = getButtonBindingOfName("setCoralSpace")
         self.elevatorDefaultL1 = getButtonBindingOfName("elevatorDefaultL1")
+        self.algaeScoreOperator = getButtonBindingOfName("algaeScoreOperator")
+        self.algaeManualIntakeOperator = getButtonBindingOfName(
+            "algaeManualIntakeOperator"
+        )
 
         self.chassisControls = HolonomicInput(
             SignSquare(

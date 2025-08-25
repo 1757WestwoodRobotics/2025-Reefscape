@@ -14,6 +14,8 @@ from commands.intakesetting import (
     IntakeIdle,
     IntakeScoring,
     IntakeCoralProcess,
+    AlgaeScoreOperator,
+    AlgaeManualIntake,
 )
 from commands.elevatorsetting import (
     ElevatorIntakePositionToggleOn,
@@ -24,9 +26,6 @@ from commands.elevatorsetting import (
     ElevatorL2Position,
     ElevatorL3Position,
     ElevatorL4Position,
-    # ElevatorAlgaeRemovalHigh,
-    # ElevatorAlgaeRemovalLow,
-    # ElevatorLollipopAlgae,
     ElevatorManualUp,
     ElevatorManualDown,
     ElevatorManualMode,
@@ -54,12 +53,10 @@ from commands.algaemanipulation import (
     AlgaeGroundExitSequence,
     AlgaeGroundIntake,
     AlgaeLollipopIntake,
-)
-
-from commands.algaemanipulation import (
     AlgaeScoreNet,
     AlgaeScoreProcessor,
 )
+
 
 # from commands.drive.drivewaypoint import DriveWaypoint
 from subsystems.drivesubsystem import DriveSubsystem
@@ -343,6 +340,14 @@ class RobotContainer:
         ModifiableJoystickButton(self.operatorInterface.climberManualDown).whileTrue(
             ClimberManualDown(self.climber).repeatedly()
         )
+
+        ModifiableJoystickButton(self.operatorInterface.algaeScoreOperator).whileTrue(
+            AlgaeScoreOperator(self.intake).repeatedly()
+        )
+
+        ModifiableJoystickButton(
+            self.operatorInterface.algaeManualIntakeOperator
+        ).whileTrue(AlgaeManualIntake(self.intake).repeatedly())
 
         ModifiableJoystickButton(self.operatorInterface.elevatorFudgeUp).onTrue(
             FudgeElevatorUp(self.elevator)

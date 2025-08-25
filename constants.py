@@ -977,6 +977,7 @@ kIntakeScoreAlgaeMotorProcessorSpeed = 0.75
 kIntakeScoreAlgaeMotorNetSpeed = 0.75
 kIntakeL1MotorSpeed = 0.35
 kIntakeL2ThroughL4MotorSpeed = 0.20
+kIntakeAlgaeManualSpeed = 0.6
 # CAD angles, taken from horizontal
 
 kIntakeToArmOffset = 51.944769
@@ -1002,6 +1003,7 @@ kIntakeL2ThroughL4SpeedKey = "intake/L2-L4Speed"
 kIntakeFudgeCoralKey = "intake/fudgeCoral"
 kIntakeFudgeScoreKey = "intake/fudgeScore"
 kIntakeFudgeAmount = 1
+kIntakeAlgaeManualKey = "intake/algaeManual"
 
 kIntakeCurrentLimit = (
     CurrentLimitsConfigs()
