@@ -304,6 +304,12 @@ class IntakeSubsystem(Subsystem):
                 )
             case self.IntakeState.GrabbingReef:
                 self.targetAngle = Rotation2d.fromDegrees(rotation.degrees())
+            case self.IntakeState.GrabbingGround:
+                self.targetAngle = Rotation2d.fromDegrees(rotation.degrees())
+            case self.IntakeState.AlgaeNetScoring:
+                self.targetAngle = Rotation2d.fromDegrees(rotation.degrees())
+            case self.IntakeState.AlgaeProcessorScoring:
+                self.targetAngle = Rotation2d.fromDegrees(rotation.degrees())
 
         self.pivotMotor.set(
             Talon.ControlMode.MotionMagic,
