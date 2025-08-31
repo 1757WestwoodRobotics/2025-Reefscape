@@ -27,6 +27,7 @@ def optimizeAngle(currentAngle: Rotation2d, targetAngle: Rotation2d) -> Rotation
 
 
 def intakeAccountForSillyEncoder(startupPosition: float):
+    # If startupPosition ia a suitably negative angle (in radians), then add 2pi.
     if startupPosition < constants.kIntakeRealZero:
         realPosition = tau + startupPosition
     else:
