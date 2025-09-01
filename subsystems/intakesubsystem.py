@@ -138,16 +138,28 @@ class IntakeSubsystem(Subsystem):
             .subscribe(constants.kIntakeAlgaeGroundMotorSpeed)
         )
 
+        self.intakeAlgaeScoreNetSpeedPublisher = (
+            NetworkTableInstance.getDefault()
+            .getFloatTopic(constants.kScoreAlgaeNetKey)
+            .publish()
+        )
+        self.intakeAlgaeScoreNetSpeedPublisher.set(
+            constants.kIntakeScoreAlgaeMotorNetSpeed
+        )
+
         self.intakeAlgaeScoreNetSpeedGetter = (
             NetworkTableInstance.getDefault()
             .getFloatTopic(constants.kScoreAlgaeNetKey)
             .subscribe(constants.kIntakeScoreAlgaeMotorNetSpeed)
         )
 
-        self.intakeAlgaeScoreNetSpeedPublisher = (
+        self.intakeAlgaeScoreProcessorSpeedPublisher = (
             NetworkTableInstance.getDefault()
-            .getFloatTopic(constants.kScoreAlgaeNetKey)
+            .getFloatTopic(constants.kScoreAlgaeProcessorKey)
             .publish()
+        )
+        self.intakeAlgaeScoreNetSpeedPublisher.set(
+            constants.kIntakeScoreAlgaeMotorProcessorSpeed
         )
 
         self.intakeAlgaeScoreProcessorSpeedGetter = (
@@ -208,6 +220,7 @@ class IntakeSubsystem(Subsystem):
             .getFloatTopic(constants.kIntakeAlgaeManualSpeed)
             .publish()
         )
+        self.algaeIntakeManualSpeedPublisher.set(constants.kIntakeAlgaeManualSpeed)
 
         self.algaeIntakeManualSpeedGetter = (
             NetworkTableInstance.getDefault()
