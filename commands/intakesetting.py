@@ -94,7 +94,7 @@ class AlgaeManualIntake(SetIntakeState):
         SetIntakeState.__init__(self, intakeSubsystem)
 
     def execute(self) -> None:
-        self.intake.setAlgaeManualIntake
+        self.intake.setAlgaeManualIntakeOperator
 
 
 class IntakeCoralProcess(SequentialCommandGroup):
