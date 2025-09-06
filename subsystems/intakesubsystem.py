@@ -217,7 +217,7 @@ class IntakeSubsystem(Subsystem):
 
         self.algaeIntakeManualSpeedPublisher = (
             NetworkTableInstance.getDefault()
-            .getFloatTopic(constants.kIntakeAlgaeManualSpeed)
+            .getFloatTopic(constants.kIntakeAlgaeManualKey)
             .publish()
         )
         self.algaeIntakeManualSpeedPublisher.set(constants.kIntakeAlgaeManualSpeed)
