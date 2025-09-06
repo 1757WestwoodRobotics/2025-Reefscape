@@ -57,7 +57,7 @@ class IntakeCoral(SetIntakeState):
         self.intake.setIntaking()
 
 
-class AlgaeScoreNet(SetIntakeState):
+class AlgaeScoreNetArm(SetIntakeState):
     def __init__(self, intakeSubsystem: IntakeSubsystem) -> None:
         SetIntakeState.__init__(self, intakeSubsystem)
 
@@ -65,7 +65,7 @@ class AlgaeScoreNet(SetIntakeState):
         self.intake.setAlgaeNetScoring()
 
 
-class AlgaeScoreProcessor(SetIntakeState):
+class AlgaeScoreProcessorArm(SetIntakeState):
     def __init__(self, intakeSubsystem: IntakeSubsystem) -> None:
         SetIntakeState.__init__(self, intakeSubsystem)
 

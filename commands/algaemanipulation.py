@@ -9,7 +9,13 @@ from commands.elevatorsetting import (
     ElevatorAlgaeIdlePosition,
     ElevatorLollipopAlgae,
 )
-from commands.intakesetting import IntakeAlgaeReef, IntakeIdle, GroundAlgaeIntake
+from commands.intakesetting import (
+    IntakeAlgaeReef,
+    IntakeIdle,
+    GroundAlgaeIntake,
+    AlgaeScoreNetArm,
+    AlgaeScoreProcessorArm,
+)
 
 
 class AlgaeRemovalHigh(ParallelCommandGroup):
@@ -60,26 +66,26 @@ class AlgaeLollipopIntake(ParallelCommandGroup):
         self.setName(__class__.__name__)
 
 
-class AlgaeScoreNet(ParallelCommandGroup):
+class AlgaeScoreNetProcess(ParallelCommandGroup):
     def __init__(
         self, intakeSubsystem: IntakeSubsystem, elevatorSubsystem: ElevatorSubsystem
     ):
         ParallelCommandGroup.__init__(
             self,
             ElevatorL4Position(elevatorSubsystem),
-            AlgaeScoreNet(intakeSubsystem),
+            AlgaeScoreNetArm(intakeSubsystem),
         )
         self.setName(__class__.__name__)
 
 
-class AlgaeScoreProcessor(ParallelCommandGroup):
+class AlgaeScoreProcessorProcess(ParallelCommandGroup):
     def __init__(
         self, intakeSubsystem: IntakeSubsystem, elevatorSubsystem: ElevatorSubsystem
     ):
         ParallelCommandGroup.__init__(
             self,
             ElevatorL1Position(elevatorSubsystem),
-            AlgaeScoreProcessor(intakeSubsystem),
+            AlgaeScoreProcessorArm(intakeSubsystem),
         )
         self.setName(__class__.__name__)
 
