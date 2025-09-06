@@ -53,8 +53,8 @@ from commands.algaemanipulation import (
     AlgaeGroundExitSequence,
     AlgaeGroundIntake,
     AlgaeLollipopIntake,
-    AlgaeScoreNet,
-    AlgaeScoreProcessor,
+    AlgaeScoreNetProcess,
+    AlgaeScoreProcessorProcess,
 )
 
 
@@ -130,10 +130,11 @@ class RobotContainer:
             "groundAlgaeIntake", AlgaeGroundIntake(self.intake, self.elevator)
         )
         NamedCommands.registerCommand(
-            "algaeScoreNet", AlgaeScoreNet(self.intake, self.elevator)
+            "algaeScoreNet", AlgaeScoreNetProcess(self.intake, self.elevator)
         )
         NamedCommands.registerCommand(
-            "algaeScoreProcessor", AlgaeScoreProcessor(self.intake, self.elevator)
+            "algaeScoreProcessor",
+            AlgaeScoreProcessorProcess(self.intake, self.elevator),
         )
         NamedCommands.registerCommand(
             "intakeCoral", IntakeCoralProcess(self.elevator, self.intake)
@@ -253,10 +254,10 @@ class RobotContainer:
             ElevatorL4Position(self.elevator).repeatedly()
         )
         ModifiableJoystickButton(self.operatorInterface.algaeScoreNet).whileTrue(
-            AlgaeScoreNet(self.intake, self.elevator).repeatedly()
+            AlgaeScoreNetProcess(self.intake, self.elevator).repeatedly()
         )
         ModifiableJoystickButton(self.operatorInterface.algaeScoreProcessor).whileTrue(
-            AlgaeScoreProcessor(self.intake, self.elevator).repeatedly()
+            AlgaeScoreProcessorProcess(self.intake, self.elevator).repeatedly()
         )
 
         POVButton(*self.operatorInterface.algaeRemovalLow).whileTrue(
