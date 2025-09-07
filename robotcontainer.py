@@ -21,7 +21,6 @@ from commands.elevatorsetting import (
     ElevatorIntakePositionToggleOn,
     ElevatorIntakePositionToggleOff,
     ElevatorDefaultL1,
-    ElevatorAlgaeIdlePosition,
     ElevatorL1Position,
     ElevatorL2Position,
     ElevatorL3Position,
@@ -181,7 +180,7 @@ class RobotContainer:
                 self.operatorInterface.chassisControls.rotationY,
             )
         )
-        self.elevator.setDefaultCommand(ElevatorAlgaeIdlePosition(self.elevator))
+        self.elevator.setDefaultCommand(ElevatorDefaultL1(self.elevator))
 
         self.intake.setDefaultCommand(IntakeIdle(self.intake))
 
