@@ -127,6 +127,7 @@ class ElevatorDefaultL1(Command):
         Command.__init__(self)
         self.setName(__class__.__name__)
         self.elevator = elevatorSubsystem
+        self.addRequirements(self.elevator)
 
     def execute(self) -> None:
         self.elevator.setDefaultCommand(ElevatorL1Position(self.elevator))
