@@ -72,11 +72,7 @@ class LoggingSubsystem(Subsystem):
             Rotation3d(0, armRotation, 0),
         )
         armEndPosition = armRootPosition + constants.kArmRootToArmEndTransform
-        armEndPosition2 = (
-            armRootPosition
-            + constants.kArmRootToArmEndTransform
-            + constants.kArmRootToArmEndTransform
-        )
+        armEndPosition2 = armRootPosition + constants.kArmRootToArmEndTransform
         self.intakePosesPublisher.set(
             [armRootPosition, armEndPosition, armEndPosition2]
         )
