@@ -1103,6 +1103,19 @@ kArmRootToArmEndTransform = Transform3d(
     -5.543945 * kMetersPerInch,
     Rotation3d(0, (90 + 51.944769) * kRadiansPerDegree, 0),
 )
+kArmRootToArmAlgaeClawTopWheelsTransform = Transform3d(
+    28.65 * kMetersPerInch,
+    0,
+    7.557 * kMetersPerInch,
+    Rotation3d(0, (270 + 30.441) * kRadiansPerDegree, 0),
+)
+kArmRootToArmAlgaeClawBottomWheelsTransform = Transform3d(
+    10.967 * kMetersPerInch,
+    0,
+    13.53 * kMetersPerInch,
+    Rotation3d(0, (270 - 5.375) * kRadiansPerDegree, 0),
+)
+
 # Climber constants
 kClimberCANID = 57
 kClimberName = "ClimberMotor"
