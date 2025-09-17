@@ -988,7 +988,7 @@ kScoreAngle = Rotation2d.fromDegrees(180 - kIntakeToArmOffset - 45.047053)
 kArmClawRemovalAngle = Rotation2d.fromDegrees(-17.5)
 kArmClawGroundAngle = Rotation2d.fromDegrees(163)
 kAlgaeNetAngle = Rotation2d.fromDegrees(46.5)
-kAlgaeProcessorAngle = Rotation2d.fromDegrees(144.5)
+kAlgaeProcessorAngle = Rotation2d.fromDegrees(140)
 
 kIntakeAtPositionKey = "intake/atPosition"
 kPivotAngleKey = "intake/pivotAngle"
