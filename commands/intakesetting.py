@@ -1,4 +1,4 @@
-from commands2 import Command, ParallelCommandGroup, SequentialCommandGroup
+from commands2 import Command, ParallelCommandGroup
 from wpilib import Timer
 from subsystems.intakesubsystem import IntakeSubsystem
 from subsystems.elevatorsubsystem import ElevatorSubsystem
@@ -97,11 +97,11 @@ class AlgaeManualIntake(SetIntakeState):
         self.intake.setAlgaeManualIntakeOperator
 
 
-class IntakeCoralProcess(SequentialCommandGroup):
+class IntakeCoralProcess(ParallelCommandGroup):
     def __init__(
-        self, elevatorSubsystem: ElevatorSubsystem, intakeSubsystem: IntakeSubsystem
+        self, intakeSubsystem: IntakeSubsystem, elevatorSubsystem: ElevatorSubsystem
     ):
-        SequentialCommandGroup.__init__(
+        ParallelCommandGroup.__init__(
             self,
             ElevatorIntakePosition(elevatorSubsystem),
             IntakeCoral(intakeSubsystem),
