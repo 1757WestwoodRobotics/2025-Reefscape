@@ -246,10 +246,8 @@ class IntakeSubsystem(Subsystem):
                 self.intakeMotor.set(Talon.ControlMode.Percent, -1 * IntakeCoralSpeed)
             case self.IntakeState.Idle:
                 self.setPivotAngle(constants.kScoreAngle)
-                self.intakeMotor.set(Talon.ControlMode.Percent, -0.4 * IntakeCoralSpeed)
-                self.algaeMotor.set(
-                    Talon.ControlMode.Percent, -0.2 * IntakeAlgaeGroundSpeed
-                )
+                self.intakeMotor.set(Talon.ControlMode.Percent, 0)
+                self.algaeMotor.set(Talon.ControlMode.Percent, 0)
             case self.IntakeState.Scoring:
                 self.setPivotAngle(constants.kScoreAngle)
                 if ElevatorState == "ElevatorState.L1Position":
