@@ -159,12 +159,23 @@ class OperatorInterface:
         self.elevatorL2 = getButtonBindingOfName("elevatorL2")
         self.elevatorL3 = getButtonBindingOfName("elevatorL3")
         self.elevatorL4 = getButtonBindingOfName("elevatorL4")
-        self.algaeLow = getPOVBindingOfName("algaeLow")
-        self.algaeLow2 = getPOVBindingOfName("algaeLow2")
-        self.algaeLow3 = getPOVBindingOfName("algaeLow3")
-        self.algaeHigh = getPOVBindingOfName("algaeHigh")
-        self.algaeHigh2 = getPOVBindingOfName("algaeHigh2")
-        self.algaeHigh3 = getPOVBindingOfName("algaeHigh3")
+
+        self.algaeRemovalLow = getPOVBindingOfName("algaeRemovalLow")
+        self.algaeRemovalLow2 = getPOVBindingOfName("algaeRemovalLow2")
+        self.algaeRemovalLow3 = getPOVBindingOfName("algaeRemovalLow3")
+        self.algaeRemovalHigh = getPOVBindingOfName("algaeRemovalHigh")
+        self.algaeRemovalHigh2 = getPOVBindingOfName("algaeRemovalHigh2")
+        self.algaeRemovalHigh3 = getPOVBindingOfName("algaeRemovalHigh3")
+
+        self.algaeLollipopIntake = getPOVBindingOfName("algaeLollipopIntake")
+        self.algaeLollipopIntake2 = getPOVBindingOfName("algaeLollipopIntake2")
+        self.algaeLollipopIntake3 = getPOVBindingOfName("algaeLollipopIntake3")
+        self.algaeGroundIntake = getPOVBindingOfName("algaeGroundIntake")
+        self.algaeGroundIntake2 = getPOVBindingOfName("algaeGroundIntake2")
+        self.algaeGroundIntake3 = getPOVBindingOfName("algaeGroundIntake3")
+
+        self.algaeScoreNet = getButtonBindingOfName("algaeScoreNet")
+        self.algaeScoreProcessor = getButtonBindingOfName("algaeScoreProcessor")
         self.elevatorIntakePositionToggleOn = getButtonBindingOfName(
             "elevatorIntakePositionToggleOn"
         )
@@ -190,6 +201,10 @@ class OperatorInterface:
         self.setNoSpace = getButtonBindingOfName("setNoSpace")
         self.setCoralSpace = getButtonBindingOfName("setCoralSpace")
         self.elevatorDefaultL1 = getButtonBindingOfName("elevatorDefaultL1")
+        self.algaeScoreOperator = getButtonBindingOfName("algaeScoreOperator")
+        self.algaeManualIntakeOperator = getButtonBindingOfName(
+            "algaeManualIntakeOperator"
+        )
 
         self.chassisControls = HolonomicInput(
             SignSquare(

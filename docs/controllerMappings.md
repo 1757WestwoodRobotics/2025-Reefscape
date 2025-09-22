@@ -82,3 +82,32 @@
 | Stick Y Axis   | 1      |
 | Stick rotation | 2      |
 | bottom slider  | 3      |
+
+## Operator Button Box
+
+| Button                                             | Number |
+| -------------------------------------------------- | ------ |
+| top left button of purple set (button box)         | 1      |
+| top middle button of purple set (button box)       | 2      |
+| top right button of purple set (button box)        | 3      |
+| top left button of orange set (button box)         | 4      |
+| top right button of orange set (button box)        | 5      |
+| bottom left button of purple set (button box)      | 6      |
+| bottom middle button of purple set (button box)    | 7      |
+| bottom right button of purple set (button box)     | 8      |
+| bottom left button of orange set (button box)      | 9      |
+| bottom right button of orange set (button box)     | 10     |
+| top left button of yellow set (button box)         | 11     |
+| bottom left button of yellow set (button box)      | 12     |
+| top middle button of yellow set (button box)       | 13     |
+| bottom middle button of yellow set (button box)    | 14     |
+| top right button of yellow set (button box)        | 15     |
+| bottom right button of yellow set (button box)     | 16     |
+| left rectangular blue button (button box)          | 17     |
+| right rectangular blue button (button box)         | 18     |
+| left rectangular green button (button box)         | 19     |
+| right rectangular green button (button box)        | 20     |
+| big gray rectangular button with line (button box) | 21     |
+| top black button on bottom right (button box)      | 22     |
+| middle black button on bottom right (button box)   | 23     |
+| bottom black button on bottom right (button box)   | 24     |

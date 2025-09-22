@@ -291,6 +291,10 @@ class PhysicsEngine:
             robot.container.intake.pivotMotor, 1, constants.kSimulationRotationalInertia
         )
         self.motorsim.addFalcon(
+            robot.container.intake.algaeMotor, 1, constants.kSimulationRotationalInertia
+        )
+
+        self.motorsim.addFalcon(
             robot.container.intake.intakeMotor,
             1,
             constants.kSimulationRotationalInertia,

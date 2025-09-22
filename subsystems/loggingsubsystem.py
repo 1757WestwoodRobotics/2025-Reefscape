@@ -72,7 +72,22 @@ class LoggingSubsystem(Subsystem):
             Rotation3d(0, armRotation, 0),
         )
         armEndPosition = armRootPosition + constants.kArmRootToArmEndTransform
-        self.intakePosesPublisher.set([armRootPosition, armEndPosition])
+        armEndPosition2 = armRootPosition + constants.kArmRootToArmEndTransform
+        armEndPosition3 = (
+            armRootPosition + constants.kArmRootToArmAlgaeClawTopWheelsTransform
+        )
+        armEndPosition4 = (
+            armRootPosition + constants.kArmRootToArmAlgaeClawBottomWheelsTransform
+        )
+        self.intakePosesPublisher.set(
+            [
+                armRootPosition,
+                armEndPosition,
+                armEndPosition2,
+                armEndPosition3,
+                armEndPosition4,
+            ]
+        )
 
     def periodic(self) -> None:
 

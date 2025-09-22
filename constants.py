@@ -935,6 +935,13 @@ kVelocityControlDGain = 0
 kVelocityControlMotorType = DCMotor.falcon500()
 kVelocityControlkV = 0.01
 
+# algae grabber motor constants
+kAlgaeCANID = 20  # placeholder (fix later)
+kAlgaeName = "AlgaeMotor"
+kAlgaePGain = 0.8
+kAlgaeIGain = 0
+kAlgaeDGain = 0
+
 # taken from last year, update when cad finished
 kIntakeCANID = 25
 kIntakeName = "IntakeMotor"
@@ -958,13 +965,19 @@ kPivotGearRatio = (5 / 1) * (50 / 16) * (84 / 16)
 
 kIntakeInverted = True
 kPivotInverted = False
+kAlgaeInverted = False
 
 kPivotEncoderID = 46
 kPivotEncoderOffset = 0.23
 
 kIntakeMotorSpeed = 0.25
+kIntakeAlgaeGroundMotorSpeed = 0.6
+kIntakeAlgaeReefMotorSpeed = 0.5
+kIntakeScoreAlgaeMotorProcessorSpeed = 0.75
+kIntakeScoreAlgaeMotorNetSpeed = 0.75
 kIntakeL1MotorSpeed = 0.35
 kIntakeL2ThroughL4MotorSpeed = 0.20
+kIntakeAlgaeManualSpeed = 0.6
 # CAD angles, taken from horizontal
 
 kIntakeToArmOffset = 51.944769
@@ -972,19 +985,34 @@ kIntakeToArmOffset = 51.944769
 kIntakingAngle = Rotation2d.fromDegrees(257)
 kMaxPivotAngle = Rotation2d.fromDegrees(260)
 kScoreAngle = Rotation2d.fromDegrees(180 - kIntakeToArmOffset - 45.047053)
-kKnockAngle = Rotation2d(0)
+kArmClawRemovalAngle = Rotation2d.fromDegrees(-17.5)
+kArmClawGroundAngle = Rotation2d.fromDegrees(163)
+kAlgaeNetAngle = Rotation2d.fromDegrees(46.5)
+kAlgaeProcessorAngle = Rotation2d.fromDegrees(140)
 
 kIntakeAtPositionKey = "intake/atPosition"
 kPivotAngleKey = "intake/pivotAngle"
 kIntakeStateKey = "intake/state"
 kIntakeCoralKey = "intake/intakingSpeed"
+kScoreAlgaeNetKey = "score/scoringAlgaeNet"
+kScoreAlgaeProcessorKey = "score/scoringAlgaeProcessor"
+kIntakeAlgaeGroundKey = "intake/intakingGroundAlgaeSpeed"
+kIntakeAlgaeReefKey = "intake/intakingReefAlgaeSpeed"
 kIntakeL1SpeedKey = "intake/L1Speed"
 kIntakeL2ThroughL4SpeedKey = "intake/L2-L4Speed"
 kIntakeFudgeCoralKey = "intake/fudgeCoral"
 kIntakeFudgeScoreKey = "intake/fudgeScore"
 kIntakeFudgeAmount = 1
+kIntakeAlgaeManualKey = "intake/algaeManual"
 
 kIntakeCurrentLimit = (
+    CurrentLimitsConfigs()
+    .with_stator_current_limit(60)
+    .with_stator_current_limit_enable(True)
+    .with_supply_current_limit(60)
+    .with_supply_current_limit_enable(True)
+)
+kAlgaeCurrentLimit = (
     CurrentLimitsConfigs()
     .with_stator_current_limit(60)
     .with_stator_current_limit_enable(True)
@@ -1052,11 +1080,13 @@ kElevatorManualIncrement = 0.01
 kL4PositionBeltPosition = 52 * kMetersPerInch
 kL3PositionBeltPosition = 30.5 * kMetersPerInch
 kL2PositionBeltPosition = 14.5 * kMetersPerInch
+kAlgaeHoldingIdleBeltPosition = 22 * kMetersPerInch
 kL1PositionBeltPosition = 0.5 * kMetersPerInch
 kIntakePositionBeltPosition = 41 * kMetersPerInch
 kIntakePositionCoralSpaceBeltPosition = 38.5 * kMetersPerInch
-kAlgaeLowBeltPosition = 25 * kMetersPerInch
-kAlgaeHighBeltPosition = 31.5 * kMetersPerInch
+kAlgaeRemovalLowBeltPosition = 19.5 * kMetersPerInch
+kAlgaeRemovalHighBeltPosition = 35 * kMetersPerInch
+kAlgaeIntakeLollipopBeltPosition = 7.5 * kMetersPerInch
 
 kElevatorFudgeAmount = 0.5 * kMetersPerInch
 
@@ -1073,6 +1103,19 @@ kArmRootToArmEndTransform = Transform3d(
     -5.543945 * kMetersPerInch,
     Rotation3d(0, (90 + 51.944769) * kRadiansPerDegree, 0),
 )
+kArmRootToArmAlgaeClawTopWheelsTransform = Transform3d(
+    28.65 * kMetersPerInch,
+    0,
+    7.557 * kMetersPerInch,
+    Rotation3d(0, (270 + 30.441) * kRadiansPerDegree, 0),
+)
+kArmRootToArmAlgaeClawBottomWheelsTransform = Transform3d(
+    10.967 * kMetersPerInch,
+    0,
+    13.53 * kMetersPerInch,
+    Rotation3d(0, (270 - 5.375) * kRadiansPerDegree, 0),
+)
+
 # Climber constants
 kClimberCANID = 57
 kClimberName = "ClimberMotor"

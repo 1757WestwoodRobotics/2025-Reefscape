@@ -40,6 +40,14 @@ class ElevatorL3Position(SetElevatorState):
         self.elevator.setL3Position()
 
 
+class ElevatorAlgaeIdlePosition(SetElevatorState):
+    def __init__(self, elevatorSubsystem: ElevatorSubsystem) -> None:
+        SetElevatorState.__init__(self, elevatorSubsystem)
+
+    def execute(self) -> None:
+        self.elevator.setAlgaeHoldingIdlePosition()
+
+
 class ElevatorL2Position(SetElevatorState):
     def __init__(self, elevatorSubsystem: ElevatorSubsystem) -> None:
         SetElevatorState.__init__(self, elevatorSubsystem)
@@ -56,20 +64,28 @@ class ElevatorL1Position(SetElevatorState):
         self.elevator.setL1Position()
 
 
-class ElevatorAlgaeHigh(SetElevatorState):
+class ElevatorAlgaeRemovalHigh(SetElevatorState):
     def __init__(self, elevatorSubsystem: ElevatorSubsystem) -> None:
         SetElevatorState.__init__(self, elevatorSubsystem)
 
     def execute(self) -> None:
-        self.elevator.setAlgaeHigh()
+        self.elevator.setAlgaeRemovalHigh()
 
 
-class ElevatorAlgaeLow(SetElevatorState):
+class ElevatorAlgaeRemovalLow(SetElevatorState):
     def __init__(self, elevatorSubsystem: ElevatorSubsystem) -> None:
         SetElevatorState.__init__(self, elevatorSubsystem)
 
     def execute(self) -> None:
-        self.elevator.setAlgaeLow()
+        self.elevator.setAlgaeRemovalLow()
+
+
+class ElevatorLollipopAlgae(SetElevatorState):
+    def __init__(self, elevatorSubsystem: ElevatorSubsystem) -> None:
+        SetElevatorState.__init__(self, elevatorSubsystem)
+
+    def execute(self) -> None:
+        self.elevator.setLollipopAlgaeIntake()
 
 
 class ElevatorIntakePosition(SetElevatorState):
@@ -111,6 +127,7 @@ class ElevatorDefaultL1(Command):
         Command.__init__(self)
         self.setName(__class__.__name__)
         self.elevator = elevatorSubsystem
+        self.addRequirements(self.elevator)
 
     def execute(self) -> None:
         self.elevator.setDefaultCommand(ElevatorL1Position(self.elevator))

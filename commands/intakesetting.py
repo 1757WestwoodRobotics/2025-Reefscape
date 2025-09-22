@@ -41,12 +41,12 @@ class IntakeScoring(SetIntakeState):
         self.intake.setScoring()
 
 
-class IntakeKnock(SetIntakeState):
+class IntakeAlgaeReef(SetIntakeState):
     def __init__(self, intakeSubsystem: IntakeSubsystem) -> None:
         SetIntakeState.__init__(self, intakeSubsystem)
 
     def execute(self) -> None:
-        self.intake.setKnock()
+        self.intake.setGrabbingReef()
 
 
 class IntakeCoral(SetIntakeState):
@@ -55,6 +55,46 @@ class IntakeCoral(SetIntakeState):
 
     def execute(self) -> None:
         self.intake.setIntaking()
+
+
+class AlgaeScoreNetArm(SetIntakeState):
+    def __init__(self, intakeSubsystem: IntakeSubsystem) -> None:
+        SetIntakeState.__init__(self, intakeSubsystem)
+
+    def execute(self) -> None:
+        self.intake.setAlgaeNetScoring()
+
+
+class AlgaeScoreProcessorArm(SetIntakeState):
+    def __init__(self, intakeSubsystem: IntakeSubsystem) -> None:
+        SetIntakeState.__init__(self, intakeSubsystem)
+
+    def execute(self) -> None:
+        self.intake.setAlgaeProcessorScoring()
+
+
+class GroundAlgaeIntake(SetIntakeState):
+    def __init__(self, intakeSubsystem: IntakeSubsystem) -> None:
+        SetIntakeState.__init__(self, intakeSubsystem)
+
+    def execute(self) -> None:
+        self.intake.setGrabbingGround()
+
+
+class AlgaeScoreOperator(SetIntakeState):
+    def __init__(self, intakeSubsystem: IntakeSubsystem) -> None:
+        SetIntakeState.__init__(self, intakeSubsystem)
+
+    def execute(self) -> None:
+        self.intake.setAlgaeScoringOperator()
+
+
+class AlgaeManualIntake(SetIntakeState):
+    def __init__(self, intakeSubsystem: IntakeSubsystem) -> None:
+        SetIntakeState.__init__(self, intakeSubsystem)
+
+    def execute(self) -> None:
+        self.intake.setAlgaeManualIntakeOperator()
 
 
 class IntakeCoralProcess(ParallelCommandGroup):
