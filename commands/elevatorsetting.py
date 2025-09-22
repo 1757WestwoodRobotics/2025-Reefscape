@@ -45,7 +45,7 @@ class ElevatorAlgaeIdlePosition(SetElevatorState):
         SetElevatorState.__init__(self, elevatorSubsystem)
 
     def execute(self) -> None:
-        self.elevator.setAlgaeHoldingIdlePosition
+        self.elevator.setAlgaeHoldingIdlePosition()
 
 
 class ElevatorL2Position(SetElevatorState):

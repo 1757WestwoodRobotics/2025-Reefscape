@@ -21,7 +21,6 @@ from commands.elevatorsetting import (
     ElevatorIntakePositionToggleOn,
     ElevatorIntakePositionToggleOff,
     ElevatorDefaultL1,
-    ElevatorAlgaeIdlePosition,
     ElevatorL1Position,
     ElevatorL2Position,
     ElevatorL3Position,

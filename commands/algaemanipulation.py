@@ -97,6 +97,7 @@ class AlgaeIntakeExitSequence(SequentialCommandGroup):
         SequentialCommandGroup.__init__(
             self,
             ElevatorAlgaeIdlePosition(elevatorSubsystem),
+            IntakeIdle(intakeSubsystem),
         )
         self.setName(__class__.__name__)
 
